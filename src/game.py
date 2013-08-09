@@ -16,7 +16,7 @@ class Game(object):
 
     def __init__(self):
         pygame.init()
-        self.caption = "Zelda Love Candy"
+        self.caption = "What the hell"
         self.resolution = (640, 480)
         self.screen = pygame.display.set_mode(self.resolution)
         pygame.display.set_caption(self.caption)
@@ -44,7 +44,3 @@ class Game(object):
             pygame.display.flip()
 
         pygame.quit()
-
-if __name__ == '__main__':
-    game = Game()
-    game.start()
