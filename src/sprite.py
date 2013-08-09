@@ -386,8 +386,8 @@ class Npc(BaseSprite):
 
     def action(self):
         if self.world and not self.world.dialog.visable:
-            self.world.dialog.setMessage(["Hi I am an Npc who is control by a computer",
-                                         "Welcome to the University. How are you doing?"])
+            self.world.dialog.setMessage({"msgList" : ["Hi I am an Npc who is control by a computer",
+                                         "Welcome to the University. How are you doing?"], "image" : "cat.gif"}  )
 
     def set_walking_mode(self, mode):
         """
