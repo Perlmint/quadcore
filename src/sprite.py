@@ -55,6 +55,7 @@ class BaseSprite(pygame.sprite.Sprite):
         self.image = pygame.Surface((25,25))
         self.image.fill((100,100,100))
         self.rect = self.image.get_rect()
+        self.walking_mode = 0
 
         self.image_dict = {}
 
@@ -190,44 +191,13 @@ class BaseSprite(pygame.sprite.Sprite):
             self.is_collided = False
 
     def _check_collision(self):
-##        for sprite in self.unwalkable_entity_list:
-##            if self.rect.colliderect(sprite.rect):
-##                self.is_collided = True
-##                if self.direction == "up":
-##                    self.rect.centery += self.movement_y
-##                elif self.direction == "down":
-##                    self.rect.centery -= self.movement_y
-##                if self.direction == "left":
-##                    self.rect.centerx += self.movement_x
-##                elif self.direction == "right":
-##                    self.rect.centerx -= self.movement_x
-
-##        if self.rect.collidelistall(self.unwalkable_entity_list):
-##            self.is_collided = True
-##            if self.direction == "up":
-##                self.rect.centery += self.movement_y
-##            elif self.direction == "down":
-##                self.rect.centery -= self.movement_y
-##            if self.direction == "left":
-##                self.rect.centerx += self.movement_x
-##            elif self.direction == "right":
-##                self.rect.centerx -= self.movement_x
-
         #same as above, but check again world's entities
         if self.world:
-##            #save the original entities list
-##            currentEntities = []
-##            currentEntities = self.world.entities[:]
-##            #remove this entity from the world entities
-##            currentEntities.remove(self)
-            #retrieve all entites that is collided in the world
-##            listOfCollideEntities = self.rect.collidelistall(currentEntities)
             self.collidedEntitiesIndex = self.rect.collidelistall(self.world.entities)
 
             #listOfCollideEntites will have at least one entity which this entity
             #don't want to copy the world.entities list as above
             if len(self.collidedEntitiesIndex) > 1:
-##                print(listOfCollideEntities)
                 if self in self.collidedEntitiesIndex:
                     print("I am collide with my self")
                 #this entity is still collide with other entities
@@ -320,6 +290,7 @@ class BaseSprite(pygame.sprite.Sprite):
             # not sure but this animation has to do add and substract frame
             # back and forward
             self.current_frame += self.frame
+            print self.current_frame
             if self.current_frame < 0:
                 self.frame *= -1
                 self.current_frame += 1
@@ -327,7 +298,6 @@ class BaseSprite(pygame.sprite.Sprite):
                 self.frame *= -1
                 self.current_frame += self.frame
 
-# TODO document this class
 class Hero(BaseSprite):
     """
 
@@ -376,18 +346,17 @@ class Npc(BaseSprite):
     def __init__(self):
         BaseSprite.__init__(self)
         self.category = "npc"
-        self.walking_mode = 2
+        self.walking_mode = 0
         self.step_count = 0
+        self.movement_x = self.movement_y = self.speed = 0
 
-        self.direction_list = ["down", "up", "left", "right"]
-        self.current_direction = "down"
-        self.direction_change_frq = 25
+        self.direction_list = ["up"]
+        self.current_direction = "up"
+        self.direction_change_frq = 0 
         self.current_frequency = 0
 
     def action(self):
-        if self.world and not self.world.dialog.visable:
-            self.world.dialog.setMessage({"msgList" : ["Hi I am an Npc who is control by a computer",
-                                         "Welcome to the University. How are you doing?"], "image" : "cat.gif"}  )
+	pass
 
     def set_walking_mode(self, mode):
         """
@@ -398,103 +367,7 @@ class Npc(BaseSprite):
         self.walking_mode = mode
 
     def other_update(self):
-
-        if self.walking_mode == 0:          #Fixed position, never walk
-            pass
-        elif self.walking_mode == 1:        #always walk
-            self.direction_handling()
-            self.move(self.current_direction)
-        elif self.walking_mode == 2:        #walk stop walk stop
-            if self.step_count == 0:
-                self.step_count = randint(-30, 30)
-
-            elif self.step_count < 0:
-                self.step_count += 1
-            elif self.step_count > 0:
-                self.step_count -= 1
-                self.direction_handling()
-                self.move(self.current_direction)
-            #continue here
+        pass
 
     def direction_handling(self):
-        self.current_frequency += 1
-        if self.current_frequency >= self.direction_change_frq:
-            self.current_frequency = 0
-            temp = randint(0,3)
-            self.current_direction = self.direction_list[temp]
-
-if __name__ == "__main__":
-    import os
-    from world import World
-    pygame.init()
-
-    screen = pygame.display.set_mode((640, 480))
-    pygame.display.set_caption("Testing")
-
-    background = pygame.Surface((640, 480))
-    background.fill((255,255,255))
-
-    clock = pygame.time.Clock()
-    keepGoing = True
-    gameWorld = World()
-
-    player = Hero()
-    player.load_sprite_sheet(os.path.join("..\graphics\Characters", "Actor1.png"), (32,32), (0,0), (96,128))
-    player.speed_is(3)
-    player.set_pos(30,40)
-    player.walking_boundary_is(640, 480)
-
-
-    npc = Npc()
-    npc.load_sprite_sheet(os.path.join("..\graphics\Characters", "Actor1.png"), (32,32), (96,128), (96,128))
-    npc.speed_is(2)
-    npc.walking_boundary_is(640, 480)
-    npc.set_walking_mode(2)
-
-    npc1 = Npc()
-    npc1.load_sprite_sheet(os.path.join("..\graphics\Characters", "Actor1.png"), (32,32), (96,0), (96,128))
-    npc1.speed_is(1)
-    npc1.walking_boundary_is(640, 480)
-    npc1.set_walking_mode(1)
-
-    npc2 = Npc()
-    npc2.load_sprite_sheet(os.path.join("..\graphics\Characters", "Actor1.png"), (32,32), (96,0), (96,128))
-    npc2.speed_is(1)
-    npc2.walking_boundary_is(640, 480)
-    npc2.set_walking_mode(1)
-
-    gameWorld.addEntities(player)
-    gameWorld.addEntities(npc)
-    gameWorld.addEntities(npc1)
-    gameWorld.addEntities(npc2)
-
-##    player.add_unwalkable_sprite(npc)
-##    player.add_unwalkable_sprite(npc1)
-##
-##    npc.add_unwalkable_sprite(player)
-##    npc.add_unwalkable_sprite(npc1)
-##
-##    npc1.add_unwalkable_sprite(player)
-##    npc1.add_unwalkable_sprite(npc)
-
-    while keepGoing:
-        dt = clock.tick()
-##        clock.tick(30)
-        for events in pygame.event.get():
-            if events.type == pygame.QUIT:
-                keepGoing = False
-
-##        player.update()
-##        npc.update()
-##        npc1.update()
-##        npc2.update()
-        gameWorld.update()
-
-        screen.blit(background, (0,0))
-        screen.blit(player.image, player.rect)
-        screen.blit(npc.image, npc.rect)
-        screen.blit(npc1.image, npc1.rect)
-        screen.blit(npc2.image, npc2.rect)
-
-        pygame.display.flip()
-    pygame.quit()
+	pass
