@@ -3,6 +3,15 @@
 class Self:
 	pass
 
+class Money:
+	pass
+
+class Route:
+	def __init__(self, name, var, script):
+		self.name   = name
+		self.var    = var
+		self.script = script
+
 class Conversation:
 	def __init__(self, name, text):
 		self.name = name
@@ -38,6 +47,20 @@ class Background:
 	def __init__(self, image):
 		self.image = image
 
+class Take:
+	def __init__(self, name, item):
+		self.name = name
+		self.item = item
+
+class Give:
+	def __init__(self, var):
+		self.var = var
+
+class Routing:
+	def __init__(self, name, routes):
+		self.name   = name
+		self.routes = routes
+
 
 class ScriptInterpreter:
 	def __init__(self, script):
@@ -68,6 +91,14 @@ class ScriptInterpreter:
 			runner.hide(s)
 		elif isinstance(s, Background):
 			runner.back(s)
+		elif isinstance(s, Take):
+			runner.take(s)
+		elif isinstance(s, Give):
+			self.script = runner.give(s, self.script)
+		elif isinstance(s, Routing):
+			res = runner.route(s)
+
+			self.script = s.routes[res].script
 
 		return True
 
