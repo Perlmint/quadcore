@@ -30,8 +30,7 @@ class LoveEE:
 
 		c = script.Choice("어디로 갈까?", ss)
 
-		r = runner(self, heroine.Heroine("장소 선택", None, None),
-			   place.Place(None, None))
+		r = runner(self, heroine.Heroine("장소 선택", None, None), None)
 
 		return r.choice(c)
 
