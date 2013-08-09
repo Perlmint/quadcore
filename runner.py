@@ -28,6 +28,15 @@ class Runner:
 	def back(self, s):
 		pass
 
+	def take(self, s):
+		pass
+
+	def give(self, s):
+		return s
+
+	def route(self, s):
+		return 0
+
 class CliRunner(Runner):
 	def __init__(self, name):
 		self.name = name
