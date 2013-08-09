@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import script
 
 class Heroine:
@@ -6,5 +8,7 @@ class Heroine:
 		self.global_scr	= global_scr
 		self.local_scr	= local_scr
 
-
+heroines = [
+	Heroine("은로리", [script.test], [script.test])
+]
 

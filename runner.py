@@ -38,8 +38,10 @@ class Runner:
 		return 0
 
 class CliRunner(Runner):
-	def __init__(self, name):
-		self.name = name
+	def __init__(self, loveee, heroine, place):
+		self.loveee  = loveee
+		self.heroine = heroine
+		self.place   = place
 
 	def narr(self, s):
 		print s
@@ -47,7 +49,7 @@ class CliRunner(Runner):
 
 	def conv(self, s):
 		if isinstance(s.name, script.Self):
-			name = self.name
+			name = self.heroine.name
 		else:
 			name = s.name
 
@@ -65,11 +67,5 @@ class CliRunner(Runner):
 			no += 1
 
 		return input("선택: ")
-
-t = script.ScriptInterpreter(script.test)
-runner = CliRunner("히로인")
-
-while t.run(runner):
-	pass
 
 

@@ -4,7 +4,8 @@ class Self:
 	pass
 
 class Money:
-	pass
+	def __init__(self, value):
+		self.value = value
 
 class Route:
 	def __init__(self, name, var, script):
@@ -114,6 +115,7 @@ live_script = [
 ]
 
 test = [
+	Background(Self()),
 	Conversation(Self(), "나는 너가 좋아"),
 	Conversation(Self(), "그러니 죽어주면 좋겠어"),
 	"죽어야 하나 고민이네",
