@@ -54,7 +54,7 @@ class World(object):
 
 	# event
         for event in _map.event:
-            eventEntity = npc.MyRpg()
+            eventEntity = npc.Event()
             #eventEntity.load_sprite_sheet(os.path.join("..", "graphics", "System", "collision.png"), (32,32), (0,0), (32,32))
             eventEntity.load_sprite_sheet(os.path.join("..", "graphics", "Characters", "Actor1.png"), (32,32), (0,0), (96,128))
             eventEntity.set_pos(event['pos'][0], event['pos'][1])

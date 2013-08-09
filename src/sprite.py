@@ -55,6 +55,7 @@ class BaseSprite(pygame.sprite.Sprite):
         self.image = pygame.Surface((25,25))
         self.image.fill((100,100,100))
         self.rect = self.image.get_rect()
+        self.walking_mode = 0
 
         self.image_dict = {}
 
@@ -190,44 +191,13 @@ class BaseSprite(pygame.sprite.Sprite):
             self.is_collided = False
 
     def _check_collision(self):
-##        for sprite in self.unwalkable_entity_list:
-##            if self.rect.colliderect(sprite.rect):
-##                self.is_collided = True
-##                if self.direction == "up":
-##                    self.rect.centery += self.movement_y
-##                elif self.direction == "down":
-##                    self.rect.centery -= self.movement_y
-##                if self.direction == "left":
-##                    self.rect.centerx += self.movement_x
-##                elif self.direction == "right":
-##                    self.rect.centerx -= self.movement_x
-
-##        if self.rect.collidelistall(self.unwalkable_entity_list):
-##            self.is_collided = True
-##            if self.direction == "up":
-##                self.rect.centery += self.movement_y
-##            elif self.direction == "down":
-##                self.rect.centery -= self.movement_y
-##            if self.direction == "left":
-##                self.rect.centerx += self.movement_x
-##            elif self.direction == "right":
-##                self.rect.centerx -= self.movement_x
-
         #same as above, but check again world's entities
         if self.world:
-##            #save the original entities list
-##            currentEntities = []
-##            currentEntities = self.world.entities[:]
-##            #remove this entity from the world entities
-##            currentEntities.remove(self)
-            #retrieve all entites that is collided in the world
-##            listOfCollideEntities = self.rect.collidelistall(currentEntities)
             self.collidedEntitiesIndex = self.rect.collidelistall(self.world.entities)
 
             #listOfCollideEntites will have at least one entity which this entity
             #don't want to copy the world.entities list as above
             if len(self.collidedEntitiesIndex) > 1:
-##                print(listOfCollideEntities)
                 if self in self.collidedEntitiesIndex:
                     print("I am collide with my self")
                 #this entity is still collide with other entities
@@ -320,6 +290,7 @@ class BaseSprite(pygame.sprite.Sprite):
             # not sure but this animation has to do add and substract frame
             # back and forward
             self.current_frame += self.frame
+            print self.current_frame
             if self.current_frame < 0:
                 self.frame *= -1
                 self.current_frame += 1
@@ -327,7 +298,6 @@ class BaseSprite(pygame.sprite.Sprite):
                 self.frame *= -1
                 self.current_frame += self.frame
 
-# TODO document this class
 class Hero(BaseSprite):
     """
 
@@ -376,12 +346,13 @@ class Npc(BaseSprite):
     def __init__(self):
         BaseSprite.__init__(self)
         self.category = "npc"
-        self.walking_mode = 2
+        self.walking_mode = 0
         self.step_count = 0
+        self.movement_x = self.movement_y = self.speed = 0
 
-        self.direction_list = ["down", "up", "left", "right"]
-        self.current_direction = "down"
-        self.direction_change_frq = 25
+        self.direction_list = ["up"]
+        self.current_direction = "up"
+        self.direction_change_frq = 0 
         self.current_frequency = 0
 
     def action(self):
@@ -396,27 +367,7 @@ class Npc(BaseSprite):
         self.walking_mode = mode
 
     def other_update(self):
-
-        if self.walking_mode == 0:          #Fixed position, never walk
-            pass
-        elif self.walking_mode == 1:        #always walk
-            self.direction_handling()
-            self.move(self.current_direction)
-        elif self.walking_mode == 2:        #walk stop walk stop
-            if self.step_count == 0:
-                self.step_count = randint(-30, 30)
-
-            elif self.step_count < 0:
-                self.step_count += 1
-            elif self.step_count > 0:
-                self.step_count -= 1
-                self.direction_handling()
-                self.move(self.current_direction)
-            #continue here
+        pass
 
     def direction_handling(self):
-        self.current_frequency += 1
-        if self.current_frequency >= self.direction_change_frq:
-            self.current_frequency = 0
-            temp = randint(0,3)
-            self.current_direction = self.direction_list[temp]
+	pass
