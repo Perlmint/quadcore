@@ -47,9 +47,7 @@ class DialogBox(pygame.sprite.Sprite):
 
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        #create a temporery dialog background
-##        self.image = pygame.Surface((555, 135))     #height might be chnage to hide one blit at the very bottom
-##        self.image.fill((0,0,0))
+
         self.bgk = pygame.image.load(os.path.join("..", "graphics", "System", "paper.jpg")).convert()
         self.image = pygame.Surface((555, 135))
         self.image.blit(self.bgk, (0,0))
@@ -61,6 +59,8 @@ class DialogBox(pygame.sprite.Sprite):
         self.endPos = 0
         self.startPos = 0
         self.pause = False
+        self.messages = ""
+        self.personImage = None
 
         self.margine = (140, 10)
 ##        self.font = pygame.font.SysFont("None", 30)
@@ -76,34 +76,29 @@ class DialogBox(pygame.sprite.Sprite):
 ##                           that we have test because in reality, we will use a very long
 ##                           message instead of this."""
 
-        self.messages = ["This is simple message dialog box that can be tested any time we want so we change easily.",
-                         "And now what can I write to make this dialog box going on and on so long that we have test because in reality, we will use a very long message instead of this.",
-                         "This example is sample only and now this is the end of our conversation"]
-##        self.currMessage = self.messages2[0]
         self.pages = len(self.messages)
         self.page = 0
-
-##        self.setMessage(self.messages2)    #uncommond this to for testing
 
         self.visable = False
 
         self._setUpSound()
 
     def _setUpSound(self):
-##        conch.conchinit(44100)
         self.soundBox = Jukebox()
         self.soundBox.LoadSound("Knock3.ogg")
         self.soundStart = False
-##        self.soundBox.LoadSong("Knock2.ogg", "message")
-##        self.soundBox.PlaySong("message", -1)
-##        self.soundBox.SetSoundVolume("Cursor", 10)
 
     def draw(self, surface, location = BOTTOM):
+
+        def drawDialog():
+            surface.blit(self.image, self.rect)
+            surface.blit(self.icon, ((surface.get_width() - self.icon.get_width()) / 2, 20))
+
         if not self.visable:
             return
 
         if self.pause:
-            surface.blit(self.image, self.rect)
+            drawDialog()
             self.soundBox.StopSound("Knock3.ogg")
             self.soundStart = False
             return
@@ -111,10 +106,6 @@ class DialogBox(pygame.sprite.Sprite):
         self.rect.center = location
         xpos = self.margine[0]
         ypos = self.margine[1]
-
-##        if self.page >= self.pages:
-##            print("self.page - 1")
-##            self.page = self.pages - 1
 
         self.currMessage = self.messages[self.page]
         message = self.currMessage[self.startPos:self.endPos]
@@ -137,15 +128,11 @@ class DialogBox(pygame.sprite.Sprite):
                 self.image.blit(self.arrow,(540,125))
                 self.pause = True
 
-##                self.soundBox.StopSound("Knock2.ogg")
-##                self.soundBox.StopMusic()
-##            self.soundBox.PlaySound("Knock2.ogg")
-##            self.soundBox.StopSound("Cursor3.wav")
         if self.endPos == len(self.currMessage):
             self.image.blit(self.arrow,(300,125))
             self.pause = True
 
-        surface.blit(self.image, self.rect)
+        drawDialog()
 
     def _makeArrow(self):
         img = pygame.Surface((20, 15))
@@ -157,13 +144,9 @@ class DialogBox(pygame.sprite.Sprite):
     def resetBox(self):
         """reseting the dialog box so it erase all the text rendered on it
         """
-        self.image.blit(self.bgk,(0,0))
-        self.image.blit(self.icon, (20,20))
+        self.image.blit(self.bgk,(0,0))   
 
     def update(self):
-
-
-
         if not self.visable:
             self.soundBox.StopSound("Knock3.ogg")
             return
@@ -204,20 +187,23 @@ class DialogBox(pygame.sprite.Sprite):
                 if self.page >= self.pages:
                     self.visable = False
                     self.soundBox.StopSound("Knock3.ogg")
-##                    self.page = self.pages - 1
+                
                 return
-
-##            if not self.pause and self.visable and (self.endPos - self.startPos) > 10:
-##                #skip 30 character
-##                self.endPos += 30
 
             self.resetBox()
             self.pause = False
 
 
-    def setMessage(self, msgList, icon = None):
-        #ToDo be able the have appropriate icon for the talker
-        self.messages = msgList   #" ".join(msgList)
+    def setMessage(self, content):
+        self.messages = content["msgList"]
+
+        if "image" in content:
+            if content["image"] == None:
+                self.personImage = None
+            else:
+                self.personImage = content["image"]
+        
+        
         self.pages = len(self.messages)
         self.page = 0
         self.pause = False
@@ -227,47 +213,10 @@ class DialogBox(pygame.sprite.Sprite):
         self.visable = True
 
         #setting icon for now it is just the same icon all the time
+        image = pygame.image.load(os.path.join("..", "graphics", "Faces", self.personImage)).convert_alpha()
+
         self.icon = pygame.Surface((96,96)).convert()
         self.icon.fill((100,80,150))
-        image = pygame.image.load(os.path.join("..", "graphics", "Faces", "people1.png")).convert_alpha()
         self.icon.blit(image, (0,0))
         self.resetBox()
 
-if __name__ == '__main__':
-    import dialog
-    pygame.init()
-    screen = pygame.display.set_mode((640, 480))
-    background = pygame.Surface((640, 480))
-    background.fill((255,255,255))
-
-    dialog = DialogBox()
-
-    keepGoing = True
-    clock = pygame.time.Clock()
-
-    while keepGoing:
-        clock.tick(30)
-
-        for events in pygame.event.get():
-            if events.type == pygame.QUIT:
-                keepGoing = False
-            elif events.type == pygame.KEYDOWN:
-                if not dialog.visable:
-                    dialog.setMessage(dialog.messages)
-##                    dialog.setMessage(["This is simple message dialog box that can be tested.",
-##                                       "This is simple message dialog box that can be tested.",
-##                                       "This is simple message dialog box that can be tested.",
-##                                       "This is simple message dialog box that can be tested.",
-##                                       "This is simple message dialog box that can be tested.",
-##                                       "This is simple message dialog box that can be tested.",
-##                                       "This is simple message dialog box that can be tested."])
-
-
-        screen.blit(background, (0,0))
-        if dialog.visable:
-##            print("dialog processing")
-            dialog.update()
-            dialog.draw(screen)
-        pygame.display.flip()
-
-    pygame.quit()
