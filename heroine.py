@@ -13,6 +13,8 @@ class Heroine:
 		self.status = "none"
 
 heroines = [
-	Heroine("은로리", [script.test], [script.test])
+	Heroine("은로리", [script.test], {
+		"학원" : [script.test],
+	})
 ]
 

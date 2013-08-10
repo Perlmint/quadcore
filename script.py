@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import item
+
 class Self:
 	pass
 
@@ -49,8 +51,7 @@ class Background:
 		self.image = image
 
 class Take:
-	def __init__(self, name, item):
-		self.name = name
+	def __init__(self, item):
 		self.item = item
 
 class Give:
@@ -87,7 +88,7 @@ class ScriptInterpreter:
 			self.script = s.selections[res].script
 		elif isinstance(s, EndScript):
 			runner.end()
-			self.script = list()
+			self.script = None
 		elif isinstance(s, CallbackScript):
 			runner.callback(s)
 		elif isinstance(s, ShowHeroine):
@@ -124,6 +125,8 @@ test = [
 	Background(Self()),
 	Conversation(Self(), "나는 너가 좋아"),
 	Conversation(Self(), "그러니 죽어주면 좋겠어"),
+	Take(item.Item("좋은 아이템", 1000)),
+	Give(None),
 	"죽어야 하나 고민이네",
 	Choice("죽을까", [
 		Selection("죽는다", die_script),
