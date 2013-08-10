@@ -16,8 +16,8 @@ class Heroine:
 		self.world = world
 
 heroines = dict([
-	("h1", Heroine("은로리", [script.test], {
-		"학원" : [script.test],
+	("h1", Heroine(u"은로리", [script.test], {
+		u"학원" : [script.test],
 	}, None))
 ])
 

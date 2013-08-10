@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import item
+import copy
 
 class Self:
 	pass
@@ -78,7 +79,7 @@ class SE:
 
 class ScriptInterpreter:
 	def __init__(self, script):
-		self.script = script
+		self.script = copy.deepcopy(script)
 	
 	def run(self, runner):
 		if not self.script:
@@ -97,6 +98,7 @@ class ScriptInterpreter:
 		elif isinstance(s, EndScript):
 			runner.end()
 			self.script = None
+			return False
 		elif isinstance(s, CallbackScript):
 			runner.callback(s)
 		elif isinstance(s, ShowHeroine):
@@ -124,25 +126,30 @@ class ScriptInterpreter:
 
 
 die_script = [
-	"푹찍",
+	u"푹찍",
 	EndScript(),
 ]
 
 live_script = [
-	"도망",
+	u"도망",
 	EndScript(),
 ]
 
 test = [
+	Conversation(Self(), u"하하1"),
+	Conversation(Self(), u"하하2"),
+	Conversation(Self(), u"하하3"),
+	Conversation(Self(), u"하하4"),
+	EndScript()
 	#Background(Self()),
-	Conversation(Self(), "FUck you"),
-	#Conversation(Self(), "그러니 죽어주면 좋겠어"),
-	#Take(item.Item("좋은 아이템", 1000)),
+	#Conversation(Self(), u"하하"),
+	#Conversation(Self(), u"그러니 죽어주면 좋겠어"),
+	#Take(item.Item(u"좋은 아이템", 1000)),
 	#Give(None),
-	#"죽어야 하나 고민이네",
-	#Choice("죽을까", [
-	#	Selection("죽는다", die_script),
-	#	Selection("도망간다", live_script),
+	#u"죽어야 하나 고민이네",
+	#Choice(u"죽을까", [
+#		Selection(u"죽는다", die_script),
+		#Selection(u"도망간다", live_script),
 	#])
 ]
 

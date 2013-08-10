@@ -51,7 +51,7 @@ if __name__ == '__main__':
 
     gameWorld = world.World('town')
 	
-    p = loveee.Player("플레이어")
+    p = loveee.Player(u"플레이어")
     gameWorld.loveee = loveee.LoveEE(p)
     
     while keepGoing:

@@ -47,6 +47,8 @@ class DialogBox(pygame.sprite.Sprite):
 
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
+        
+        self.lock = False
 
         self.bgk = pygame.image.load(os.path.join("..", "graphics", "System", "paper.jpg")).convert()
         self.image = pygame.Surface((555, 135))
@@ -163,14 +165,14 @@ class DialogBox(pygame.sprite.Sprite):
             self.soundStart = False
 
         if not self.soundStart:
-            self.soundBox.PlaySound("Knock3.ogg", -1)
+            #self.soundBox.PlaySound("Knock3.ogg", -1)
             self.soundStart = True
 
 
         if not self.pause:
             self.endPos += 1
             if self.endPos >= len(self.currMessage):
-                self.endPos = len(self.currMessage)
+                    self.endPos = len(self.currMessage)
 
     def keyHandler(self):
         """
@@ -178,20 +180,24 @@ class DialogBox(pygame.sprite.Sprite):
         """
 
         key_pressed = pygame.key.get_pressed()
-        if key_pressed[pygame.K_SPACE]:
+        if key_pressed[pygame.K_z]:
 
             if self.endPos == len(self.currMessage):
-                self.page += 1
-                self.startPos = 0
-                self.endPos = 0
-                if self.page >= self.pages:
-                    self.visable = False
-                    self.soundBox.StopSound("Knock3.ogg")
+                if not self.lock:
+                    self.page += 1
+                    self.startPos = 0
+                    self.endPos = 0
+                    if self.page >= self.pages:
+                        if not self.lock:
+                            self.visable = False
+                        
+                        self.soundBox.StopSound("Knock3.ogg")
                 
-                return
+                    return
 
-            self.resetBox()
-            self.pause = False
+            if not self.lock:
+                self.resetBox()
+                self.pause = False
 
 
     def setMessage(self, content):
@@ -207,7 +213,7 @@ class DialogBox(pygame.sprite.Sprite):
         self.pages = len(self.messages)
         self.page = 0
         self.pause = False
-        self.soundBox.PlaySound("Knock3.ogg", -1)
+        #self.soundBox.PlaySound("Knock3.ogg", -1)
         self.soundStart = True
         self.currMessage = self.messages[self.page]
         self.visable = True

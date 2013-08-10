@@ -33,6 +33,8 @@ from random import randint
 import script
 import runner
 
+import time
+
 import heroine
 import place
 ## end of import installed library
@@ -104,7 +106,7 @@ class BaseSprite(pygame.sprite.Sprite):
         """
         self.boundary = (dimension_x, dimension_y)
 
-    def action(self):
+    def action(self, me):
         """ overide to get a spefic action
         """
         pass
@@ -310,6 +312,9 @@ class Hero(BaseSprite):
         BaseSprite.__init__(self)
         self.actionCollideRect = pygame.Rect(self.image.get_rect().inflate(20,20))
         self.category = "player"
+        
+        self.action = None
+        self.last_action = 0
 
     def update(self):
         BaseSprite.update(self)
@@ -318,29 +323,45 @@ class Hero(BaseSprite):
 
     def check_event(self):
         keys_pressed_is = pygame.key.get_pressed()
-        if keys_pressed_is[pygame.K_RIGHT]:
-            self.move("right")
-        elif keys_pressed_is[pygame.K_LEFT]:
-            self.move("left")
-        if keys_pressed_is[pygame.K_UP]:
-            self.move("up")
-        elif keys_pressed_is[pygame.K_DOWN]:
-            self.move("down")
+        
+        if not self.action:
+            if keys_pressed_is[pygame.K_RIGHT]:
+                self.move("right")
+            elif keys_pressed_is[pygame.K_LEFT]:
+                self.move("left")
+            if keys_pressed_is[pygame.K_UP]:
+                self.move("up")
+            elif keys_pressed_is[pygame.K_DOWN]:
+                self.move("down")
 
-        if keys_pressed_is[pygame.K_z]:
-            collideEntityIndex = self.actionCollideRect.collidelistall(self.world.entities)
-            if len(collideEntityIndex) > 1:
-                for index in collideEntityIndex:
-                    if not index == self.world.entities.index(self):
+            if keys_pressed_is[pygame.K_z]:
+                cur_time = time.time()
+                
+                if cur_time - self.last_action > 1:
+                    self.last_action = cur_time
+                
+                    collideEntityIndex = self.actionCollideRect.collidelistall(self.world.entities)
+                    if len(collideEntityIndex) > 1:
+                        for index in collideEntityIndex:
+                            if not index == self.world.entities.index(self):
+                                print self.world.entities[index].__class__.__name__
+                                self.action = self.world.entities[index].action()
+                                break
+        ##                    if self.world.entities[index].category == "npc":
+        ##                        self.world.killEntity(self.world.entities[index])
+        ##                        print("one npc has been killed")
+        ##            for entityIndex in self.collidedEntitiesIndex:
+        ##                print(entityIndex)
+        ##                print(self.world.entities[entityIdex])
+        else:
+            if keys_pressed_is[pygame.K_z]:
+                cur_time = time.time()
+                
+                if cur_time - self.last_action > 1:
+                    self.last_action = cur_time
 
-                        self.world.entities[index].action()
-                        break
-##                    if self.world.entities[index].category == "npc":
-##                        self.world.killEntity(self.world.entities[index])
-##                        print("one npc has been killed")
-##            for entityIndex in self.collidedEntitiesIndex:
-##                print(entityIndex)
-##                print(self.world.entities[entityIdex])
+                    if not self.action():
+                        self.action = None
 
 class Npc(BaseSprite):
     """
@@ -363,9 +384,15 @@ class Npc(BaseSprite):
 
     def action(self):
         i = script.ScriptInterpreter(self.script)
-        i.run(runner.GameRunner(self.world.loveee, heroine.heroines[self.name], place.places[self.world.map.name], self.world.dialog))
+        r = runner.GameRunner(self.world.loveee, heroine.heroines[self.name], place.places[self.world.map.name], self.world.dialog)
         
-        pass
+        def doit():
+            return i.run(r)
+
+        if not doit():
+            return None
+            
+        return doit
 
     def set_walking_mode(self, mode):
         """
@@ -379,4 +406,4 @@ class Npc(BaseSprite):
         pass
 
     def direction_handling(self):
-	pass
+        pass
