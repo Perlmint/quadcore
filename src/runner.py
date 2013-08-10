@@ -121,10 +121,12 @@ class GameRunner(Runner):
 	def conv(self, s):
 		if isinstance(s.name, script.Self):
 			name = self.heroine.name
+			engname = self.heroine.engname
 		else:
 			name = s.name
+			engname = s.engname
 
-		self.dialog.setMessage({"msgList" : [name + u":\t" + s.text], "image" : "cat.gif"})
+		self.dialog.setMessage({"msgList" : [name + u":\t" + s.text], "image" : engname + ".png"})
 
 	def choice(self, s):
 		self.dialog.setChoices({
