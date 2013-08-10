@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="5" height="4" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="inner_school" tilewidth="32" tileheight="32">
+  <image source="../../../Downloads/game jam/새 폴더 (2)/새 폴더/새 폴더/inner_school.png" width="160" height="160"/>
+ </tileset>
+ <tileset firstgid="26" name="collision" tilewidth="32" tileheight="32">
+  <image source="../graphics/System/collision.png" width="192" height="96"/>
+ </tileset>
+ <layer name="ground" width="5" height="4">
+  <data encoding="base64" compression="zlib">
+   eJwNwwcOgCAQALBTUIYD1//fapt0iojZZHZxtVhtdjd3D0+Hl7ePr58/GGAA0w==
+  </data>
+ </layer>
+ <layer name="collision" width="5" height="4">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAuAAAAUAAB
+  </data>
+ </layer>
+</map>

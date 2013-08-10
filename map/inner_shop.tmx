@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="6" height="4" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="inner_shop" tilewidth="32" tileheight="32">
+  <image source="../../../Downloads/game jam/새 폴더 (2)/새 폴더/새 폴더/상점내부 cut.png" width="192" height="128"/>
+ </tileset>
+ <tileset firstgid="25" name="collision" tilewidth="32" tileheight="32">
+  <image source="../graphics/System/collision.png" width="192" height="96"/>
+ </tileset>
+ <layer name="ground" width="6" height="4">
+  <data encoding="base64" compression="zlib">
+   eJwNw4cNgDAMALCwyyxl/38ptuQqImobWzt7B5Ojk7OLq5vZ3eLh6eXt4+vnDykAAS0=
+  </data>
+ </layer>
+ <layer name="collision" width="6" height="4">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAtAAAAYAAB
+  </data>
+ </layer>
+</map>

@@ -2,23 +2,56 @@
 <map version="1.0" orientation="orthogonal" width="20" height="20" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="Tile" tilewidth="32" tileheight="32">
   <image source="../graphics/System/Tile.png" width="704" height="320"/>
+  <terraintypes>
+   <terrain name="New Terrain" tile="-1"/>
+  </terraintypes>
  </tileset>
  <tileset firstgid="221" name="collision" tilewidth="32" tileheight="32">
   <image source="../graphics/System/collision.png" width="192" height="96"/>
  </tileset>
+ <tileset firstgid="239" name="Gameboy Advance - Pokemon Fire RedLeaf Green - Pewter City" tilewidth="32" tileheight="32">
+  <image source="../../../Downloads/game jam/새 폴더 (2)/새 폴더/Gameboy Advance - Pokemon Fire RedLeaf Green - Pewter City.png" width="768" height="1244"/>
+ </tileset>
+ <tileset firstgid="1151" name="Route12" tilewidth="32" tileheight="32">
+  <image source="../../../Downloads/game jam/새 폴더 (2)/새 폴더/Gameboy Advance - Pokemon Fire RedLeaf Green - Route12.png" width="416" height="1968"/>
+ </tileset>
+ <tileset firstgid="1944" name="Cinnabar Island" tilewidth="32" tileheight="32">
+  <image source="../../../Downloads/game jam/새 폴더 (2)/새 폴더/Gameboy Advance - Pokemon Fire RedLeaf Green - Cinnabar Island.png" width="920" height="746"/>
+ </tileset>
+ <tileset firstgid="2588" name="niceboat" tilewidth="32" tileheight="32">
+  <image source="../../../Downloads/game jam/새 폴더 (2)/새 폴더/새 폴더/Gameboy Advance - Pokemon Fire RedLeaf Green - SS Anne cut.png" width="128" height="64"/>
+ </tileset>
+ <tileset firstgid="2596" name="Vermilion City" tilewidth="32" tileheight="32">
+  <image source="../../../Downloads/game jam/새 폴더 (2)/새 폴더/Gameboy Advance - Pokemon Fire RedLeaf Green - Vermilion City.png" width="768" height="674"/>
+ </tileset>
+ <tileset firstgid="3100" name="kisaten" tilewidth="32" tileheight="32">
+  <image source="../../../Downloads/game jam/새 폴더 (2)/새 폴더/새 폴더/Gameboy Advance - Pokemon Fire RedLeaf Green - Vermilion City cut.png" width="64" height="64"/>
+ </tileset>
+ <tileset firstgid="3104" name="kisatenn" tilewidth="32" tileheight="32">
+  <image source="../../../Downloads/game jam/새 폴더 (2)/새 폴더/새 폴더/방석있는내부 cut.png" width="160" height="160"/>
+ </tileset>
+ <tileset firstgid="3129" name="toilet" tilewidth="32" tileheight="32">
+  <image source="../../../Downloads/game jam/새 폴더 (2)/새 폴더/새 폴더/toilet.png" width="128" height="96"/>
+ </tileset>
+ <tileset firstgid="3141" name="Fuchsia City" tilewidth="32" tileheight="32">
+  <image source="../../../Downloads/game jam/새 폴더 (2)/새 폴더 (2)/Gameboy Advance - Pokemon Fire RedLeaf Green - Fuchsia City.png" width="768" height="708"/>
+ </tileset>
+ <tileset firstgid="3669" name="zoo" tilewidth="32" tileheight="32">
+  <image source="../graphics/System/zoo.png" width="128" height="96"/>
+ </tileset>
  <layer name="ground" width="20" height="20">
   <data encoding="base64" compression="zlib">
-   eJwTY2BgEINiJjQsA8SZQJyFpIYQhunFZh4rCebgMo9U/fjMwyaeQKJ5IjjMiyPTfVJQ8zTR8GAzDx1TYh46BpmXDcTKSJhS8yhNN6N4FI9iTAwARAwjkQ==
+   eJzj52Zg4MeBSxghWJwDwUbGXlgwLrOGgnkwjG4eNnNINQ+bXmzmk+M+fP7Gpn8+CwQTCj9s5oHUUhMT619i1BGLaWHea3bi8EC5DxbnMMzEix0PdvOonf7UgfZrEMBrWAirAWEVILYH4pUEMMg8QmpA2IaAeTJcDAyyQCwHxPJclJunADRDEYiVgFiZSPMA4gtuUA==
   </data>
  </layer>
- <layer name="over" width="20" height="20">
+ <layer name="over" width="20" height="20" visible="0">
   <data encoding="base64" compression="zlib">
-   eJy7y8DAcJcITCwgxqxR80bNGyrmjYJRMApwAwAzXFZV
+   eJztzztOAlEYhuF/ehgRLBEqBJGOSgEZLlvgJnjBBBfgYiCWUsIScA2yglkGCmLBa3Lo5iRzBhJDwp88zUm+NzmuiLgaC3zhG0us8IM1fsX7dK0/YUvExgkiOEUUMZxZ5r0UmwukkcElsrhCLkBvq8zW0eyD9FzN9m2H3gwf6ONZbd8x9tEb4AVDjNTbJ+bI41VtJ5ju8b9e57cXD4mch/bXS9BK+ugd4l3zrxsUUFR/bNgiTbTQts16JRq3KMNRvQ6NO3TRM+xVaFRRQ1317mk84BFPhr3j/d9tABWtZws=
   </data>
  </layer>
- <layer name="collision" width="20" height="20">
+ <layer name="collision" width="20" height="20" visible="0">
   <data encoding="base64" compression="zlib">
-   eJy7y8DAcBeK72HBr6D0XSLxPST12Mwj1hxc5pGqH5952MRJtQOXnmdUdt9gMw8dU9u8F0D8BAlTah6l6WYUj+JRjIkBTiRZ3g==
+   eJxjYMAN7hHApAJ6mPcKiB9DMbmAXPeQYw8letHDjlh349NLjnn0ANR2y2DyG7UBsfE7UOY9RsOUmkcJeATETwhgBiLUwPBTBuLKOUJqYBifechl3UsqmPcQLVyIMQ8A3mqAUg==
   </data>
  </layer>
 </map>
