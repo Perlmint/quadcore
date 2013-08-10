@@ -43,6 +43,7 @@ class World(object):
         self.map = None
         self.player = None
         self.dialog = dialog.DialogBox()
+        self.cleanup = False
         if worldFileName is not None:
             self.loadWorldFile(worldFileName)
 
@@ -53,6 +54,10 @@ class World(object):
         if worldName is None:
             raise Exception("world file name is none")
 	_map = __import__('maps.%s' % worldName, fromlist=['*'])
+
+        self.cleanup = True
+	while len(self.entities) > 0:
+		self.killEntity(self.entities[0])
 
         # map
 	worldMap = Map()
@@ -90,7 +95,7 @@ class World(object):
 
     def addMap(self, map):
         """specify the map
-           Currently use for collision detection
+           Currently use r collision detection
         """
         self.map = map
 
@@ -119,6 +124,9 @@ class World(object):
             print("No entities to render")
             return
 
+        if self.cleanup:
+            surface.fill((0,0,0))
+            self.cleanup = False
         #rendering entities according to camera cordinate
         #assuming background layer is index 0
         self.camera.render(surface, self.map, 0)
@@ -136,7 +144,7 @@ class World(object):
 
         #after bliting all entities in the world, we blit the over layer on the top
         for layerIndex in xrange(1, len(self.map.tmxMap.layers)):
-            if self.map.tmxMap.layers[layerIndex].name == "collision":
+            if self.map.tmxMap.layers[layerIndex].name in ["collision", "over"]:
                 continue
             self.camera.render(surface, self.map, layerIndex)
 

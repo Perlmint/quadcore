@@ -93,6 +93,12 @@ class Camera(object):
         bottom = (480+self.cordY)/32 + 1
         left = self.cordX/32
         right = (640+self.cordX)/32 + 1
+	if bottom > worldMap.size[1]:
+		bottom = worldMap.size[1]
+
+	if right > worldMap.size[0]:
+		right = worldMap.size[0]
+
 
         if top < 0: top =0
         if left < 0: left = 0
