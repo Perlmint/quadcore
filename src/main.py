@@ -43,7 +43,7 @@ import loveee
 
 if __name__ == '__main__':
     pygame.init()
-    screen = pygame.display.set_mode((800, 600))
+    screen = pygame.display.set_mode((640, 480))
     pygame.display.set_caption("Team - quadcore")
 
     clock = pygame.time.Clock()
@@ -53,6 +53,7 @@ if __name__ == '__main__':
 	
     p = loveee.Player(u"플레이어")
     gameWorld.loveee = loveee.LoveEE(p)
+    loveee.loveee = gameWorld.loveee
     
     while keepGoing:
         clock.tick(32)
