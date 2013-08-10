@@ -84,8 +84,10 @@ class DialogBox(pygame.sprite.Sprite):
     def draw(self, surface, location = BOTTOM):
 
         def drawDialog():
+            rect = self.icon.get_rect()
+            rect.bottom = self.rect.top + 30
             surface.blit(self.image, self.rect)
-            surface.blit(self.icon, ((surface.get_width() - self.icon.get_width()) / 2, 20))
+            surface.blit(self.icon, ((surface.get_width() - self.icon.get_width()) / 2, rect.top))
 
         if not self.visable:
             return
@@ -215,21 +217,21 @@ class DialogBox(pygame.sprite.Sprite):
         self.soundStart = True
         self.currMessage = self.messages[self.page]
         self.visable = True
+        self.resetBox()
 
         if "image" in content:
             if content["image"] == None:
                 self.personImage = None
-                self.icon = pygame.Surface((96,96)).convert()
-                self.resetBox()
+                self.icon = pygame.Surface((0,0)).convert()
             else:
                 self.personImage = content["image"]
                 #setting icon for now it is just the same icon all the time
                 image = pygame.image.load(os.path.join("..", "graphics", "Faces", self.personImage)).convert_alpha()
-
-                self.icon = pygame.Surface((96,96)).convert()
+                rect = image.get_rect()
+                
+                self.icon = pygame.Surface((rect.width, rect.height)).convert()
                 self.icon.fill((100,80,150))
                 self.icon.blit(image, (0,0))
-                self.resetBox()
 
     def setChoices(self, choices):
         self.choices = choices
