@@ -44,12 +44,12 @@
    eJzj52Zg4MeBSxghWJwDwUbGXlgwLrOGgnkwjG4eNnNINQ+bXmzmk+M+fP7Gpn8+CwQTCj9s5oHUUhMT619i1BGLaWHea3bi8EC5DxbnMMzEix0PdvOonf7UgfZrEMBrWAirAWEVILYH4pUEMMg8QmpA2IaAeTJcDAyyQCwHxPJclJunADRDEYiVgFiZSPMA4gtuUA==
   </data>
  </layer>
- <layer name="over" width="20" height="20" visible="0">
+ <layer name="over" width="20" height="20">
   <data encoding="base64" compression="zlib">
    eJztzztOAlEYhuF/ehgRLBEqBJGOSgEZLlvgJnjBBBfgYiCWUsIScA2yglkGCmLBa3Lo5iRzBhJDwp88zUm+NzmuiLgaC3zhG0us8IM1fsX7dK0/YUvExgkiOEUUMZxZ5r0UmwukkcElsrhCLkBvq8zW0eyD9FzN9m2H3gwf6ONZbd8x9tEb4AVDjNTbJ+bI41VtJ5ju8b9e57cXD4mch/bXS9BK+ugd4l3zrxsUUFR/bNgiTbTQts16JRq3KMNRvQ6NO3TRM+xVaFRRQ1317mk84BFPhr3j/d9tABWtZws=
   </data>
  </layer>
- <layer name="collision" width="20" height="20" visible="0">
+ <layer name="collision" width="20" height="20">
   <data encoding="base64" compression="zlib">
    eJxjYMAN7hHApAJ6mPcKiB9DMbmAXPeQYw8letHDjlh349NLjnn0ANR2y2DyG7UBsfE7UOY9RsOUmkcJeATETwhgBiLUwPBTBuLKOUJqYBifechl3UsqmPcQLVyIMQ8A3mqAUg==
   </data>

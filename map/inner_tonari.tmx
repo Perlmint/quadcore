@@ -3,9 +3,17 @@
  <tileset firstgid="1" name="tonarinoie" tilewidth="32" tileheight="32">
   <image source="../../../Downloads/game jam/새 폴더 (2)/새 폴더/tonarinoie.png" width="96" height="160"/>
  </tileset>
- <layer name="Tile Layer 1" width="3" height="5">
+ <tileset firstgid="16" name="collision" tilewidth="32" tileheight="32">
+  <image source="../graphics/System/collision.png" width="192" height="96"/>
+ </tileset>
+ <layer name="tonari" width="3" height="5">
   <data encoding="base64" compression="zlib">
    eJwNwwkSwBAQALB1VIvi/7+VzCRFRLZYfWy+fnaH09/l9ngBCtwAeQ==
+  </data>
+ </layer>
+ <layer name="collision" width="3" height="5">
+  <data encoding="base64" compression="zlib">
+   eJwTZGBgEETCklBaFsqWgNIMULY0EIsDsRQQAwAlmAE6
   </data>
  </layer>
 </map>
