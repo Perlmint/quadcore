@@ -30,6 +30,7 @@
 import game
 import pygame
 import world
+import inputBox
 
 import loveee
 
@@ -50,8 +51,10 @@ if __name__ == '__main__':
     keepGoing = True
 
     gameWorld = world.World('town')
+
+    
 	
-    p = loveee.Player(u"플레이어")
+    p = loveee.Player(inputBox.ask(screen, u"이름이 뭐니?"))
     gameWorld.loveee = loveee.LoveEE(p)
     loveee.loveee = gameWorld.loveee
     
