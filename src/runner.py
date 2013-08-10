@@ -64,7 +64,7 @@ class CliRunner(Runner):
 		else:
 			name = s.name
 
-		self.dialog.setMessage({"msgList" : [name + ":\t" + s.text], "image" : "cat.gif"})
+		self.dialog.setMessage({"msgList" : [name + u":\t" + s.text], "image" : "cat.gif"})
 
 	def choice(self, s):
 		print u"선택지: " + s.question

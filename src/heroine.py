@@ -20,4 +20,3 @@ heroines = dict([
 		u"학원" : [script.test],
 	}, None))
 ])
-

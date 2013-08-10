@@ -28,12 +28,50 @@
 import sprite
 import os
 import sys
+import script
+import runner
+import heroine
 
 class Event(sprite.Npc):
     def __init__(self):
         super(Event, self).__init__()
 
     def action(self):
+	pass
+
+class Npc(sprite.Npc):
+    def __init__(self, name = "None"):
+        super(Npc, self).__init__()
+        self.category = "npc"
+        self.walking_mode = 0
+        self.step_count = 0
+        self.movement_x = self.movement_y = self.speed = 0
+
+        self.direction_list = ["up"]
+        self.current_direction = "up"
+        self.direction_change_frq = 0 
+        self.current_frequency = 0
+        self.name = name
+        self.script = script.test;
+
+    def action(self):
+        i = script.ScriptInterpreter(self.script)
+        heroine.heroines[0].setWorld(self.world)
+        i.run(runner.CliRunner(None, heroine.heroines[0], None))      
+    	pass
+
+    def set_walking_mode(self, mode):
+        """
+            mode = 0, 1, or 2
+
+            0 is standstill, 1 is always walking, 2 is walking stop.
+        """
+        self.walking_mode = mode
+
+    def other_update(self):
+        pass
+
+    def direction_handling(self):
 	pass
 
 class Zelda(sprite.Npc):

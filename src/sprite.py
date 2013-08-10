@@ -369,6 +369,8 @@ class Npc(BaseSprite):
     """
 
     def __init__(self, name = "None"):
+        self.name = name
+    
         BaseSprite.__init__(self)
         self.category = "npc"
         self.walking_mode = 0
@@ -379,12 +381,12 @@ class Npc(BaseSprite):
         self.current_direction = "up"
         self.direction_change_frq = 0 
         self.current_frequency = 0
-        self.name = name
-        self.script = script.test;
 
     def action(self):
-        i = script.ScriptInterpreter(self.script)
-        r = runner.GameRunner(self.world.loveee, heroine.heroines[self.name], place.places[self.world.map.name], self.world.dialog)
+        h = heroine.heroines[self.name]
+        p = place.places[self.world.map.name]
+        i = script.ScriptInterpreter(h.global_scr[0])
+        r = runner.GameRunner(self.world.loveee, h, p, self.world.dialog)
         
         def doit():
             return i.run(r)
