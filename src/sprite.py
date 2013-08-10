@@ -328,7 +328,7 @@ class Hero(BaseSprite):
                                 self.action = self.action_object.action()
                                 break
             else:
-                if currentTime - self.lastPressedTime[pygame.K_SPACE] >= 1000:
+                if currentTime - self.lastPressedTime[pygame.K_SPACE] >= 100:
                     if not self.action():
                         self.action = None
 

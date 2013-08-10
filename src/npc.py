@@ -30,17 +30,18 @@ import os
 import sys
 import script
 import runner
-import heroine, random, place
+import heroine, random, place, world
 
 class Event(sprite.Npc):
-    def __init__(self):
+    def __init__(self, target):
         super(Event, self).__init__()
         self.movement_x = self.movement_y = self.speed = 0
         self.direction_change_frq = 0 
         self.current_frequency = 0
+        self.target = target
 
     def action(self):
-        pass
+        world.World.currentWorld.loadWorldFile(self.target)
 
 class Npc(sprite.Npc):
     def __init__(self, name = "None"):

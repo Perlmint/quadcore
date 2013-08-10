@@ -33,8 +33,10 @@ import character.spriteinfo as spriteinfo
 import random
 
 class World(object):
+    currentWorld = None
 
     def __init__(self, worldFileName = None):
+        World.currentWorld = self
         #define world attribute
         self.entities= []
         self.camera= None
@@ -43,6 +45,9 @@ class World(object):
         self.dialog = dialog.DialogBox()
         if worldFileName is not None:
             self.loadWorldFile(worldFileName)
+
+    def getPlayername(self):
+        return self.loveee.player.name
 
     def loadWorldFile(self, worldName):
         if worldName is None:
@@ -56,7 +61,7 @@ class World(object):
 
 	# event
         for event in _map.event:
-            eventEntity = npc.Event()
+            eventEntity = npc.Event(event['action'])
             #eventEntity.load_sprite_sheet(os.path.join("..", "graphics", "System", "collision.png"), (32,32), (0,0), (32,32))
             eventEntity.load_sprite_sheet(os.path.join("..", "graphics", "Characters", "Actor2.png"), (32,32), (0,0), (96,128))
             eventEntity.set_pos(event['pos'][0], event['pos'][1])

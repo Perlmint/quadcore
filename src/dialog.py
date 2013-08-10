@@ -218,8 +218,6 @@ class DialogBox(pygame.sprite.Sprite):
         self.visable = True
         self.resetBox()
 
-        print self.currMessage
-
         if "image" in content:
             if content["image"] == None:
                 self.personImage = None

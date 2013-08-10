@@ -79,8 +79,6 @@ class SE:
 
 class ScriptInterpreter:
 	def __init__(self, script):
-		print script
-	
 		self.script = copy.deepcopy(script)
 	
 	def run(self, runner):
