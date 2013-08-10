@@ -37,6 +37,9 @@ class Runner:
 	def route(self, s):
 		return 0
 
+	def love(self, s):
+		pass
+
 class CliRunner(Runner):
 	def __init__(self, loveee, heroine, place):
 		self.loveee  = loveee

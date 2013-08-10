@@ -62,6 +62,10 @@ class Routing:
 		self.name   = name
 		self.routes = routes
 
+class Love:
+	def __init__(self, val):
+		self.val = val
+
 
 class ScriptInterpreter:
 	def __init__(self, script):
@@ -100,6 +104,8 @@ class ScriptInterpreter:
 			res = runner.route(s)
 
 			self.script = s.routes[res].script
+		elif isinstance(s, Love):
+			runner.love(s)
 
 		return True
 
