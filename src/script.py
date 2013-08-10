@@ -125,6 +125,8 @@ class ScriptInterpreter:
 
 		return True
 
+def importScript(name):
+    return __import__('scripts.%s' % name, fromlist=['*']).script
 
 die_script = [
 	u"푹찍",
@@ -155,3 +157,4 @@ test = [
 	EndScript()
 ]
 
+sekai = importScript('sekai')
