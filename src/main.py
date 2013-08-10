@@ -26,8 +26,8 @@
 #!/usr/bin/env python
 
 import game
-import camera3
-import npc
+import pygame
+import world
 
 ##class Main(game.Game):
 ##    def __init__(self):
@@ -38,7 +38,23 @@ import npc
 
 
 if __name__ == '__main__':
-##    mainGame = Main()
-##    mainGame.start()
-    import camera3
-    camera3.main()
+    pygame.init()
+    screen = pygame.display.set_mode((640, 480))
+    pygame.display.set_caption("Team - quadcore")
+
+    clock = pygame.time.Clock()
+    keepGoing = True
+
+    gameWorld = world.World('town')
+    
+    while keepGoing:
+        clock.tick(32)
+        for events in pygame.event.get():
+            if events.type == pygame.QUIT:
+                keepGoing = False
+
+        gameWorld.update()
+        gameWorld.render(screen)
+        pygame.display.flip()
+
+    pygame.quit()

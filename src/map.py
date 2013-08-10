@@ -50,19 +50,35 @@ class Map(object):
 ##                print("found")
                 collisionLayerIndex = layerIndex
                 break
-
+        collisionMap = {
+222:[pygame.Rect(0,0,tileWidth,tileHeight)], # full
+223:[pygame.Rect(0,0,tileWidth/2,tileHeight/2)], # left-top
+224:[pygame.Rect(tileWidth/2,0,tileWidth/2,tileHeight/2)], # right-top
+225:[pygame.Rect(0,tileHeight/2,tileWidth/2,tileHeight/2)], # left-bottom
+226:[pygame.Rect(tileWidth/2,tileHeight/2,tileWidth/2,tileHeight/2)], # right-bottom
+227:[pygame.Rect(0,0,tileWidth,tileHeight/2)], # top
+228:[pygame.Rect(0,tileHeight/2,tileWidth,tileHeight/2)], # bottom
+229:[pygame.Rect(tileWidth/2,0,tileWidth/2,tileHeight)], # right
+230:[pygame.Rect(0,0,tileWidth/2,tileHeight)], # left
+231:[pygame.Rect(0,tileHeight/2,tileWidth/2,tileHeight/2),pygame.Rect(tileWidth/2,0,tileWidth/2,tileHeight)], # !left-top
+232:[pygame.Rect(0,0,tileWidth/2,tileHeight),pygame.Rect(tileWidth/2,tileHeight/2,tileWidth/2,tileHeight/2)], # !right-top,
+233:[pygame.Rect(0,0,tileWidth,tileHeight/2),pygame.Rect(tileWidth/2,tileHeight/2,tileWidth/2,tileHeight/2)], # !left-bottom
+234:[pygame.Rect(0,0,tileWidth,tileHeight/2),pygame.Rect(0,tileHeight/2,tileWidth/2,tileHeight/2)], # !right-bottom
+}
         #generate position of every tile image in the world map and collidable rect
         for tile_y in range(num_tile_y):
             self.posList.append([])
             for tile_x in range(num_tile_x):
                 self.posList[tile_y].append((tile_x*tileWidth,tile_y*tileHeight))
                 #generate collidable rect
-                if self.tmxMap.get_tile_image(tile_x, tile_y, collisionLayerIndex):
-                    tempRect = pygame.Rect(tile_x*tileWidth, tile_y*tileHeight, self.tmxMap.tilewidth, self.tmxMap.tileheight)
-                    oldbottom = tempRect.midbottom
-                    tempRect = tempRect.inflate(-10, -10)
-                    tempRect.midbottom = oldbottom
-                    self.unwalkable.append(tempRect)
+		# no, full, left-top, right-top, left-bottom, right-bottom, top, bottom, right, left, !left-top, !right-top, !left-bottom, !right-bottm
+                tileId = self.tmxMap.getTileGID(tile_x, tile_y, collisionLayerIndex)
+                if tileId in collisionMap:
+                    for rectTemplate in collisionMap[tileId]:
+                        tempRect = rectTemplate.copy()
+                        tempRect.left = tempRect.left + tile_x*tileWidth
+                        tempRect.top = tempRect.top + tile_y*tileHeight
+                        self.unwalkable.append(tempRect)
 ##        print(self.unwalkable)
 
     def getImage(self, x, y, layer):

@@ -24,16 +24,54 @@
 #-------------------------------------------------------------------------------
 #!/usr/bin/env python
 import dialog
+import os
+from map import Map
+import npc
+import sprite
+from camera3 import Camera
+import character.spriteinfo as spriteinfo
 
 class World(object):
 
-    def __init__(self):
+    def __init__(self, worldFileName = None):
         #define world attribute
         self.entities= []
         self.camera= None
         self.map = None
         self.player = None
         self.dialog = dialog.DialogBox()
+        if worldFileName is not None:
+            self.loadWorldFile(worldFileName)
+
+    def loadWorldFile(self, worldName):
+        if worldName is None:
+            raise Exception("world file name is none")
+	_map = __import__('maps.%s' % worldName, fromlist=['*'])
+
+        # map
+	worldMap = Map()
+	worldMap.load(os.path.join("..", "map", _map.map['filename']))
+        self.addMap(worldMap)
+
+	# event
+        for event in _map.event:
+            eventEntity = npc.Event()
+            #eventEntity.load_sprite_sheet(os.path.join("..", "graphics", "System", "collision.png"), (32,32), (0,0), (32,32))
+            eventEntity.load_sprite_sheet(os.path.join("..", "graphics", "Characters", "Actor2.png"), (32,32), (0,0), (96,128))
+            eventEntity.set_pos(event['pos'][0], event['pos'][1])
+#            eventEntity.action = lambda:
+            self.addEntities(eventEntity)
+
+	# player
+        player = sprite.Hero()
+        player.load_sprite_sheet(spriteinfo.player["sprite"], spriteinfo.player["size"], spriteinfo.player["startpos"], spriteinfo.player["sheetsize"])
+        player.speed_is(3)
+        player.walking_boundary_is(worldMap.size[0], worldMap.size[1])
+        player.set_pos(_map.player['pos'][0], _map.player['pos'][1])
+        self.addEntities(player)
+        cam = Camera()
+        cam.set_follow(player)
+        self.setCamera(cam)
 
     def addMap(self, map):
         """specify the map
@@ -122,103 +160,3 @@ class World(object):
         #remove the entities if the entity is in the world
         if entity in self.entities:
             self.entities.remove(entity)
-
-def main():
-    import game
-    import sprite
-    import os
-    import pygame
-    import camera
-
-    class MyGame(game.Game):
-        def __init__(self):
-            game.Game.__init__(self)
-            player = sprite.Hero()
-            player.load_sprite_sheet(os.path.join("..\graphics\Characters", "Actor1.png"), (32,32), (0,0), (96,128))
-            player.speed_is(2)
-            #player.walking_boundary_is(640, 480)
-
-            npc = sprite.Npc()
-            npc.load_sprite_sheet(os.path.join("..\graphics\Characters", "Actor1.png"), (32,32), (96,128), (96,128))
-            npc.speed_is(2)
-            npc.walking_boundary_is(640, 480)
-            npc.set_walking_mode(2)
-
-            npc1 = sprite.Npc()
-            npc1.load_sprite_sheet(os.path.join("..\graphics\Characters", "Actor1.png"), (32,32), (96,0), (96,128))
-            npc1.speed_is(1)
-            npc1.walking_boundary_is(640, 480)
-            npc1.set_walking_mode(1)
-
-            cam = camera.Camera()
-            cam.follow(player)
-
-            self.gameWorld = World()
-            self.gameWorld.addEntities(player)
-            self.gameWorld.addEntities(npc)
-            self.gameWorld.addEntities(npc1)
-            self.gameWorld.setCamera(cam)
-
-            self.img_master = pygame.image.load(os.path.join("..\graphics\Parallaxes", "FinalFantasy.jpg")).convert()
-            self.bgd_rect = pygame.Rect(0,0,640,480)
-            self.background = self.img_master.subsurface((self.bgd_rect))
-##            self.background.fill((255,255,255))
-
-            self.img_master2 = pygame.image.load(os.path.join("..\graphics\Parallaxes", "FinalFantasy.jpg")).convert()
-            self.bgd_rect2 = pygame.Rect(0,0,640,480)
-            self.background2 = self.img_master2.subsurface((self.bgd_rect))
-
-            self.img_master3 = pygame.image.load(os.path.join("..\graphics\Parallaxes", "FinalFantasy.jpg")).convert()
-            self.bgd_rect3 = pygame.Rect(0,0,640,480)
-            self.background3 = self.img_master3.subsurface((self.bgd_rect))
-
-
-        def update(self):
-            tmp_rect = self.bgd_rect.move(-self.gameWorld.camera.offset[0], -self.gameWorld.camera.offset[1])
-    #        print(cam.offset, bgd_rect.move(-cam.offset[0], -cam.offset[1]))
-            if tmp_rect.left < 0:
-                tmp_rect.left = 0
-    #        elif tmp_rect.right > 1024:
-    #            tmp_rect.right = 1024
-            if tmp_rect.top < 0:
-                tmp_rect.top = 0
-    #        elif tmp_rect.bottom > 945:
-    #            tmp_rect.bottom = 945
-##            print(tmp_rect, player.rect)
-
-            tmp_rect2 = self.bgd_rect2.move(-self.gameWorld.camera.offset[0], -self.gameWorld.camera.offset[1])
-    #        print(cam.offset, bgd_rect.move(-cam.offset[0], -cam.offset[1]))
-            if tmp_rect2.left < 0:
-                tmp_rect2.left = 0
-    #        elif tmp_rect.right > 1024:
-    #            tmp_rect.right = 1024
-            if tmp_rect2.top < 0:
-                tmp_rect2.top = 0
-    #        elif tmp_rect.bottom > 945:
-    #            tmp_rect.bottom = 945
-
-            tmp_rect3 = self.bgd_rect3.move(-self.gameWorld.camera.offset[0], -self.gameWorld.camera.offset[1])
-    #        print(cam.offset, bgd_rect.move(-cam.offset[0], -cam.offset[1]))
-            if tmp_rect3.left < 0:
-                tmp_rect3.left = 0
-    #        elif tmp_rect.right > 1024:
-    #            tmp_rect.right = 1024
-            if tmp_rect3.top < 0:
-                tmp_rect3.top = 0
-    #        elif tmp_rect.bottom > 945:
-    #            tmp_rect.bottom = 945
-
-            self.background = self.img_master.subsurface((tmp_rect))
-            self.background2 = self.img_master2.subsurface((tmp_rect2))
-            self.background3 = self.img_master3.subsurface((tmp_rect3))
-            self.gameWorld.update()
-            self.screen.blit(self.background,(0,0))
-            self.screen.blit(self.background2,(0,0))
-            self.screen.blit(self.background3,(0,0))
-            self.gameWorld.render(self.screen)
-
-    zelda = MyGame()
-    zelda.start()
-
-if __name__ == '__main__':
-    main()
