@@ -8,7 +8,7 @@ event = [
 {'pos':(32 * 10, 32 * 6), 'action':'shop'},
 {'pos':(32 * 12, 32 * 6), 'action':'phamercy'},
 {'pos':(32 * 15, 32 * 6), 'action':'hobar'},
-{'pos':(32 * 15, 32 * 14), 'action':'zoo'},
+{'pos':(32 * 15, 32 * 12), 'action':'zoo'},
 ]
 heroine = [
 {'name':"sekai", 'probability':0.5},

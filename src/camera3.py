@@ -56,49 +56,35 @@ class Camera(object):
         self.dy = self.follow.speed
 
         translatedRect = self.translate(self.follow.rect)
-        if translatedRect.left <= self.windowX:
-            self.cordX -= self.dx
-        elif translatedRect.right >= 640 - self.windowX:
-            self.cordX += self.dx
-        if translatedRect.top <= self.windowY:
-            self.cordY -= self.dy
-        elif translatedRect.bottom >= 480 - self.windowY:
-            self.cordY += self.dy
+        if self.map_size_x >= 640:
+            if translatedRect.left <= self.windowX:
+                self.cordX -= self.dx
+            elif translatedRect.right >= 640 - self.windowX:
+                self.cordX += self.dx
+        else:
+            self.cordX = 320
+        if self.map_size_y >= 480:
+            if translatedRect.top <= self.windowY:
+                self.cordY -= self.dy
+            elif translatedRect.bottom >= 480 - self.windowY:
+                self.cordY += self.dy
+        else:
+            self.cordY = 240
 
         self._check_bounder()
 
-    def render1(self, surface):
-        top = self.cordY/32
-        bottom = (480+self.cordY)/32 + 1
-        left = self.cordX/32
-        right = (640+self.cordX)/32 + 1
-
-        if top < 0: top =0
-        if left < 0: left = 0
-        for tile_y in self.tile_pos_list[top:bottom]:
-            for tile_x in tile_y[left:right]:
-                imageLayer1 = self.map.getImage(tile_x[0]/32, tile_x[1]/32, 0)
-                imageLayer2 = self.map.getImage(tile_x[0]/32, tile_x[1]/32, 1)
-                if imageLayer1:
-                    #this no image at this location so skip it
-                    surface.blit(imageLayer1,
-                            (tile_x[0]-self.cordX, tile_x[1]-self.cordY))
-                if imageLayer2:
-                    #this no image at this location so skip it
-                    surface.blit(imageLayer2,
-                            (tile_x[0]-self.cordX, tile_x[1]-self.cordY))
-
+    
     def render(self, surface, worldMap, layer):
         top = self.cordY/32
-        bottom = (480+self.cordY)/32 + 1
+        if self.map_size_y < 480:
+            bottom = self.map_size_y / 32
+        else:
+            bottom = (480+self.cordY)/32 + 1
         left = self.cordX/32
-        right = (640+self.cordX)/32 + 1
-	if bottom > worldMap.size[1]:
-		bottom = worldMap.size[1]
-
-	if right > worldMap.size[0]:
-		right = worldMap.size[0]
-
+        if self.map_size_x < 640:
+            right = self.map_size_x / 32
+        else:
+            right = (640+self.cordX)/32 + 1
 
         if top < 0: top =0
         if left < 0: left = 0
@@ -139,13 +125,16 @@ class Camera(object):
         if self.cordX < 0:
             self.cordX = 0
 ##            self.dx = 0
+        elif self.map_size_x < 640:
+            self.cordX = -(640 - self.map_size_x) / 2
         elif self.cordX > self.map_size_x - 640:
             self.cordX = self.map_size_x - 640
 ##            self.dx = 0
         if self.cordY < 0:
             self.cordY = 0
 ##            self.dy = 0
+        elif self.map_size_y < 480:
+            self.cordY = -(480 - self.map_size_y) / 2
         elif self.cordY > self.map_size_y - 480:
             self.cordY = self.map_size_y - 480
 ##            self.dy = 0
-
