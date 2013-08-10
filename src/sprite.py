@@ -296,6 +296,7 @@ class Hero(BaseSprite):
             self.lastPressedTime.append(0)
 
         self.action = None
+        self.action_object = None
 
     def update(self):
         BaseSprite.update(self)
@@ -323,7 +324,8 @@ class Hero(BaseSprite):
                     if len(collideEntityIndex) > 1:
                         for index in collideEntityIndex:
                             if not index == self.world.entities.index(self):
-                                self.action = self.world.entities[index].action()
+                                self.action_object = self.world.entities[index]
+                                self.action = self.action_object.action()
                                 break
             else:
                 if currentTime - self.lastPressedTime[pygame.K_SPACE] >= 1000:
@@ -333,9 +335,12 @@ class Hero(BaseSprite):
         if(self.world.dialog.choices != None):
             for i in range(pygame.K_1, pygame.K_9 + 1):
                 if(keys_pressed_is[i]):
-                    number = i - pygame.K_0
-                    self.world.dialog.choices['choices'][number].script[1].action()
+                    number = i - pygame.K_1
+                    scr = self.world.dialog.choices['choices'][number].script
+                    print scr
+                    self.action = self.action_object.action(scr)
                     self.world.dialog.choiceSelected()
+                    print self.action
 
         for i in range(len(keys_pressed_is)):
             if keys_pressed_is[i]:

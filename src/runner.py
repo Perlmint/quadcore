@@ -112,10 +112,10 @@ class GameRunner(Runner):
 		self.dialog.lock = True
 		
 	def end(self):
-		self.dialog.lock = False
+		self.dialog.lock    = False
+		self.dialog.visable = False
 
 	def narr(self, s):
-		print s
 		self.dialog.setMessage({"msgList" : [s]})
 
 	def conv(self, s):

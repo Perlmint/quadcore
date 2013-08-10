@@ -40,31 +40,35 @@ class Event(sprite.Npc):
         self.current_frequency = 0
 
     def action(self):
-	pass
+        pass
 
 class Npc(sprite.Npc):
     def __init__(self, name = "None"):
         super(Npc, self).__init__()
         self.name = name
         self.category = "npc"
-        self.script = script.test;
         self.current_frequency = 60
         self.movement_x = self.movement_y = self.speed = 2
 
-    def action(self):
+    def action(self, scr = None):
         h = heroine.heroines[self.name]
         p = place.places[self.world.map.name]
-        i = script.ScriptInterpreter(h.global_scr[0])
+        
+        if not scr:
+            scr = h.global_scr[0]
+        
+        i = script.ScriptInterpreter(scr)
         r = runner.GameRunner(self.world.loveee, h, p, self.world.dialog)
         
         def doit():
+            print "wahaha"
             ret = i.run(r)
             if not ret:
                 self.set_walking_mode(0)
             return ret
 
         self.set_walking_mode(2)
-		
+
         if not doit():
             return None
             
@@ -101,4 +105,4 @@ class Npc(sprite.Npc):
         self.move(self.current_direction)
 
     def direction_handling(self):
-	pass
+        pass

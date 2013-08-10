@@ -202,6 +202,7 @@ class DialogBox(pygame.sprite.Sprite):
         if self.choices == None:
             return
 
+        self.choices = None
         self.pause = True
 
     def setMessage(self, content):

@@ -80,13 +80,17 @@ class SE:
 
 class ScriptInterpreter:
 	def __init__(self, script):
+		print script
+	
 		self.script = copy.deepcopy(script)
 	
 	def run(self, runner):
 		if not self.script:
 			return False
-
+			
 		s = self.script.pop(0)
+		
+		print s
 
 		if isinstance(s, str):
 			runner.narr(s)
@@ -137,10 +141,9 @@ live_script = [
 ]
 
 test = [
+	u"왜안돼",
+	u"시발",
 	Conversation(Self(), u"하하1"),
-	Conversation(Self(), u"하하2"),
-	Conversation(Self(), u"하하3"),
-	Conversation(Self(), u"하하4"),
 	#EndScript()
 	#Background(Self()),
 	#Conversation(Self(), u"하하"),
@@ -152,6 +155,7 @@ test = [
 		Selection(u"죽는다", die_script),
 		Selection(u"도망간다", live_script),
 	]),
+	"wahaha",
 	EndScript()
 ]
 
