@@ -16,8 +16,8 @@ class Heroine:
 		self.world = world
 
 heroines = [
-	Heroine("은로리", [script.test], {
-		"학원" : [script.test],
+	Heroine(u"은로리", [script.test], {
+		u"학원" : [script.test],
 	}, None)
 ]
 

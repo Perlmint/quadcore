@@ -64,11 +64,11 @@ class CliRunner(Runner):
 		else:
 			name = s.name
 
-		self.dialog.setMessage({"msgList" : [name + ":\t" + s.text], "image" : "cat.gif"})
+		self.dialog.setMessage({"msgList" : [name + u":\t" + s.text], "image" : "cat.gif"})
 
 	def choice(self, s):
 		print "선택지: " + s.question
-		dialog.setMessage({"msgList" : ["선택지: " + s.question]})
+		dialog.setMessage({"msgList" : [u"선택지: " + s.question]})
 
 		no = 0
 
@@ -119,11 +119,11 @@ class GameRunner(Runner):
 		else:
 			name = s.name
 
-		self.dialog.setMessage({"msgList" : [name + ":\t" + s.text], "image" : "cat.gif"})
+		self.dialog.setMessage({"msgList" : [name + u":\t" + s.text], "image" : "cat.gif"})
 
 	def choice(self, s):
 		print "선택지: " + s.question
-		dialog.setMessage({"msgList" : ["선택지: " + s.question]})
+		dialog.setMessage({"msgList" : [u"선택지: " + s.question]})
 
 		no = 0
 

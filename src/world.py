@@ -65,7 +65,7 @@ class World(object):
 
         for heroine in _map.heroine:
             if random.random() < heroine['probability']:
-                newHeroine = sprite.Npc("asdf")
+                newHeroine = npc.Npc("asdf")
                 newHeroine.load_sprite_sheet(spriteinfo.heroine[heroine['name']]["sprite"], spriteinfo.heroine[heroine['name']]["size"], spriteinfo.heroine[heroine['name']]["startpos"], spriteinfo.heroine[heroine['name']]["sheetsize"])
                 newHeroine.speed_is(3)
                 newHeroine.walking_boundary_is(worldMap.size[0], worldMap.size[1])

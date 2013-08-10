@@ -30,9 +30,6 @@
 import pygame
 import math
 from random import randint
-import script
-import runner
-import heroine
 ## end of import installed library
 
 ## import custom library
@@ -345,7 +342,7 @@ class Npc(BaseSprite):
 
     """
 
-    def __init__(self, name = "None"):
+    def __init__(self):
         BaseSprite.__init__(self)
         self.category = "npc"
         self.walking_mode = 0
@@ -356,13 +353,8 @@ class Npc(BaseSprite):
         self.current_direction = "up"
         self.direction_change_frq = 0 
         self.current_frequency = 0
-        self.name = name
-        self.script = script.test;
 
     def action(self):
-        i = script.ScriptInterpreter(self.script)
-        heroine.heroines[0].setWorld(self.world)
-        i.run(runner.CliRunner(None, heroine.heroines[0], None))      
     	pass
 
     def set_walking_mode(self, mode):
