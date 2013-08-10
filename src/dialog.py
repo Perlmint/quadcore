@@ -89,20 +89,8 @@ class DialogBox(pygame.sprite.Sprite):
             surface.blit(self.image, self.rect)
             surface.blit(self.icon, ((surface.get_width() - self.icon.get_width()) / 2, rect.top))
 
-        if not self.visable:
-            return
-
-        if self.pause:
-            drawDialog()
-            self.soundStart = False
-            return
-
-        if self.messages != None:
-            self.rect.center = location
             xpos = self.margine[0]
             ypos = self.margine[1]
-
-            self.currMessage = self.messages[self.page]
             message = self.currMessage[self.startPos:self.endPos]
 
             for word in message.split():
@@ -115,12 +103,23 @@ class DialogBox(pygame.sprite.Sprite):
                 if xpos >= (self.image.get_width() - w - 18):
                     xpos = self.margine[0]
                     ypos += ren.get_height() + 4
-
                 elif ypos >= self.image.get_height() - ren.get_height():
                     xpos = self.margine[0]
                     ypos = self.margine[1]
                     self.startPos = self.endPos - 1 #need -1 to have the text start correctly
                     self.image.blit(self.arrow,(540,125))
+
+        if not self.visable:
+            return
+
+        if self.pause:
+            drawDialog()
+            self.soundStart = False
+            return
+
+        if self.messages != None:
+            self.rect.center = location
+            self.currMessage = self.messages[self.page]
 
             if self.endPos == len(self.currMessage):
                 self.image.blit(self.arrow,(300,125))
@@ -182,7 +181,7 @@ class DialogBox(pygame.sprite.Sprite):
         if not self.pause:
             self.endPos += 1
             if self.endPos >= len(self.currMessage):
-                    self.endPos = len(self.currMessage)
+                self.endPos = len(self.currMessage)
 
     def proceedNextMessage(self):
         if self.endPos == len(self.currMessage):
@@ -218,6 +217,8 @@ class DialogBox(pygame.sprite.Sprite):
         self.currMessage = self.messages[self.page]
         self.visable = True
         self.resetBox()
+
+        print self.currMessage
 
         if "image" in content:
             if content["image"] == None:
