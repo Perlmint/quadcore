@@ -34,7 +34,7 @@ class LoveEE:
 		return r.choice(c)
 
 
-	def run(self, runner):
+	def run(self, runner, scr):
 		res = self.select_place(runner)
 
 		p = place.places[res]
@@ -43,7 +43,7 @@ class LoveEE:
 
 		h = heroine.heroines[r]
 
-		s = h.global_scr[0]
+		s = scr
 
 		i = script.ScriptInterpreter(s)
 

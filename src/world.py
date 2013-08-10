@@ -51,7 +51,7 @@ class World(object):
 
         # map
 	worldMap = Map()
-	worldMap.load(os.path.join("..", "map", _map.map['filename']))
+	worldMap.load(os.path.join("..", "map", _map.map['filename']), _map.map['filename'])
         self.addMap(worldMap)
 
 	# event
@@ -65,7 +65,7 @@ class World(object):
 
         for heroine in _map.heroine:
             if random.random() < heroine['probability']:
-                newHeroine = sprite.Npc("asdf")
+                newHeroine = npc.Npc(heroine['name'])
                 newHeroine.load_sprite_sheet(spriteinfo.heroine[heroine['name']]["sprite"], spriteinfo.heroine[heroine['name']]["size"], spriteinfo.heroine[heroine['name']]["startpos"], spriteinfo.heroine[heroine['name']]["sheetsize"])
                 newHeroine.speed_is(3)
                 newHeroine.walking_boundary_is(worldMap.size[0], worldMap.size[1])
@@ -150,8 +150,8 @@ class World(object):
                 #check to update only the entities that is visible
                 if self.camera:
                     translatedRect = self.camera.translate(entity.rect)
-                    if (translatedRect.left <= -32 or translatedRect.right >= 672 or translatedRect.top <= -32 or
-                        translatedRect.bottom >= 512):
+                    if (translatedRect.left <= -32 or translatedRect.right >= 832 or translatedRect.top <= -32 or
+                        translatedRect.bottom >= 632):
                         continue
                 entity.update()
         if self.camera:

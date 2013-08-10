@@ -28,44 +28,81 @@
 import sprite
 import os
 import sys
+import script
+import runner
+import heroine, random, place
 
 class Event(sprite.Npc):
     def __init__(self):
         super(Event, self).__init__()
+        self.movement_x = self.movement_y = self.speed = 0
+        self.direction_change_frq = 0 
+        self.current_frequency = 0
 
     def action(self):
-	pass
+        pass
 
-class Zelda(sprite.Npc):
-    def __init__(self):
-        super(Zelda, self).__init__()
-        self.set_walking_mode(0)
-        self.set_pos(800,600)
-        self.load_sprite_sheet(os.path.join("..", "graphics", "Characters", "../Faces/cat.gif"), (32,32), (96,0), (96,128))
-        self.start = False
+class Npc(sprite.Npc):
+    def __init__(self, name = "None"):
+        super(Npc, self).__init__()
+        self.name = name
+        self.category = "npc"
+        self.current_frequency = 60
+        self.movement_x = self.movement_y = self.speed = 2
+
+    def action(self, scr = None):
+        h = heroine.heroines[self.name]
+        p = place.places[self.world.map.name]
         
+        if not scr:
+            scr = h.global_scr[0]
+        
+        i = script.ScriptInterpreter(scr)
+        r = runner.GameRunner(self.world.loveee, h, p, self.world.dialog)
+        
+        def doit():
+            ret = i.run(r)
+            if not ret:
+                self.set_walking_mode(0)
+            
+            return ret
 
-    def action(self):
-        if self.start and not self.world.dialog.visable:
-            oldDir = os.getcwd()
-            gameDir = "../mini game/Zelda-love-Candy-0.3"
-            os.chdir(gameDir)
-            sys.path.insert(0, os.getcwd())
-            sys.path.insert(1, "../mini game/Zelda-love-Candy-0.3/lib")
-            sys.path.insert(2, "../mini game/Zelda-love-Candy-0.3/data")
-            import game
-            try:
-                game.main()
-            except:
-                pass
-            os.chdir(oldDir)
+        self.set_walking_mode(2)
 
-            self.world.dialog.setMessage(["I told you that it is still nnot now working! Thank you!"])
-            self.kill()
-            self.start = False
+        if not doit():
+            return None
+            
+        return doit
 
-        if self.world and not self.world.dialog.visable:
-            self.world.dialog.setMessage({"msgList" : ["This mini game is not working properly now.",
-                                         "You can go to the mini game folder and run the game by itself"],
-                                         "image" : "cat.gif"})
-        self.start = True
+    def set_walking_mode(self, mode):
+        """
+            mode = 0, 1, or 2
+
+            0 is standstill, 1 is always walking, 2 is walking stop.
+        """
+        self.walking_mode = mode
+
+    def other_update(self):
+        if self.walking_mode == 2:
+            return
+        seed = random.random()
+        if seed < 0.05:
+          self.set_walking_mode(1 if self.walking_mode == 0 else 0)
+        if self.walking_mode == 0:
+          return
+        seed = random.random()
+        direction = self.direction_list.index(self.current_direction)
+        if seed < 0.03:
+            direction = direction - 1
+        elif seed < 0.06:
+            direction = direction + 1
+        if direction < 0:
+            direction = 4 + direction
+        if direction > 3:
+            direction = direction - 4
+        if self.direction_list.index(self.current_direction) != direction:
+            self.current_direction = self.direction_list[direction]
+        self.move(self.current_direction)
+
+    def direction_handling(self):
+        pass

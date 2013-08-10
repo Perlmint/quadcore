@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 player = {'pos':(0,0)}
 map = {'filename':'test.tmx'}
 event = [
@@ -6,5 +8,5 @@ event = [
 {'pos':(64,90), 'action':'home'}
 ]
 heroine = [
-{'name':'h1', 'probability':1}
+{'name':"h1", 'probability':1}
 ]

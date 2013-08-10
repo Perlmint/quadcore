@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import item
+import copy
 
 class Self:
 	pass
@@ -78,25 +79,26 @@ class SE:
 
 class ScriptInterpreter:
 	def __init__(self, script):
-		self.script = script
+		print script
+	
+		self.script = copy.deepcopy(script)
 	
 	def run(self, runner):
 		if not self.script:
 			return False
-
+			
 		s = self.script.pop(0)
-
-		if isinstance(s, str):
-			runner.narr(s)
+		
+		if isinstance(s, (str, unicode)):
+			runner.narr(s)	
 		elif isinstance(s, Conversation):
 			runner.conv(s)
 		elif isinstance(s, Choice):
 			res = runner.choice(s)
-
-			self.script = s.selections[res].script
 		elif isinstance(s, EndScript):
 			runner.end()
 			self.script = None
+			return False
 		elif isinstance(s, CallbackScript):
 			runner.callback(s)
 		elif isinstance(s, ShowHeroine):
@@ -122,27 +124,36 @@ class ScriptInterpreter:
 
 		return True
 
+def importScript(name):
+    return __import__('scripts.%s' % name, fromlist=['*']).script
 
 die_script = [
-	"푹찍",
+	u"푹찍",
 	EndScript(),
 ]
 
 live_script = [
-	"도망",
+	u"도망",
 	EndScript(),
 ]
 
 test = [
+	u"왜안돼",
+	u"시발",
+	Conversation(Self(), u"하하1"),
+	#EndScript()
 	#Background(Self()),
-	Conversation(Self(), "FUck you"),
-	#Conversation(Self(), "그러니 죽어주면 좋겠어"),
-	#Take(item.Item("좋은 아이템", 1000)),
+	#Conversation(Self(), u"하하"),
+	#Conversation(Self(), u"그러니 죽어주면 좋겠어"),
+	#Take(item.Item(u"좋은 아이템", 1000)),
 	#Give(None),
-	#"죽어야 하나 고민이네",
-	#Choice("죽을까", [
-	#	Selection("죽는다", die_script),
-	#	Selection("도망간다", live_script),
-	#])
+	#u"죽어야 하나 고민이네",
+	Choice(u"죽을까", [
+		Selection(u"죽는다", die_script),
+		Selection(u"도망간다", live_script),
+	]),
+	"wahaha",
+	EndScript()
 ]
 
+sekai = importScript('sekai')

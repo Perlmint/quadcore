@@ -35,7 +35,8 @@ class Map(object):
         self.unwalkable = []    #a list rect that is collidable
         self.size = None
 
-    def load(self, fileName):
+    def load(self, fileName, name):
+        self.name = name
         self.tmxMap = tmxloader.load_pygame(fileName)
 
         num_tile_y = self.tmxMap.height
