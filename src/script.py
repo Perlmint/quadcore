@@ -89,7 +89,7 @@ class ScriptInterpreter:
 			
 		s = self.script.pop(0)
 		
-		if isinstance(s, [str, unicode]):
+		if isinstance(s, (str, unicode)):
 			runner.narr(s)	
 		elif isinstance(s, Conversation):
 			runner.conv(s)
