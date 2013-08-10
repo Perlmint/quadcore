@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import item
 import script
 import dialog
 
@@ -82,13 +83,26 @@ class GameRunner(Runner):
 		return 0
 
 	def take(self, s):
-		print s.item.name + u"을 받았다!"
+		self.loveee.player.items.append(item.get_item(s.name))
 
-	def give(self, s, script):
+	def give(self, s, scr):
 		if not self.loveee.player.items:
-			return script
+			return scr
+			
+		inventory = list()
 		
-		return script
+		for i in self.loveee.player.items:
+			if i.name in scr:
+				inventory.append(script.Selection(i.name, s.script[i.name]))
+			else:
+				inventory.append(script.Selection(i.name, s.script[None]))
+			
+		self.dialog.setChoices({
+			"question" : u"무엇을 줄까",
+			"choices" : inventory
+		})
+		
+		self.dialog.item_selection = True
 
 	def love(self, s):
 		self.heroine.love += s.val

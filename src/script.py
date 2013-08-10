@@ -52,12 +52,13 @@ class Background:
 		self.image = image
 
 class Take:
-	def __init__(self, item):
-		self.item = item
+	def __init__(self, name):
+		self.name = name
 
 class Give:
-	def __init__(self, var):
-		self.var = var
+	def __init__(self, var, script):
+		self.var    = var
+		self.script = script
 
 class Love:
 	def __init__(self, val):
@@ -103,7 +104,10 @@ class ScriptInterpreter:
 		elif isinstance(s, Take):
 			runner.take(s)
 		elif isinstance(s, Give):
-			self.script = runner.give(s, self.script)
+			s = runner.give(s, self.script)
+			
+			if s != None:
+				self.script = s
 		elif isinstance(s, Route):
 			res = runner.route(s)
 			self.script = s.scripts[res]

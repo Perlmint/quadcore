@@ -74,6 +74,8 @@ class DialogBox(pygame.sprite.Sprite):
         self.page = 0
 
         self.visable = False
+        
+        self.item_selection = False
 
         self._setUpSound()
 

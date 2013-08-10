@@ -22,6 +22,9 @@ def GameOver(data):
 	pass
 
 die_script = [
+	Take(u"아이템"),
+	Take(u"뷁"),
+	Give(None, dict([(None, ["기본값"]), (u"아이템", ["아이템을 주었다"])])),
 	Conversation(Self(), u"푹찍"),
 	Conversation(Self(), u"아잉"),
 	Love(-10),

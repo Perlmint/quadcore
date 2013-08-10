@@ -344,11 +344,22 @@ class Hero(BaseSprite):
                     if number >= len(self.world.dialog.choices['choices']):
                         break
 
-                    scr = self.world.dialog.choices['choices'][number].script
-                    if scr != None:
-                        self.action = self.action_object.action(scr)
-   
-                    self.world.dialog.choiceSelected()
+                    if self.world.dialog.item_selection:
+                        sel = self.world.dialog.choices['choices'][number]
+                        scr = sel.script
+                        
+                        del self.world.loveee.player.items[number]
+                        
+                        if scr != None:
+                            self.action = self.action_object.action(scr)
+                            
+                        self.world.dialog.item_selection = False
+                    else:
+                        scr = self.world.dialog.choices['choices'][number].script
+                        if scr != None:
+                            self.action = self.action_object.action(scr)
+                    
+                        self.world.dialog.choiceSelected()
 
         for i in range(len(keys_pressed_is)):
             if keys_pressed_is[i]:

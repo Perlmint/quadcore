@@ -6,8 +6,8 @@ class Item:
 		self.price = price
 
 items = [
-	Item("아이템",	1000),
-	Item("뷁",	2000),
+	Item(u"아이템",	1000),
+	Item(u"뷁",	2000),
 ]
 
 def get_items():
@@ -17,4 +17,9 @@ def get_items():
 		ret[i.name] = i
 
 	return ret
+	
+def get_item(name):
+	d = get_items()
+	
+	return d[name]
 
