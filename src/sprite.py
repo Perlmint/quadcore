@@ -30,6 +30,9 @@
 import pygame
 import math
 from random import randint
+import script
+import runner
+import heroine
 ## end of import installed library
 
 ## import custom library
@@ -325,9 +328,9 @@ class Hero(BaseSprite):
         if keys_pressed_is[pygame.K_z]:
             collideEntityIndex = self.actionCollideRect.collidelistall(self.world.entities)
             if len(collideEntityIndex) > 1:
-##                print(collideEntityIndex)
                 for index in collideEntityIndex:
                     if not index == self.world.entities.index(self):
+
                         self.world.entities[index].action()
                         break
 ##                    if self.world.entities[index].category == "npc":
@@ -342,7 +345,7 @@ class Npc(BaseSprite):
 
     """
 
-    def __init__(self):
+    def __init__(self, name = "None"):
         BaseSprite.__init__(self)
         self.category = "npc"
         self.walking_mode = 0
@@ -353,9 +356,14 @@ class Npc(BaseSprite):
         self.current_direction = "up"
         self.direction_change_frq = 0 
         self.current_frequency = 0
+        self.name = name
+        self.script = script.test;
 
     def action(self):
-	pass
+        i = script.ScriptInterpreter(self.script)
+        heroine.heroines[0].setWorld(self.world)
+        i.run(runner.CliRunner(None, heroine.heroines[0], None))      
+    	pass
 
     def set_walking_mode(self, mode):
         """

@@ -12,6 +12,8 @@ class Heroine:
 		self.love = 0
 
 		self.status = "none"
+	def setWorld(self, world):
+		self.world = world
 
 heroines = [
 	Heroine("은로리", [script.test], {

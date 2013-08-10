@@ -41,9 +41,9 @@ class Zelda(sprite.Npc):
         super(Zelda, self).__init__()
         self.set_walking_mode(0)
         self.set_pos(800,600)
-        self.load_sprite_sheet(os.path.join("..", "graphics", "Characters", "Actor3.png"), (32,32), (96,0), (96,128))
+        self.load_sprite_sheet(os.path.join("..", "graphics", "Characters", "../Faces/cat.gif"), (32,32), (96,0), (96,128))
         self.start = False
-
+        
 
     def action(self):
         if self.start and not self.world.dialog.visable:
@@ -65,10 +65,7 @@ class Zelda(sprite.Npc):
             self.start = False
 
         if self.world and not self.world.dialog.visable:
-            self.world.dialog.setMessage(["This mini game is not working properly now.",
-                                         "You can go to the mini game folder and run the game by itself"])
+            self.world.dialog.setMessage({"msgList" : ["This mini game is not working properly now.",
+                                         "You can go to the mini game folder and run the game by itself"],
+                                         "image" : "cat.gif"})
         self.start = True
-
-
-if __name__ == '__main__':
-    npc = MyRpg()

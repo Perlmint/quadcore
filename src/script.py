@@ -134,15 +134,15 @@ live_script = [
 ]
 
 test = [
-	Background(Self()),
-	Conversation(Self(), "나는 너가 좋아"),
-	Conversation(Self(), "그러니 죽어주면 좋겠어"),
-	Take(item.Item("좋은 아이템", 1000)),
-	Give(None),
-	"죽어야 하나 고민이네",
-	Choice("죽을까", [
-		Selection("죽는다", die_script),
-		Selection("도망간다", live_script),
-	])
+	#Background(Self()),
+	Conversation(Self(), "FUck you"),
+	#Conversation(Self(), "그러니 죽어주면 좋겠어"),
+	#Take(item.Item("좋은 아이템", 1000)),
+	#Give(None),
+	#"죽어야 하나 고민이네",
+	#Choice("죽을까", [
+	#	Selection("죽는다", die_script),
+	#	Selection("도망간다", live_script),
+	#])
 ]
 

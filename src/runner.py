@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import script
+import dialog
 
 class Runner:
 	def narr(self, s):
@@ -51,10 +52,11 @@ class CliRunner(Runner):
 		self.loveee  = loveee
 		self.heroine = heroine
 		self.place   = place
+		self.dialog = heroine.world.dialog
 
 	def narr(self, s):
 		print s
-		raw_input()
+		dialog.setMessage({"msgList" : [s]})
 
 	def conv(self, s):
 		if isinstance(s.name, script.Self):
@@ -62,12 +64,11 @@ class CliRunner(Runner):
 		else:
 			name = s.name
 
-		print name + ":\t" + s.text
-		raw_input()
+		self.dialog.setMessage({"msgList" : [name + ":\t" + s.text], "image" : "cat.gif"})
 
 	def choice(self, s):
 		print "선택지: " + s.question
-		print
+		dialog.setMessage({"msgList" : ["선택지: " + s.question]})
 
 		no = 0
 
