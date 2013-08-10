@@ -157,3 +157,8 @@ class GameRunner(Runner):
 
 	def love(self, s):
 		self.heroine.love += s.val
+		
+	def route(self, s):
+		i = s.var(self.loveee, self.heroine, self.place)
+		
+		return s.script[i]

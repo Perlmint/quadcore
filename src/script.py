@@ -98,8 +98,6 @@ class ScriptInterpreter:
 			runner.conv(s)
 		elif isinstance(s, Choice):
 			res = runner.choice(s)
-
-			self.script = s.selections[res].script
 		elif isinstance(s, EndScript):
 			runner.end()
 			self.script = None
