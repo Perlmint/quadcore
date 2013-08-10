@@ -61,10 +61,10 @@ class Npc(sprite.Npc):
         r = runner.GameRunner(self.world.loveee, h, p, self.world.dialog)
         
         def doit():
-            print "wahaha"
             ret = i.run(r)
             if not ret:
                 self.set_walking_mode(0)
+            
             return ret
 
         self.set_walking_mode(2)

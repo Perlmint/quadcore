@@ -55,7 +55,6 @@ class CliRunner(Runner):
 		self.dialog = heroine.world.dialog
 
 	def narr(self, s):
-		print s
 		dialog.setMessage({"msgList" : [s]})
 
 	def conv(self, s):
