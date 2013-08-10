@@ -75,7 +75,6 @@ class World(object):
                 newHeroine.speed_is(3)
                 newHeroine.walking_boundary_is(worldMap.size[0], worldMap.size[1])
                 newHeroine.set_pos(random.uniform(0, worldMap.size[0]), random.uniform(0, worldMap.size[1]))
-                print newHeroine.rect
                 self.addEntities(newHeroine)
 
 	# player

@@ -8,5 +8,6 @@ event = [
 {'pos':(64,90), 'action':'home'}
 ]
 heroine = [
-{'name':"h1", 'probability':1}
+{'name':"sekai", 'probability':1},
+{'name':"ahri", 'probability':1}
 ]

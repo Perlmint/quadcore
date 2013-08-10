@@ -47,60 +47,6 @@ class Runner:
 	def se(self, s):
 		pass
 
-class CliRunner(Runner):
-	def __init__(self, loveee, heroine, place):
-		self.loveee  = loveee
-		self.heroine = heroine
-		self.place   = place
-		self.dialog = heroine.world.dialog
-
-	def narr(self, s):
-		dialog.setMessage({"msgList" : [s]})
-
-	def conv(self, s):
-		if isinstance(s.name, script.Self):
-			name = self.heroine.name
-		else:
-			name = s.name
-
-		self.dialog.setMessage({"msgList" : [name + u":\t" + s.text], "image" : "cat.gif"})
-
-	def choice(self, s):
-		print u"선택지: " + s.question
-		dialog.setMessage({"msgList" : [u"선택지: " + s.question]})
-
-		no = 0
-
-		for i in s.selections:
-			print u"%d %s" % (no, i.name)
-			no += 1
-
-		return input(u"선택: ")
-
-	def take(self, s):
-		print s.item.name + u"을 받았다!"
-
-	def give(self, s, script):
-		if not self.loveee.player.items:
-			print u"줄 아이템이 없다"
-			return script
-
-		print u"무엇을 줄0까:"
-		print
-
-		no = 0
-
-		for i in self.loveee.player.items:
-			print u"%d % " % (no, i.name)
-			no += 1
-
-		res = input(u"선택: ")
-
-		return script
-
-	def love(self, s):
-		self.heroine.love += s.val
-
 class GameRunner(Runner):
 	def __init__(self, loveee, heroine, place, dialog):
 		self.loveee  = loveee
@@ -140,20 +86,8 @@ class GameRunner(Runner):
 
 	def give(self, s, script):
 		if not self.loveee.player.items:
-			print u"줄 아이템이 없다"
 			return script
-
-		print u"무엇을 줄까:"
-		print
-
-		no = 0
-
-		for i in self.loveee.player.items:
-			print "%d % " % (no, i.name)
-			no += 1
-
-		res = input(u"선택: ")
-
+		
 		return script
 
 	def love(self, s):
@@ -162,4 +96,4 @@ class GameRunner(Runner):
 	def route(self, s):
 		i = s.var(self.loveee, self.heroine, self.place)
 		
-		return s.script[i]
+		return i

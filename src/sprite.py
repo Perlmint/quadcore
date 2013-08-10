@@ -307,38 +307,47 @@ class Hero(BaseSprite):
         keys_pressed_is = pygame.key.get_pressed()
         currentTime = pygame.time.get_ticks()
 
-        if keys_pressed_is[pygame.K_RIGHT]:
-            self.move("right")
-        elif keys_pressed_is[pygame.K_LEFT]:
-            self.move("left")
-        if keys_pressed_is[pygame.K_UP]:
-            self.move("up")
-        elif keys_pressed_is[pygame.K_DOWN]:
-            self.move("down")
+        if self.world.dialog.visable == False:
+            if keys_pressed_is[pygame.K_RIGHT]:
+                self.move("right")
+            elif keys_pressed_is[pygame.K_LEFT]:
+                self.move("left")
+            if keys_pressed_is[pygame.K_UP]:
+                self.move("up")
+            elif keys_pressed_is[pygame.K_DOWN]:
+                self.move("down")
         
         if keys_pressed_is[pygame.K_SPACE]:
-            if self.action == None:
-                if self.world.dialog.pause == True:
-                    collideEntityIndex = self.actionCollideRect.collidelistall(self.world.entities)
+            if currentTime - self.lastPressedTime[pygame.K_SPACE] > 100:
 
-                    if len(collideEntityIndex) > 1:
-                        for index in collideEntityIndex:
-                            if not index == self.world.entities.index(self):
-                                self.action_object = self.world.entities[index]
-                                self.action = self.action_object.action()
-                                break
-            else:
-                if currentTime - self.lastPressedTime[pygame.K_SPACE] >= 100:
+                if self.action == None:
+                    if self.world.dialog.pause == True:
+                        collideEntityIndex = self.actionCollideRect.collidelistall(self.world.entities)
+
+                        if len(collideEntityIndex) > 1:
+                            for index in collideEntityIndex:
+                                if not index == self.world.entities.index(self):
+                                    self.action_object = self.world.entities[index]
+                                    self.action = self.action_object.action()
+                                    break
+
+                elif self.world.dialog.choices == None:
                     if not self.action():
+                        self.lastPressedTime[pygame.K_SPACE] = self.lastPressedTime[pygame.K_SPACE] + 1000
                         self.action = None
 
         if(self.world.dialog.choices != None):
             for i in range(pygame.K_1, pygame.K_9 + 1):
                 if(keys_pressed_is[i]):
                     number = i - pygame.K_1
+
+                    if number >= len(self.world.dialog.choices['choices']):
+                        break
+
                     scr = self.world.dialog.choices['choices'][number].script
-                    self.world.dialog.setMessage({"msgList" : scr[0]})
-                    self.action = self.action_object.action(scr)
+                    if scr != None:
+                        self.action = self.action_object.action(scr)
+   
                     self.world.dialog.choiceSelected()
 
         for i in range(len(keys_pressed_is)):

@@ -63,14 +63,14 @@ class DialogBox(pygame.sprite.Sprite):
         self.startPos = 0
         self.pause = True
 
-        self.messages = ""
+        self.messages = None
         self.personImage = None
         self.choices = None
 
-        self.margine = (10, 20)
+        self.margine = (10, 30)
         self.font = pygame.font.Font(os.path.join("..", "font","default.ttf"), 18)
 
-        self.pages = len(self.messages)
+        self.pages = 0
         self.page = 0
 
         self.visable = False
@@ -145,7 +145,7 @@ class DialogBox(pygame.sprite.Sprite):
                 
                 surface.blit(self.choiceImage, (xCenter, i * (self.choiceImage.get_height() + yMargin)))
 
-                ren = self.font.render(choice.name, False, (255,255,255))
+                ren = self.font.render(str(i) + ". " + choice.name, False, (255,255,255))
                 surface.blit(ren, (xCenter + 10,i * (self.choiceImage.get_height() + yMargin) + 10))
 
     def _makeArrow(self):
@@ -204,6 +204,7 @@ class DialogBox(pygame.sprite.Sprite):
             return
 
         self.choices = None
+        self.messages = None
         self.pause = True
 
     def setMessage(self, content):
@@ -236,3 +237,6 @@ class DialogBox(pygame.sprite.Sprite):
         self.messages = None
         self.pause = False
         self.visable = True
+        self.currMessage = ""
+
+        self.resetBox()

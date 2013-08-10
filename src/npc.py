@@ -50,16 +50,16 @@ class Npc(sprite.Npc):
         self.category = "npc"
         self.current_frequency = 60
         self.movement_x = self.movement_y = self.speed = 2
+        self.h = heroine.heroineCharacters[self.name]
 
     def action(self, scr = None):
-        h = heroine.heroines[self.name]
         p = place.places[self.world.map.name]
-        
-        if not scr:
-            scr = h.global_scr[0]
+
+        if scr == None:
+            scr = self.h.global_scr[0]
         
         i = script.ScriptInterpreter(scr)
-        r = runner.GameRunner(self.world.loveee, h, p, self.world.dialog)
+        r = runner.GameRunner(self.world.loveee, self.h, p, self.world.dialog)
         
         def doit():
             ret = i.run(r)

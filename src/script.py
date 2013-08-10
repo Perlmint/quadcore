@@ -11,10 +11,10 @@ class Money:
 		self.value = value
 
 class Route:
-	def __init__(self, name, var, script):
+	def __init__(self, name, var, scripts):
 		self.name   = name
 		self.var    = var
-		self.script = script
+		self.scripts = scripts
 
 class Conversation:
 	def __init__(self, name, text):
@@ -59,11 +59,6 @@ class Give:
 	def __init__(self, var):
 		self.var = var
 
-class Routing:
-	def __init__(self, name, routes):
-		self.name   = name
-		self.routes = routes
-
 class Love:
 	def __init__(self, val):
 		self.val = val
@@ -86,7 +81,7 @@ class ScriptInterpreter:
 			return False
 			
 		s = self.script.pop(0)
-		
+
 		if isinstance(s, (str, unicode)):
 			runner.narr(s)	
 		elif isinstance(s, Conversation):
@@ -109,10 +104,11 @@ class ScriptInterpreter:
 			runner.take(s)
 		elif isinstance(s, Give):
 			self.script = runner.give(s, self.script)
-		elif isinstance(s, Routing):
+		elif isinstance(s, Route):
 			res = runner.route(s)
+			self.script = s.scripts[res]
 
-			self.script = s.routes[res].script
+			self.run(runner)
 		elif isinstance(s, Love):
 			runner.love(s)
 		elif isinstance(s, BGM):
@@ -121,37 +117,3 @@ class ScriptInterpreter:
 			runner.se(s)
 
 		return True
-
-def importScript(name):
-    return __import__('scripts.%s' % name, fromlist=['*']).script
-
-die_script = [
-	u"푹찍",
-	EndScript(),
-]
-
-live_script = [
-	u"도망",
-	EndScript(),
-]
-
-test = [
-	u"왜안돼",
-	u"시발",
-	Conversation(Self(), u"하하1"),
-	#EndScript()
-	#Background(Self()),
-	#Conversation(Self(), u"하하"),
-	#Conversation(Self(), u"그러니 죽어주면 좋겠어"),
-	#Take(item.Item(u"좋은 아이템", 1000)),
-	#Give(None),
-	#u"죽어야 하나 고민이네",
-	Choice(u"죽을까", [
-		Selection(u"죽는다", die_script),
-		Selection(u"도망간다", live_script),
-	]),
-	"wahaha",
-	EndScript()
-]
-
-sekai = importScript('sekai')
