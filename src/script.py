@@ -67,6 +67,14 @@ class Love:
 	def __init__(self, val):
 		self.val = val
 
+class BGM:
+	def __init__(self, name):
+		self.name = name
+
+class SE:
+	def __init__(self, name):
+		self.name = name
+
 
 class ScriptInterpreter:
 	def __init__(self, script):
@@ -107,6 +115,10 @@ class ScriptInterpreter:
 			self.script = s.routes[res].script
 		elif isinstance(s, Love):
 			runner.love(s)
+		elif isinstance(s, BGM):
+			runner.bgm(s)
+		elif isinstance(s, SE):
+			runner.se(s)
 
 		return True
 

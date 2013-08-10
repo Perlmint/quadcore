@@ -40,6 +40,12 @@ class Runner:
 	def love(self, s):
 		pass
 
+	def bgm(self, s):
+		pass
+
+	def se(self, s):
+		pass
+
 class CliRunner(Runner):
 	def __init__(self, loveee, heroine, place):
 		self.loveee  = loveee
