@@ -296,7 +296,6 @@ class Hero(BaseSprite):
             self.lastPressedTime.append(0)
 
         self.action = None
-        self.last_action = 0
 
     def update(self):
         BaseSprite.update(self)
@@ -317,21 +316,24 @@ class Hero(BaseSprite):
             self.move("down")
         
         if keys_pressed_is[pygame.K_SPACE]:
-            if currentTime - self.lastPressedTime[pygame.K_SPACE] >= 1000:
+            if self.action == None:
                 if self.world.dialog.pause == True:
                     collideEntityIndex = self.actionCollideRect.collidelistall(self.world.entities)
 
                     if len(collideEntityIndex) > 1:
                         for index in collideEntityIndex:
                             if not index == self.world.entities.index(self):
-                                self.world.entities[index].action()
+                                self.action = self.world.entities[index].action()
                                 break
+            else:
+                if currentTime - self.lastPressedTime[pygame.K_SPACE] >= 1000:
+                    if self.action() == None:
+                        self.action = None
 
         if(self.world.dialog.choices != None):
             for i in range(pygame.K_1, pygame.K_9 + 1):
                 if(keys_pressed_is[i]):
                     number = i - pygame.K_0
-                    print self.world.dialog.choices
                     self.world.dialog.choices['choices'][number].script[1].action()
                     self.world.dialog.choiceSelected()
 
@@ -340,7 +342,11 @@ class Hero(BaseSprite):
                 self.lastPressedTime[i] = currentTime
 
 class Npc(BaseSprite):
-    def __init__(self, name = "None"):
+    """
+
+    """
+
+    def __init__(self):
         BaseSprite.__init__(self)
         self.category = "npc"
         self.walking_mode = 1
@@ -349,8 +355,7 @@ class Npc(BaseSprite):
         self.current_direction = "up"
 
     def action(self):
-        i = script.ScriptInterpreter(self.script)
-        i.run(runner.GameRunner(None, heroine.heroines[0], None, self.world.dialog))      
+        pass
 
     def set_walking_mode(self, mode):
         """
@@ -364,4 +369,4 @@ class Npc(BaseSprite):
         pass
  
     def direction_handling(self):
-	   pass
+        pass

@@ -127,16 +127,12 @@ class GameRunner(Runner):
 		self.dialog.setMessage({"msgList" : [name + u":\t" + s.text], "image" : "cat.gif"})
 
 	def choice(self, s):
-		print u"선택지: " + s.question
-		self.dialog.setMessage({"msgList" : [u"선택지: " + s.question]})
+		self.dialog.setChoices({
+			"question" : u"선택지 : " + s.question,
+			"choices" : s.selections
+			})
 
-		no = 0
-
-		for i in s.selections:
-			print "%d %s" % (no, i.name)
-			no += 1
-
-		return input(u"선택: ")
+		return 0
 
 	def take(self, s):
 		print s.item.name + u"을 받았다!"

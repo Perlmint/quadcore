@@ -32,7 +32,8 @@ class Choice:
 		self.selections = selections
 
 class EndScript:
-	pass
+	def action(self):
+		print "Boo"
 
 class CallbackScript:
 	def __init__(self, callback, data):
@@ -140,16 +141,17 @@ test = [
 	Conversation(Self(), u"하하2"),
 	Conversation(Self(), u"하하3"),
 	Conversation(Self(), u"하하4"),
-	EndScript()
+	#EndScript()
 	#Background(Self()),
 	#Conversation(Self(), u"하하"),
 	#Conversation(Self(), u"그러니 죽어주면 좋겠어"),
 	#Take(item.Item(u"좋은 아이템", 1000)),
 	#Give(None),
 	#u"죽어야 하나 고민이네",
-	#Choice(u"죽을까", [
-#		Selection(u"죽는다", die_script),
-		#Selection(u"도망간다", live_script),
-	#])
+	Choice(u"죽을까", [
+		Selection(u"죽는다", die_script),
+		Selection(u"도망간다", live_script),
+	]),
+	EndScript()
 ]
 

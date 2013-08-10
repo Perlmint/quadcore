@@ -28,10 +28,77 @@
 import sprite
 import os
 import sys
+import script
+import runner
+import heroine, random, place
 
 class Event(sprite.Npc):
     def __init__(self):
         super(Event, self).__init__()
+        self.movement_x = self.movement_y = self.speed = 0
+        self.direction_change_frq = 0 
+        self.current_frequency = 0
 
     def action(self):
+	pass
+
+class Npc(sprite.Npc):
+    def __init__(self, name = "None"):
+        super(Npc, self).__init__()
+        self.name = name
+        self.category = "npc"
+        self.script = script.test;
+        self.current_frequency = 60
+        self.movement_x = self.movement_y = self.speed = 2
+
+    def action(self):
+        h = heroine.heroines[self.name]
+        p = place.places[self.world.map.name]
+        i = script.ScriptInterpreter(h.global_scr[0])
+        r = runner.GameRunner(self.world.loveee, h, p, self.world.dialog)
+        
+        def doit():
+            ret = i.run(r)
+            if not ret:
+                self.set_walking_mode(0)
+            return ret
+
+        if not doit():
+            return None
+
+        self.set_walking_mode(2)
+            
+        return doit
+
+    def set_walking_mode(self, mode):
+        """
+            mode = 0, 1, or 2
+
+            0 is standstill, 1 is always walking, 2 is walking stop.
+        """
+        self.walking_mode = mode
+
+    def other_update(self):
+        if self.walking_mode == 2:
+            return
+        seed = random.random()
+        if seed < 0.05:
+          self.set_walking_mode(1 if self.walking_mode == 0 else 0)
+        if self.walking_mode == 0:
+          return
+        seed = random.random()
+        direction = self.direction_list.index(self.current_direction)
+        if seed < 0.03:
+            direction = direction - 1
+        elif seed < 0.06:
+            direction = direction + 1
+        if direction < 0:
+            direction = 4 + direction
+        if direction > 3:
+            direction = direction - 4
+        if self.direction_list.index(self.current_direction) != direction:
+            self.current_direction = self.direction_list[direction]
+        self.move(self.current_direction)
+
+    def direction_handling(self):
 	pass
