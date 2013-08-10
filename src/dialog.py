@@ -225,12 +225,11 @@ class DialogBox(pygame.sprite.Sprite):
                 self.icon = pygame.Surface((0,0)).convert()
             else:
                 self.personImage = content["image"]
-                #setting icon for now it is just the same icon all the time
+
                 image = pygame.image.load(os.path.join("..", "graphics", "Faces", self.personImage)).convert_alpha()
                 rect = image.get_rect()
                 
-                self.icon = pygame.Surface((rect.width, rect.height)).convert()
-                self.icon.fill((100,80,150))
+                self.icon = pygame.Surface((rect.width, rect.height), pygame.SRCALPHA, 32).convert_alpha()
                 self.icon.blit(image, (0,0))
 
     def setChoices(self, choices):
