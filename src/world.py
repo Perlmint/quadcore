@@ -29,6 +29,7 @@ from map import Map
 import npc
 import sprite
 from camera3 import Camera
+import character.spriteinfo as spriteinfo
 
 class World(object):
 
@@ -56,13 +57,14 @@ class World(object):
         for event in _map.event:
             eventEntity = npc.Event()
             #eventEntity.load_sprite_sheet(os.path.join("..", "graphics", "System", "collision.png"), (32,32), (0,0), (32,32))
-            eventEntity.load_sprite_sheet(os.path.join("..", "graphics", "Characters", "Actor1.png"), (32,32), (0,0), (96,128))
+            eventEntity.load_sprite_sheet(os.path.join("..", "graphics", "Characters", "Actor2.png"), (32,32), (0,0), (96,128))
             eventEntity.set_pos(event['pos'][0], event['pos'][1])
+#            eventEntity.action = lambda:
             self.addEntities(eventEntity)
 
 	# player
         player = sprite.Hero()
-        player.load_sprite_sheet(os.path.join("..", "graphics", "Characters", "Actor1.png"), (32,32), (0,0), (96,128))
+        player.load_sprite_sheet(spriteinfo.player["sprite"], spriteinfo.player["size"], spriteinfo.player["startpos"], spriteinfo.player["sheetsize"])
         player.speed_is(3)
         player.walking_boundary_is(worldMap.size[0], worldMap.size[1])
         player.set_pos(_map.player['pos'][0], _map.player['pos'][1])

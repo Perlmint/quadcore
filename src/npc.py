@@ -36,39 +36,5 @@ class Event(sprite.Npc):
     def action(self):
 	pass
 
-class Zelda(sprite.Npc):
-    def __init__(self):
-        super(Zelda, self).__init__()
-        self.set_walking_mode(0)
-        self.set_pos(800,600)
-        self.load_sprite_sheet(os.path.join("..", "graphics", "Characters", "Actor3.png"), (32,32), (96,0), (96,128))
-        self.start = False
-
-
-    def action(self):
-        if self.start and not self.world.dialog.visable:
-            oldDir = os.getcwd()
-            gameDir = "../mini game/Zelda-love-Candy-0.3"
-            os.chdir(gameDir)
-            sys.path.insert(0, os.getcwd())
-            sys.path.insert(1, "../mini game/Zelda-love-Candy-0.3/lib")
-            sys.path.insert(2, "../mini game/Zelda-love-Candy-0.3/data")
-            import game
-            try:
-                game.main()
-            except:
-                pass
-            os.chdir(oldDir)
-
-            self.world.dialog.setMessage(["I told you that it is still nnot now working! Thank you!"])
-            self.kill()
-            self.start = False
-
-        if self.world and not self.world.dialog.visable:
-            self.world.dialog.setMessage(["This mini game is not working properly now.",
-                                         "You can go to the mini game folder and run the game by itself"])
-        self.start = True
-
-
 if __name__ == '__main__':
     npc = MyRpg()

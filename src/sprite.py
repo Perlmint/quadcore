@@ -290,7 +290,6 @@ class BaseSprite(pygame.sprite.Sprite):
             # not sure but this animation has to do add and substract frame
             # back and forward
             self.current_frame += self.frame
-            print self.current_frame
             if self.current_frame < 0:
                 self.frame *= -1
                 self.current_frame += 1
