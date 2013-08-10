@@ -31,15 +31,20 @@ class Runner:
 	def take(self, s):
 		pass
 
-	def give(self, s):
+	def give(self, s, script):
 		return s
 
 	def route(self, s):
 		return 0
 
+	def love(self, s):
+		pass
+
 class CliRunner(Runner):
-	def __init__(self, name):
-		self.name = name
+	def __init__(self, loveee, heroine, place):
+		self.loveee  = loveee
+		self.heroine = heroine
+		self.place   = place
 
 	def narr(self, s):
 		print s
@@ -47,7 +52,7 @@ class CliRunner(Runner):
 
 	def conv(self, s):
 		if isinstance(s.name, script.Self):
-			name = self.name
+			name = self.heroine.name
 		else:
 			name = s.name
 
@@ -66,10 +71,28 @@ class CliRunner(Runner):
 
 		return input("선택: ")
 
-t = script.ScriptInterpreter(script.test)
-runner = CliRunner("히로인")
+	def take(self, s):
+		print s.item.name + "을 받았다!"
 
-while t.run(runner):
-	pass
+	def give(self, s, script):
+		if not self.loveee.player.items:
+			print "줄 아이템이 없다"
+			return script
+
+		print "무엇을 줄까:"
+		print
+
+		no = 0
+
+		for i in self.loveee.player.items:
+			print "%d % " % (no, i.name)
+			no += 1
+
+		res = input("선택: ")
+
+		return script
+
+	def love(self, s):
+		self.heroine.love += s.val
 
 
