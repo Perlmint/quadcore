@@ -6,5 +6,5 @@ event = [
 {'pos':(32 * 2, 32 * 4), 'action':'town'},
 ]
 heroine = [
-{'name':"h1", 'probability':1}
+{'name':"sekai", 'probability':1}
 ]
