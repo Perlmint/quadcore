@@ -32,8 +32,7 @@ class Choice:
 		self.selections = selections
 
 class EndScript:
-	def action(self):
-		print "Boo"
+	pass
 
 class CallbackScript:
 	def __init__(self, callback, data):
@@ -90,10 +89,8 @@ class ScriptInterpreter:
 			
 		s = self.script.pop(0)
 		
-		print s
-
-		if isinstance(s, str):
-			runner.narr(s)
+		if isinstance(s, [str, unicode]):
+			runner.narr(s)	
 		elif isinstance(s, Conversation):
 			runner.conv(s)
 		elif isinstance(s, Choice):
