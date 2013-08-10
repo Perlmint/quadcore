@@ -30,6 +30,7 @@ import npc
 import sprite
 from camera3 import Camera
 import character.spriteinfo as spriteinfo
+import random
 
 class World(object):
 
@@ -61,6 +62,16 @@ class World(object):
             eventEntity.set_pos(event['pos'][0], event['pos'][1])
 #            eventEntity.action = lambda:
             self.addEntities(eventEntity)
+
+        for heroine in _map.heroine:
+            if random.random() < heroine['probability']:
+                newHeroine = sprite.Npc()
+                newHeroine.load_sprite_sheet(spriteinfo.heroine[heroine['name']]["sprite"], spriteinfo.heroine[heroine['name']]["size"], spriteinfo.heroine[heroine['name']]["startpos"], spriteinfo.heroine[heroine['name']]["sheetsize"])
+                newHeroine.speed_is(3)
+                newHeroine.walking_boundary_is(worldMap.size[0], worldMap.size[1])
+                newHeroine.set_pos(random.uniform(0, worldMap.size[0]), random.uniform(0, worldMap.size[1]))
+                print newHeroine.rect
+                self.addEntities(newHeroine)
 
 	# player
         player = sprite.Hero()
@@ -109,12 +120,15 @@ class World(object):
         self.camera.render(surface, self.map, 0)
 ##        surface.blit(self.player.image, self.camera.translate(self.player.rect))
         for entity in self.entities:
+            if entity.__class__.__name__ == "Event":
+                continue
             #check to render only the entities that is visible
             translatedRect = self.camera.translate(entity.rect)
             if (translatedRect.left <= -32 or translatedRect.right >= 672 or translatedRect.top <= -32 or
                 translatedRect.bottom >= 512):
                 continue
             surface.blit(entity.image, self.camera.translate(entity.rect))
+
 
         #after bliting all entities in the world, we blit the over layer on the top
         for layerIndex in xrange(1, len(self.map.tmxMap.layers)):

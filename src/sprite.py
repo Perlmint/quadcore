@@ -193,7 +193,7 @@ class BaseSprite(pygame.sprite.Sprite):
     def _check_collision(self):
         #same as above, but check again world's entities
         if self.world:
-            self.collidedEntitiesIndex = self.rect.collidelistall(self.world.entities)
+            self.collidedEntitiesIndex = self.rect.collidelistall([entity for entity in self.world.entities if entity.__class__.__name__ != "Event"])
 
             #listOfCollideEntites will have at least one entity which this entity
             #don't want to copy the world.entities list as above
@@ -290,7 +290,6 @@ class BaseSprite(pygame.sprite.Sprite):
             # not sure but this animation has to do add and substract frame
             # back and forward
             self.current_frame += self.frame
-            print self.current_frame
             if self.current_frame < 0:
                 self.frame *= -1
                 self.current_frame += 1
