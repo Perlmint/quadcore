@@ -30,6 +30,10 @@
 import pygame
 import math
 import random, time
+import copy
+import script
+import runner
+import heroine
 ## end of import installed library
 
 ## import custom library
@@ -233,22 +237,6 @@ class BaseSprite(pygame.sprite.Sprite):
                 self.rect.top = 0
             elif self.rect.bottom > self.boundary[1]:
                 self.rect.bottom = self.boundary[1]
-##
-##        #unwalkable layer checking
-##        tile_x = int(self.rect.centerx / 32)
-##        tile_y = int(self.rect.centery / 32)
-##
-##        if self.world.map.unwalkableList[tile_y][tile_x]:
-##            self.is_collided = True
-##            if self.direction == "up":
-##                self.rect.centery += self.movement_y
-##            elif self.direction == "down":
-##                self.rect.centery -= self.movement_y
-##            if self.direction == "left":
-##                self.rect.centerx += self.movement_y
-##            elif self.direction == "right":
-##                self.rect.centerx -= self.movement_y
-
 
     def add_unwalkable_layer(self, collLayer):
         self.unwalkable_layer = collLayer
@@ -298,13 +286,14 @@ class BaseSprite(pygame.sprite.Sprite):
                 self.current_frame += self.frame
 
 class Hero(BaseSprite):
-    """
-
-    """
     def __init__(self):
         BaseSprite.__init__(self)
         self.actionCollideRect = pygame.Rect(self.image.get_rect().inflate(20,20))
         self.category = "player"
+        self.lastPressedTime = []
+
+        for i in range(len(pygame.key.get_pressed())):
+            self.lastPressedTime.append(0)
 
         self.action = None
         self.last_action = 0
@@ -316,46 +305,42 @@ class Hero(BaseSprite):
 
     def check_event(self):
         keys_pressed_is = pygame.key.get_pressed()
-        
-        if not self.action:
-            if keys_pressed_is[pygame.K_RIGHT]:
-                self.move("right")
-            elif keys_pressed_is[pygame.K_LEFT]:
-                self.move("left")
-            if keys_pressed_is[pygame.K_UP]:
-                self.move("up")
-            elif keys_pressed_is[pygame.K_DOWN]:
-                self.move("down")
+        currentTime = pygame.time.get_ticks()
 
-            if keys_pressed_is[pygame.K_z]:
-                cur_time = time.time()
-                
-                if cur_time - self.last_action > 1:
-                    self.last_action = cur_time
-                
+        if keys_pressed_is[pygame.K_RIGHT]:
+            self.move("right")
+        elif keys_pressed_is[pygame.K_LEFT]:
+            self.move("left")
+        if keys_pressed_is[pygame.K_UP]:
+            self.move("up")
+        elif keys_pressed_is[pygame.K_DOWN]:
+            self.move("down")
+        
+        if keys_pressed_is[pygame.K_SPACE]:
+            if currentTime - self.lastPressedTime[pygame.K_SPACE] >= 1000:
+                if self.world.dialog.pause == True:
                     collideEntityIndex = self.actionCollideRect.collidelistall(self.world.entities)
+
                     if len(collideEntityIndex) > 1:
                         for index in collideEntityIndex:
                             if not index == self.world.entities.index(self):
-                                print self.world.entities[index].__class__.__name__
-                                self.action = self.world.entities[index].action()
+                                self.world.entities[index].action()
                                 break
-        else:
-            if keys_pressed_is[pygame.K_z]:
-                cur_time = time.time()
-                
-                if cur_time - self.last_action > 1:
-                    self.last_action = cur_time
 
-                    if not self.action():
-                        self.action = None
+        if(self.world.dialog.choices != None):
+            for i in range(pygame.K_1, pygame.K_9 + 1):
+                if(keys_pressed_is[i]):
+                    number = i - pygame.K_0
+                    print self.world.dialog.choices
+                    self.world.dialog.choices['choices'][number].script[1].action()
+                    self.world.dialog.choiceSelected()
+
+        for i in range(len(keys_pressed_is)):
+            if keys_pressed_is[i]:
+                self.lastPressedTime[i] = currentTime
 
 class Npc(BaseSprite):
-    """
-
-    """
-
-    def __init__(self):
+    def __init__(self, name = "None"):
         BaseSprite.__init__(self)
         self.category = "npc"
         self.walking_mode = 1
@@ -364,7 +349,8 @@ class Npc(BaseSprite):
         self.current_direction = "up"
 
     def action(self):
-    	pass
+        i = script.ScriptInterpreter(self.script)
+        i.run(runner.GameRunner(None, heroine.heroines[0], None, self.world.dialog))      
 
     def set_walking_mode(self, mode):
         """
@@ -378,4 +364,4 @@ class Npc(BaseSprite):
         pass
  
     def direction_handling(self):
-	pass
+	   pass
