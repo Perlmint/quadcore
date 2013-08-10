@@ -11,6 +11,11 @@
    eJwtyVsKglAUQNFjWZG9MC1JUylL5z/DFnQ3rK8dEZGxYk3Ohi27+Len4MCRE2cu6Zdcqai5cadJ/0FLx5OegTH9F28mPnyZWfgBkzACvQ==
   </data>
  </layer>
+ <layer name="over" width="8" height="5">
+  <data encoding="base64" compression="zlib">
+   eJxjYBjcAAAAoAAB
+  </data>
+ </layer>
  <layer name="collision" width="8" height="5">
   <data encoding="base64" compression="zlib">
    eJxjYGBg0MKDQcAMiPWxyJlC5Y0YsANjKK2FQx4mbgLEBlCsC8R6UDZIHgB3dwRr
