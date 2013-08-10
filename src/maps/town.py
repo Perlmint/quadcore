@@ -11,6 +11,6 @@ event = [
 {'pos':(32 * 15, 32 * 14), 'action':'zoo'},
 ]
 heroine = [
-{'name':"sekai", 'probability':1},
-{'name':"ahri", 'probability':1}
+{'name':"sekai", 'probability':0.5},
+{'name':"ahri", 'probability':0.5}
 ]

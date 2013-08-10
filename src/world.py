@@ -79,7 +79,10 @@ class World(object):
                 newHeroine.load_sprite_sheet(spriteinfo.heroine[heroine['name']]["sprite"], spriteinfo.heroine[heroine['name']]["size"], spriteinfo.heroine[heroine['name']]["startpos"], spriteinfo.heroine[heroine['name']]["sheetsize"])
                 newHeroine.speed_is(3)
                 newHeroine.walking_boundary_is(worldMap.size[0], worldMap.size[1])
-                newHeroine.set_pos(random.uniform(0, worldMap.size[0]), random.uniform(0, worldMap.size[1]))
+                if "pos" in heroine:
+                    newHeroine.set_pos(heroine["pos"][0], heroine["pos"][1])
+                else:
+                    newHeroine.set_pos(random.uniform(0, worldMap.size[0]), random.uniform(0, worldMap.size[1]))
                 self.addEntities(newHeroine)
 
 	# player
@@ -131,22 +134,24 @@ class World(object):
         #assuming background layer is index 0
         self.camera.render(surface, self.map, 0)
 ##        surface.blit(self.player.image, self.camera.translate(self.player.rect))
-        for entity in self.entities:
-            if entity.__class__.__name__ == "Event":
-                continue
-            #check to render only the entities that is visible
-            translatedRect = self.camera.translate(entity.rect)
-            if (translatedRect.left <= -32 or translatedRect.right >= 672 or translatedRect.top <= -32 or
-                translatedRect.bottom >= 512):
-                continue
-            surface.blit(entity.image, self.camera.translate(entity.rect))
-
+        def renderEntity():
+            for entity in self.entities:
+                if entity.__class__.__name__ == "Event":
+                    continue
+                #check to render only the entities that is visible
+                translatedRect = self.camera.translate(entity.rect)
+                if (translatedRect.left <= -32 or translatedRect.right >= 672 or translatedRect.top <= -32 or
+                    translatedRect.bottom >= 512):
+                    continue
+                surface.blit(entity.image, self.camera.translate(entity.rect))
 
         #after bliting all entities in the world, we blit the over layer on the top
         for layerIndex in xrange(1, len(self.map.tmxMap.layers)):
-            if self.map.tmxMap.layers[layerIndex].name in ["collision", "over"]:
+            if self.map.tmxMap.layers[layerIndex].name == "collision":
                 continue
             self.camera.render(surface, self.map, layerIndex)
+            if self.map.tmxMap.layers[layerIndex].name == "over":
+                renderEntity()
 
 ##        if self.dialog.visable:
         self.dialog.draw(surface)
