@@ -43,18 +43,17 @@ class DialogBox(pygame.sprite.Sprite):
     #class constant for setting dialog location
     TOP = (320, 90)
     MIDDLE = (320, 240)
-    BOTTOM = (320, 390)
+    BOTTOM = (320, 480-52)
 
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         
         self.lock = False
 
-        self.bgk = pygame.image.load(os.path.join("..", "graphics", "System", "paper.jpg")).convert()
-        self.image = pygame.Surface((555, 135))
-        self.image.blit(self.bgk, (0,0))
+        self.bgk = pygame.image.load(os.path.join("..", "graphics", "System", "dialog.png")).convert_alpha()
+        self.resetBox()
         self.rect = self.image.get_rect()
-        self.rect.center = (320, 160)
+        self.rect.center = (320, 480 - 52)
         self.icon = None
         self._makeArrow()
         #use for advancing text
@@ -64,7 +63,7 @@ class DialogBox(pygame.sprite.Sprite):
         self.messages = ""
         self.personImage = None
 
-        self.margine = (10, 10)
+        self.margine = (10, 20)
 ##        self.font = pygame.font.SysFont("None", 30)
         self.font = pygame.font.Font(os.path.join("..", "font","default.ttf"), 18)
 
@@ -111,7 +110,7 @@ class DialogBox(pygame.sprite.Sprite):
         message = self.currMessage[self.startPos:self.endPos]
 
         for word in message.split():
-            ren = self.font.render(word + u" " , True, (255,255,255))
+            ren = self.font.render(word + u" " , True, (33,33,33))
             self.image.blit(ren, (xpos, ypos))
             w = ren.get_width()
             xpos += w
@@ -144,7 +143,9 @@ class DialogBox(pygame.sprite.Sprite):
     def resetBox(self):
         """reseting the dialog box so it erase all the text rendered on it
         """
-        self.image.blit(self.bgk,(0,0))   
+        image = pygame.Surface([640,104], pygame.SRCALPHA, 32)
+        self.image = image.convert_alpha()
+        self.image.blit(self.bgk, (0,0))
 
     def update(self):
         if not self.visable:

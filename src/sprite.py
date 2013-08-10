@@ -29,14 +29,7 @@
 ## import installed library
 import pygame
 import math
-from random import randint
-import script
-import runner
-
-import time
-
-import heroine
-import place
+import random, time
 ## end of import installed library
 
 ## import custom library
@@ -106,7 +99,7 @@ class BaseSprite(pygame.sprite.Sprite):
         """
         self.boundary = (dimension_x, dimension_y)
 
-    def action(self, me):
+    def action(self):
         """ overide to get a spefic action
         """
         pass
@@ -312,7 +305,7 @@ class Hero(BaseSprite):
         BaseSprite.__init__(self)
         self.actionCollideRect = pygame.Rect(self.image.get_rect().inflate(20,20))
         self.category = "player"
-        
+
         self.action = None
         self.last_action = 0
 
@@ -347,12 +340,6 @@ class Hero(BaseSprite):
                                 print self.world.entities[index].__class__.__name__
                                 self.action = self.world.entities[index].action()
                                 break
-        ##                    if self.world.entities[index].category == "npc":
-        ##                        self.world.killEntity(self.world.entities[index])
-        ##                        print("one npc has been killed")
-        ##            for entityIndex in self.collidedEntitiesIndex:
-        ##                print(entityIndex)
-        ##                print(self.world.entities[entityIdex])
         else:
             if keys_pressed_is[pygame.K_z]:
                 cur_time = time.time()
@@ -368,33 +355,16 @@ class Npc(BaseSprite):
 
     """
 
-    def __init__(self, name = "None"):
-        self.name = name
-    
+    def __init__(self):
         BaseSprite.__init__(self)
         self.category = "npc"
-        self.walking_mode = 0
-        self.step_count = 0
-        self.movement_x = self.movement_y = self.speed = 0
+        self.walking_mode = 1
 
-        self.direction_list = ["up"]
+        self.direction_list = ["left", "up", "right", "down"]
         self.current_direction = "up"
-        self.direction_change_frq = 0 
-        self.current_frequency = 0
 
     def action(self):
-        h = heroine.heroines[self.name]
-        p = place.places[self.world.map.name]
-        i = script.ScriptInterpreter(h.global_scr[0])
-        r = runner.GameRunner(self.world.loveee, h, p, self.world.dialog)
-        
-        def doit():
-            return i.run(r)
-
-        if not doit():
-            return None
-            
-        return doit
+    	pass
 
     def set_walking_mode(self, mode):
         """
@@ -406,6 +376,6 @@ class Npc(BaseSprite):
 
     def other_update(self):
         pass
-
+ 
     def direction_handling(self):
-        pass
+	pass
