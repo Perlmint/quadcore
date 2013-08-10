@@ -5,7 +5,6 @@ from item import get_items
 import heroine
 import place
 import script
-import runner
 
 import random
 
@@ -52,8 +51,3 @@ class LoveEE:
 			pass
 
 		
-p = Player("asd")
-l = LoveEE(p)
-
-l.run(runner.CliRunner)
-
