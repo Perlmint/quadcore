@@ -5,7 +5,7 @@ class Place:
 		self.name = name
 		self.background = background
 
-places = [
-	Place("학원", "gakuen.png")
-]
+places = dict([
+	('test.tmx', Place("학원", "gakuen.png"))
+])
 

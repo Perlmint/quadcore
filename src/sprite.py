@@ -32,7 +32,9 @@ import math
 from random import randint
 import script
 import runner
+
 import heroine
+import place
 ## end of import installed library
 
 ## import custom library
@@ -361,9 +363,9 @@ class Npc(BaseSprite):
 
     def action(self):
         i = script.ScriptInterpreter(self.script)
-        heroine.heroines[0].setWorld(self.world)
-        i.run(runner.CliRunner(None, heroine.heroines[0], None))      
-    	pass
+        i.run(runner.GameRunner(self.world.loveee, heroine.heroines[self.name], place.places[self.world.map.name], self.world.dialog))
+        
+        pass
 
     def set_walking_mode(self, mode):
         """

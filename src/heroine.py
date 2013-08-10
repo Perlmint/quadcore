@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 
 import script
 
@@ -15,9 +15,9 @@ class Heroine:
 	def setWorld(self, world):
 		self.world = world
 
-heroines = [
-	Heroine("은로리", [script.test], {
+heroines = dict([
+	("h1", Heroine("은로리", [script.test], {
 		"학원" : [script.test],
-	}, None)
-]
+	}, None))
+])
 

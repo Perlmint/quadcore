@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 #-------------------------------------------------------------------------------
 #   This file is part of University of Python
 #   Foobar is free software: you can redistribute it and/or modify
@@ -29,6 +31,8 @@ import game
 import pygame
 import world
 
+import loveee
+
 ##class Main(game.Game):
 ##    def __init__(self):
 ##        super(Main, self).__init__()
@@ -46,6 +50,9 @@ if __name__ == '__main__':
     keepGoing = True
 
     gameWorld = world.World('town')
+	
+    p = loveee.Player("플레이어")
+    gameWorld.loveee = loveee.LoveEE(p)
     
     while keepGoing:
         clock.tick(32)
