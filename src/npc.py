@@ -44,9 +44,10 @@ class Event(sprite.Npc):
         world.World.currentWorld.loadWorldFile(self.target)
 
 class Npc(sprite.Npc):
-    def __init__(self, name = "None"):
+    def __init__(self, name, map):
         super(Npc, self).__init__()
         self.name = name
+        self.map = map
         self.category = "npc"
         self.current_frequency = 60
         self.movement_x = self.movement_y = self.speed = 2

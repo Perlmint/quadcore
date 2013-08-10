@@ -24,11 +24,11 @@ scripts = {
 }
 
 heroineCharacters = {
-	"sekai" : Heroine(u"사이온지 세카이", "sekai", [sekai.script], {
-		u"학원" : None,
+	"sekai" : Heroine(u"사이온지 세카이", "sekai", [scripts["sekai"]], {
+		u"town" : None,
 	}, None),
-	"ahri" : Heroine(u"아리", "ahri", [ahri.script], {
-		u"학원" : None,
+	"ahri" : Heroine(u"아리", "ahri", [scripts["ahri"]], {
+		u"town" : None,
 	}, None)
 }
 
