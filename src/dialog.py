@@ -157,7 +157,7 @@ class DialogBox(pygame.sprite.Sprite):
     def resetBox(self):
         """reseting the dialog box so it erase all the text rendered on it
         """
-        image = pygame.Surface([640,104], pygame.SRCALPHA, 32)
+        image = pygame.Surface([800,104], pygame.SRCALPHA, 32)
         self.image = image.convert_alpha()
         self.image.blit(self.bgk, (0,0))
 

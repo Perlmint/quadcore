@@ -150,8 +150,8 @@ class World(object):
                 #check to update only the entities that is visible
                 if self.camera:
                     translatedRect = self.camera.translate(entity.rect)
-                    if (translatedRect.left <= -32 or translatedRect.right >= 672 or translatedRect.top <= -32 or
-                        translatedRect.bottom >= 512):
+                    if (translatedRect.left <= -32 or translatedRect.right >= 832 or translatedRect.top <= -32 or
+                        translatedRect.bottom >= 632):
                         continue
                 entity.update()
         if self.camera:

@@ -58,20 +58,20 @@ class Camera(object):
         translatedRect = self.translate(self.follow.rect)
         if translatedRect.left <= self.windowX:
             self.cordX -= self.dx
-        elif translatedRect.right >= 640 - self.windowX:
+        elif translatedRect.right >= 800 - self.windowX:
             self.cordX += self.dx
         if translatedRect.top <= self.windowY:
             self.cordY -= self.dy
-        elif translatedRect.bottom >= 480 - self.windowY:
+        elif translatedRect.bottom >= 600 - self.windowY:
             self.cordY += self.dy
 
         self._check_bounder()
 
     def render1(self, surface):
         top = self.cordY/32
-        bottom = (480+self.cordY)/32 + 1
+        bottom = (600+self.cordY)/32 + 1
         left = self.cordX/32
-        right = (640+self.cordX)/32 + 1
+        right = (800+self.cordX)/32 + 1
 
         if top < 0: top =0
         if left < 0: left = 0
@@ -90,9 +90,9 @@ class Camera(object):
 
     def render(self, surface, worldMap, layer):
         top = self.cordY/32
-        bottom = (480+self.cordY)/32 + 1
+        bottom = (600+self.cordY)/32 + 1
         left = self.cordX/32
-        right = (640+self.cordX)/32 + 1
+        right = (800+self.cordX)/32 + 1
 
         if top < 0: top =0
         if left < 0: left = 0
@@ -124,7 +124,7 @@ class Camera(object):
             self.vpX += self.dx
 
     def set_follow(self, sprite):
-        rect = pygame.Rect(0,0,640,480)     #640 and 480 is the screen size and should be able to change
+        rect = pygame.Rect(0,0,800,600)     #640 and 480 is the screen size and should be able to change
         self.follow = sprite
         rect.center = self.follow.rect.center
         self.cordX, self.cordY = rect.topleft
@@ -133,13 +133,13 @@ class Camera(object):
         if self.cordX < 0:
             self.cordX = 0
 ##            self.dx = 0
-        elif self.cordX > self.map_size_x - 640:
-            self.cordX = self.map_size_x - 640
+        elif self.cordX > self.map_size_x - 800:
+            self.cordX = self.map_size_x - 800
 ##            self.dx = 0
         if self.cordY < 0:
             self.cordY = 0
 ##            self.dy = 0
-        elif self.cordY > self.map_size_y - 480:
-            self.cordY = self.map_size_y - 480
+        elif self.cordY > self.map_size_y - 600:
+            self.cordY = self.map_size_y - 600
 ##            self.dy = 0
 
