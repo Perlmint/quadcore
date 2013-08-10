@@ -329,7 +329,7 @@ class Hero(BaseSprite):
                                 break
             else:
                 if currentTime - self.lastPressedTime[pygame.K_SPACE] >= 1000:
-                    if self.action() == None:
+                    if not self.action():
                         self.action = None
 
         if(self.world.dialog.choices != None):
@@ -337,10 +337,9 @@ class Hero(BaseSprite):
                 if(keys_pressed_is[i]):
                     number = i - pygame.K_1
                     scr = self.world.dialog.choices['choices'][number].script
-                    print scr
+                    self.world.dialog.setMessage({"msgList" : scr[0]})
                     self.action = self.action_object.action(scr)
                     self.world.dialog.choiceSelected()
-                    print self.action
 
         for i in range(len(keys_pressed_is)):
             if keys_pressed_is[i]:
