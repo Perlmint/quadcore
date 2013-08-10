@@ -63,10 +63,10 @@ class Npc(sprite.Npc):
                 self.set_walking_mode(0)
             return ret
 
+        self.set_walking_mode(2)
+		
         if not doit():
             return None
-
-        self.set_walking_mode(2)
             
         return doit
 
