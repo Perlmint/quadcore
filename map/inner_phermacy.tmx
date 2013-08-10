@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="8" height="5" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="inner_phermacy" tilewidth="32" tileheight="32">
-  <image source="../../../Downloads/game jam/새 폴더 (2)/새 폴더/새 폴더/inner_phermacy.png" width="256" height="160"/>
+  <image source="../graphics/System/inner_phermacy.png" width="256" height="160"/>
  </tileset>
  <tileset firstgid="41" name="collision" tilewidth="32" tileheight="32">
   <image source="../graphics/System/collision.png" width="192" height="96"/>

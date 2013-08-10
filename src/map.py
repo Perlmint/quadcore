@@ -51,20 +51,21 @@ class Map(object):
 ##                print("found")
                 collisionLayerIndex = layerIndex
                 break
+	firstgid = [tileset.firstgid for tileset in self.tmxMap.tilesets if tileset.name == "collision"][0]
         collisionMap = {
-222:[pygame.Rect(0,0,tileWidth,tileHeight)], # full
-223:[pygame.Rect(0,0,tileWidth/2,tileHeight/2)], # left-top
-224:[pygame.Rect(tileWidth/2,0,tileWidth/2,tileHeight/2)], # right-top
-225:[pygame.Rect(0,tileHeight/2,tileWidth/2,tileHeight/2)], # left-bottom
-226:[pygame.Rect(tileWidth/2,tileHeight/2,tileWidth/2,tileHeight/2)], # right-bottom
-227:[pygame.Rect(0,0,tileWidth,tileHeight/2)], # top
-228:[pygame.Rect(0,tileHeight/2,tileWidth,tileHeight/2)], # bottom
-229:[pygame.Rect(tileWidth/2,0,tileWidth/2,tileHeight)], # right
-230:[pygame.Rect(0,0,tileWidth/2,tileHeight)], # left
-231:[pygame.Rect(0,tileHeight/2,tileWidth/2,tileHeight/2),pygame.Rect(tileWidth/2,0,tileWidth/2,tileHeight)], # !left-top
-232:[pygame.Rect(0,0,tileWidth/2,tileHeight),pygame.Rect(tileWidth/2,tileHeight/2,tileWidth/2,tileHeight/2)], # !right-top,
-233:[pygame.Rect(0,0,tileWidth,tileHeight/2),pygame.Rect(tileWidth/2,tileHeight/2,tileWidth/2,tileHeight/2)], # !left-bottom
-234:[pygame.Rect(0,0,tileWidth,tileHeight/2),pygame.Rect(0,tileHeight/2,tileWidth/2,tileHeight/2)], # !right-bottom
+firstgid + 1:[pygame.Rect(0,0,tileWidth,tileHeight)], # full
+firstgid + 2:[pygame.Rect(0,0,tileWidth/2,tileHeight/2)], # left-top
+firstgid + 3:[pygame.Rect(tileWidth/2,0,tileWidth/2,tileHeight/2)], # right-top
+firstgid + 4:[pygame.Rect(0,tileHeight/2,tileWidth/2,tileHeight/2)], # left-bottom
+firstgid + 5:[pygame.Rect(tileWidth/2,tileHeight/2,tileWidth/2,tileHeight/2)], # right-bottom
+firstgid + 6:[pygame.Rect(0,0,tileWidth,tileHeight/2)], # top
+firstgid + 7:[pygame.Rect(0,tileHeight/2,tileWidth,tileHeight/2)], # bottom
+firstgid + 8:[pygame.Rect(tileWidth/2,0,tileWidth/2,tileHeight)], # right
+firstgid + 9:[pygame.Rect(0,0,tileWidth/2,tileHeight)], # left
+firstgid + 10:[pygame.Rect(0,tileHeight/2,tileWidth/2,tileHeight/2),pygame.Rect(tileWidth/2,0,tileWidth/2,tileHeight)], # !left-top
+firstgid + 11:[pygame.Rect(0,0,tileWidth/2,tileHeight),pygame.Rect(tileWidth/2,tileHeight/2,tileWidth/2,tileHeight/2)], # !right-top,
+firstgid + 12:[pygame.Rect(0,0,tileWidth,tileHeight/2),pygame.Rect(tileWidth/2,tileHeight/2,tileWidth/2,tileHeight/2)], # !left-bottom
+firstgid + 13:[pygame.Rect(0,0,tileWidth,tileHeight/2),pygame.Rect(0,tileHeight/2,tileWidth/2,tileHeight/2)], # !right-bottom
 }
         #generate position of every tile image in the world map and collidable rect
         for tile_y in range(num_tile_y):

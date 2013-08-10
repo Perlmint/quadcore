@@ -43,5 +43,5 @@ gift_give = [
 ]
 
 script = [
-	        EndScript()
+	EndScript()
 ]
