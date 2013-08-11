@@ -20,11 +20,14 @@ def DieRightAway(loveee, heroine, place):
 def GameOver(data):
 	pygame.quit()
 	pass
+	
+def give_money(ammount):
+	return [u"돈을 주었다"]
 
 die_script = [
 	Take(u"아이템"),
 	Take(u"뷁"),
-	Give(None, dict([(None, [u"기본값"]), (u"아이템", [u"아이템을 주었다"])])),
+	Give(None, dict([(None, [u"기본값"]), (u"아이템", [u"아이템을 주었다"]), (Money, give_money)])),
 	Conversation(Self(), u"푹찍"),
 	Conversation(Self(), u"아잉"),
 	Love(-10),

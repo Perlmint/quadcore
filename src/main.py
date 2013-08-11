@@ -52,11 +52,11 @@ if __name__ == '__main__':
 
     gameWorld = world.World('town')
 
-    
-	
     p = loveee.Player(inputBox.ask(screen, u"이름이 뭐니?"))
     gameWorld.loveee = loveee.LoveEE(p)
     loveee.loveee = gameWorld.loveee
+    
+    gameWorld.screen = screen
     
     while keepGoing:
         clock.tick(32)

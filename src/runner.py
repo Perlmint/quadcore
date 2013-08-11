@@ -87,10 +87,13 @@ class GameRunner(Runner):
 		self.dialog.setMessage({"msgList" : [s.name + u"을 받았다!"]})
 
 	def give(self, s, scr):
-		if not self.loveee.player.items:
+		if not self.loveee.player.items and not script.Money in s.script:
 			return scr
 			
 		inventory = list()
+		
+		if script.Money in s.script:
+			inventory.append(script.Selection(u"돈", s.script[script.Money]))
 		
 		for i in self.loveee.player.items:
 			if i.name in scr:

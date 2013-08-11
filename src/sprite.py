@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 #-------------------------------------------------------------------------------
 #   This file is part of University of Python
 #   Foobar is free software: you can redistribute it and/or modify
@@ -34,6 +36,7 @@ import copy
 import script
 import runner
 import heroine
+import inputBox
 ## end of import installed library
 
 ## import custom library
@@ -347,11 +350,17 @@ class Hero(BaseSprite):
                     if self.world.dialog.item_selection:
                         sel = self.world.dialog.choices['choices'][number]
                         scr = sel.script
-                        
-                        del self.world.loveee.player.items[number]
-                        
-                        if scr != None:
-                            self.action = self.action_object.action(scr)
+                            
+                        if hasattr(scr, '__call__'):
+							val = inputBox.ask(self.world.screen, u"얼마를 줄까?")
+							
+							self.action = self.action_object.action(scr(val))
+							
+                        else:
+							del self.world.loveee.player.items[number]
+							
+							if scr != None:
+								self.action = self.action_object.action(scr)
                             
                         self.world.dialog.item_selection = False
                     else:
