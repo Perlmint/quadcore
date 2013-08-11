@@ -48,18 +48,20 @@ def randomRoute(ratioList, loveee, heroine, place, self):
     return index
 
 def giveItem(loveee, heroine, place, self):
-    print "wahaha"
-    items = []
-    if len(loveee.player.items) == 0:
-        self.scripts = [[Choice(u"아무것도 들고있지 않다. 돈이라도 줄까", [
-            Selection(u"돈을 준다.", [WithMoney(lambda x: u"%d원을 줬다." % x)]),
-            ])]]
-        return 0
-    for i in range(0,3):
-        item = random.choice(loveee.player.items)
-        items += [(item.name, [u"%s를 주었다." % item.name, Love((eval("0x" + hashlib.md5("%s%d" % (item.name, item.price)).hexdigest()) % 50) - 25)])]
-    self.scripts = [[Give(None, dict(items))]]
-    return 0
+	items = []
+	if len(loveee.player.items) == 0:
+		self.scripts = [[Choice(u"아무것도 들고있지 않다. 돈이라도 줄까", [
+			Selection(u"돈을 준다.", [Money(lambda x: u"%d원을 줬다." % x)]),
+			Selection(u"아무것도 들고있지 않다.", [Route("rand", lambda *a, **kw: randomRoute([0.6, 0.45], *a, **kw), [
+				[Conversation(Self(), u"뭐야, 장난하는거야? 잘했어요? 잘못했어요?"), Love(-10)],
+				[Conversation(Self(), u"에이 뭐야, 장난이었어?")],
+				[Conversation(Self(), u"선물은 무슨 마음만이라도 고마워"), Love(10)]])])])]]
+		return 0
+	for i in range(0,3):
+		item = random.choice(loveee.player.items)
+		items += [(item.name, [u"%s를 주었다." % item.name, Love((eval("0x" + hashlib.md5("%s%d" % (item.name, item.price)).hexdigest()) % 50) - 25)])]
+	self.scripts = [[Give(None, dict(items))]]
+	return 0
 
 gift_list = ["식칼", "여명808", "컨디션", "혓개나무 추출물", "이상한 약"]
 

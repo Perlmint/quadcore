@@ -212,6 +212,10 @@ class DialogBox(pygame.sprite.Sprite):
         self.messages = None
         self.pause = True
 
+    def removePersonImage(self):
+        self.personImage = None
+        self.icon = pygame.Surface((0,0)).convert()
+
     def setMessage(self, content):
         self.messages = content["msgList"]
         self.choices = None
@@ -226,8 +230,7 @@ class DialogBox(pygame.sprite.Sprite):
 
         if "image" in content:
             if content["image"] == None:
-                self.personImage = None
-                self.icon = pygame.Surface((0,0)).convert()
+                removePersonImage()
             else:
                 self.personImage = content["image"]
 

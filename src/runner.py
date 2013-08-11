@@ -101,6 +101,9 @@ class GameRunner(Runner):
 
         return 0
 
+    def hide(self, s):
+        self.dialog.removePersonImage()
+
     def take(self, s):
         self.dialog.lock = True
         self.loveee.player.items.append(item.get_item(s.name))
