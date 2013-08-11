@@ -339,32 +339,34 @@ class Hero(BaseSprite):
                         self.lastPressedTime[pygame.K_SPACE] = self.lastPressedTime[pygame.K_SPACE] + 1000
                         self.action = None
 
-        print "kkk1"
         if(self.world.dialog.choices != None):
-            print "kkk2"
             for i in range(pygame.K_1, pygame.K_9 + 1):
                 if(keys_pressed_is[i]):
                     number = i - pygame.K_1
+                    
+                    if currentTime - self.lastPressedTime[i] > 100:
 
-                    if number >= len(self.world.dialog.choices['choices']):
-                        break
+                        if number >= len(self.world.dialog.choices['choices']):
+                            break
 
-                    if self.world.dialog.item_selection:
-                        sel = self.world.dialog.choices['choices'][number]
-                        scr = sel.script
-                        
-                        self.world.choiceSelected()
+                        if self.world.dialog.item_selection:
+                            sel = self.world.dialog.choices['choices'][number]
+                            scr = sel.script
                             
-                        if hasattr(scr, '__call__'):
-                            val = inputBox.ask(self.world.screen, u"얼마를 줄까?")
-                            
-                            self.action = self.action_object.action(scr(int(val)))
-                            
-                        else:
-                            del self.world.loveee.player.items[number]
-                            
-                            if scr != None:
-                                self.action = self.action_object.action(scr)
+                            self.world.dialog.choiceSelected()
+                                
+                            if hasattr(scr, '__call__'):
+                                val = inputBox.ask(self.world.screen, u"얼마를 줄까?")
+                                
+                                self.action = self.action_object.action(scr(int(val)))
+                                
+                            else:
+                                del self.world.loveee.player.items[number]
+                                
+                                if scr != None:
+                                    self.action = self.action_object.action(scr)
+                                
+                            self.world.dialog.item_selection = False
                             
                         self.world.dialog.item_selection = False
                     else:
