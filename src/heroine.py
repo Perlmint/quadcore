@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import sys
 sys.path.append("scripts")
 
@@ -28,17 +28,21 @@ scripts = {
 }
 
 heroineCharacters = {
-    "sekai" : Heroine(u"사이온지 세카이", "sekai", [scripts["sekai"]], None, None),
-    "ahri" : Heroine(u"아리", "ahri", [scripts["ahri"]], None, None),
-    'sion' : Heroine(u"은로리", "sion", [scripts['sion']], None, None),
+    "sekai" : Heroine(u"사이온지 세카이", "sekai", [scripts["sekai"]], {
+        u"town" : None,
+    }, None),
+    "ahri" : Heroine(u"아리", "ahri", [scripts["ahri"]], {
+        u"town" : None,
+    }, None),
+    "yo" : Heroine(u"Yo자아이", "yo", [scripts["yo"]], {
+    }, None)
 }
 
 sekai.heroine = heroineCharacters["sekai"]
 ahri.heroine = heroineCharacters["ahri"]
-sion.heroine = heroineCharacters["sion"]
+yo.heroine = heroineCharacters["yo"]
 
 heroines = dict([
     ("sekai", heroineCharacters["sekai"]),
     ("ahri", heroineCharacters["ahri"]),
-	('sion', heroineCharacters['sion']),
-    ])
+    ("yo", heroineCharacters["yo"])])

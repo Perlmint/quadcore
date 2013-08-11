@@ -27,7 +27,6 @@
 #-------------------------------------------------------------------------------
 #!/usr/bin/env python
 
-import game
 import pygame
 import world
 import inputBox
