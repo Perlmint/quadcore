@@ -91,6 +91,8 @@ class ScriptInterpreter:
             return False
             
         s = self.script.pop(0)
+        
+        print s
 
         if isinstance(s, (str, unicode)):
             runner.narr(s)    
@@ -120,8 +122,11 @@ class ScriptInterpreter:
         elif isinstance(s, Route):
             res = runner.route(s)
             self.script = s.scripts[res]
+            
+            print self.script
+            
+            return Pass()
 
-            self.run(runner)
         elif isinstance(s, Love):
             runner.love(s)
         elif isinstance(s, BGM):

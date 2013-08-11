@@ -242,6 +242,12 @@ class DialogBox(pygame.sprite.Sprite):
         self.messages = None
         self.pause = False
         self.visable = True
-        self.currMessage = ""
+        
+        self.page = 0
+        self.pause = False
+        self.soundStart = True
+        self.visable = True
 
         self.resetBox()
+        
+        print "setChoice"

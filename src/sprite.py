@@ -339,7 +339,9 @@ class Hero(BaseSprite):
                         self.lastPressedTime[pygame.K_SPACE] = self.lastPressedTime[pygame.K_SPACE] + 1000
                         self.action = None
 
+        print "kkk1"
         if(self.world.dialog.choices != None):
+            print "kkk2"
             for i in range(pygame.K_1, pygame.K_9 + 1):
                 if(keys_pressed_is[i]):
                     number = i - pygame.K_1
@@ -350,6 +352,8 @@ class Hero(BaseSprite):
                     if self.world.dialog.item_selection:
                         sel = self.world.dialog.choices['choices'][number]
                         scr = sel.script
+                        
+                        self.world.choiceSelected()
                             
                         if hasattr(scr, '__call__'):
                             val = inputBox.ask(self.world.screen, u"얼마를 줄까?")
@@ -368,8 +372,6 @@ class Hero(BaseSprite):
                         if scr != None:
                             self.action = self.action_object.action(scr)
                     
-                        self.world.dialog.choiceSelected()
-
         for i in range(len(keys_pressed_is)):
             if keys_pressed_is[i]:
                 self.lastPressedTime[i] = currentTime
