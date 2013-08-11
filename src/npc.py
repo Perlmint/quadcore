@@ -60,7 +60,7 @@ class Npc(sprite.Npc):
             scr = self.h.global_scr[0]
         
         i = script.ScriptInterpreter(scr)
-        r = runner.GameRunner(self.world.loveee, self.h, p, self.world.dialog)
+        r = runner.GameRunner(self.world.loveee, self.h, p, self.world.dialog, self.world)
         
         def doit():
             ret = i.run(r)

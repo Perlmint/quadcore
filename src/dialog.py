@@ -86,10 +86,13 @@ class DialogBox(pygame.sprite.Sprite):
     def draw(self, surface, location = BOTTOM):
 
         def drawDialog():
-            rect = self.icon.get_rect()
-            rect.bottom = self.rect.top + 30
+            if self.icon != None:
+                rect = self.icon.get_rect()
+                rect.bottom = self.rect.top + 30
+                surface.blit(self.icon, ((surface.get_width() - self.icon.get_width()) / 2, rect.top))
+            
             surface.blit(self.image, self.rect)
-            surface.blit(self.icon, ((surface.get_width() - self.icon.get_width()) / 2, rect.top))
+  
 
             xpos = self.margine[0]
             ypos = self.margine[1]
