@@ -93,6 +93,7 @@ main_route = [
 ]
 
 script = [
+	BGM('sion.ogg'),
 	Conversation(Self(), u"안녕"),
 	Conversation(Self(), u"오랫만이야"),
 	Conversation(Self(), u"심심해"),

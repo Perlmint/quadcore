@@ -34,6 +34,8 @@ heroineCharacters = {
     "ahri" : Heroine(u"아리", "ahri", [scripts["ahri"]], {
         u"town" : None,
     }, None),
+    "sion" : Heroine(u"은로리", "sion", [scripts["sion"]], {
+    }, None),
     "yo" : Heroine(u"Yo자아이", "yo", [scripts["yo"]], {
     }, None)
 }
@@ -41,8 +43,10 @@ heroineCharacters = {
 sekai.heroine = heroineCharacters["sekai"]
 ahri.heroine = heroineCharacters["ahri"]
 yo.heroine = heroineCharacters["yo"]
+sion.heroine = heroineCharacters["sion"]
 
 heroines = dict([
     ("sekai", heroineCharacters["sekai"]),
     ("ahri", heroineCharacters["ahri"]),
+    ("sion", heroineCharacters["sion"]),
     ("yo", heroineCharacters["yo"])])
