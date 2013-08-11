@@ -52,7 +52,7 @@ def giveItem(loveee, heroine, place, self):
 	if len(loveee.player.items) == 0:
 		self.scripts = [[Choice(u"아무것도 들고있지 않다. 돈이라도 줄까", [
 			Selection(u"돈을 준다.", [Money(lambda x: u"%d원을 줬다." % x)]),
-			Selection(u"아무것도 들고있지 않다." [Route("rand", lambda *a, **kw: randomRoute([0.6, 0.45], *a, **kw), [
+			Selection(u"아무것도 들고있지 않다.", [Route("rand", lambda *a, **kw: randomRoute([0.6, 0.45], *a, **kw), [
 				[Conversation(Self(), u"뭐야, 장난하는거야? 잘했어요? 잘못했어요?"), Love(-10)],
 				[Conversation(Self(), u"에이 뭐야, 장난이었어?")],
 				[Conversation(Self(), u"선물은 무슨 마음만이라도 고마워"), Love(10)]])])])]]
