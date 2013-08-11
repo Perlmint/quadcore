@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
+import sys
 import item
 import copy
+import pygame
 
 class Pass:
     pass
@@ -138,8 +140,6 @@ class ScriptInterpreter:
         elif isinstance(s, WithMoney):
             scr = runner.money(s)
             
-            print scr
-            
             self.script = scr + self.script
             
             print self.script
@@ -147,3 +147,8 @@ class ScriptInterpreter:
             return Pass()
 
         return True
+
+def GameOver(data):
+    pygame.quit()
+    sys.exit()
+    pass
