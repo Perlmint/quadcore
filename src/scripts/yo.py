@@ -83,6 +83,7 @@ nice_default = [
 ]
 
 default_anywhere = [
+	BGM("yo.ogg"),
     Route("sibal", lambda *a, **kw: loveRoute([100], *a, **kw),
           [
             [Conversation(Self(), u"안녕."),
