@@ -47,6 +47,7 @@ live_script = [
 ]
 
 script = [
+    HideHeroine(),
     u"아리를 만났다",
     #BGM("02.ogg"),
     WithMoney(with_test),

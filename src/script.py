@@ -47,8 +47,8 @@ class ShowHeroine:
         self.image = image
 
 class HideHeroine:
-    def __init__(self, image):
-        self.image = image
+    def __init__(self):
+        pass
 
 class Background:
     def __init__(self, image):

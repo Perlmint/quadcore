@@ -94,6 +94,9 @@ class GameRunner(Runner):
 
         return 0
 
+    def hide(self, s):
+        self.dialog.removePersonImage()
+
     def take(self, s):
         self.loveee.player.items.append(item.get_item(s.name))
         self.dialog.setMessage({"msgList" : [s.name + u"을 받았다!"]})
