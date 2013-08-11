@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-import os
 from script import *
+import random
+
+end = [EndScript()]
 
 nice_boat = [
 	Conversation(Self(), u"계속 날 피할 때마다 물어봤는데..."),
@@ -15,14 +17,73 @@ nice_boat = [
 	u"어느새 바로 눈 앞에까지 다가왔다.",
 	u"푹",
 	u"그녀의 손에는 작은 칼이 들려있고 그 반정도는 어느새 내 몸 속에 들어와 있었다.",
-	u"그리고 나는 죽었다.",
-	EndScript()
-]
+	u"그리고 나는 죽었다."
+] + end
+
+def placeRoute(loveee, heroine, place):
+	if place.name == "school":
+		return 1
+	return 0
+
+def loveRoute(ratioList, loveee, heroine, place):
+	ratio = 0
+	index = 0
+	seed = heroine.love
+	for curRatio in ratioList:
+		ratio += curRatio
+		if seed < ratio:
+			return index
+		index += 1
+
+def randomRoute(ratioList, loveee, heroine, place):
+	ratio = 0
+	index = 0
+	seed = random.random()
+	for curRatio in ratioList:
+		ratio += curRatio
+		if seed < ratio:
+			return index
+		index += 1
+
+
+give_or_take = [
+	Choice(u"무엇을 할까", [
+		Selection(u"선물을 준다.", [u"아무것도 들고있지 않다.", Love(10)] + end),
+		Selection(u"뭔가 나한테 줄 것 있지 않아?", [Route("Take", lambda *a, **kw: loveRoute([100, 100], *a, **kw), 
+			[[Conversation(Self(), u"")] + end,
+			[Conversation(Self(), u"")] + end])]),
+		Selection(u"그냥 헤어진다.", [u"인사를 하고 헤어졌다."] + end),
+		Selection(u"도망간다.", [Route("Escape", lambda *a, **kw: loveRoute([50, 100], *a, **kw),
+			[[Conversation(Self(), u"야! 어디가")] + end,
+			nice_boat])])
+	])
+] + end
+
+default_anywhere = [
+	Conversation(Self(), u"좋은아침~!"),
+        Conversation(Self(), u"어디 가는 거야?"),
+] + give_or_take
+
+default_school = [
+	Conversation(Self(), u"주말인데 학교에는 무슨 일로 온거야?"),
+	Choice(u"", [
+		Selection(u"그러는 너는?", [
+			Route("How About You", lambda *a, **kw: loveRoute([0.5, 0.5], *a, **kw), [
+				[Route("rand", lambda *a, **kw: randomRoute([0.5, 0.5], *a, **kw), [[
+					Conversation(Self(), u"헤헷~ 비밀이지"),
+					Conversation(Self(), u"ㅋㅋㅋㅋ")] + give_or_take, [
+					Conversation(Self(), u"난누구 여긴 어디?")] + give_or_take
+				])] + give_or_take
+			])
+		] + give_or_take),
+		Selection(u"그러게...", [
+			Conversation(Self(), u"에이 그게 뭐야"),
+		] + give_or_take),
+	]),
+] + give_or_take
 
 default = [
-	Conversation("밝은 목소리", u"좋은아침~!"),
-        Conversation(Self(), u"어디 가는 거야?"),
-	EndScript()
+	Route("Default Conversation", placeRoute, [default_anywhere, default_school])
 ]
 
 nice_default = [
@@ -42,6 +103,5 @@ gift_give = [
 	EndScript()
 ]
 
-script = [
-	EndScript()
-]
+script = default
+
