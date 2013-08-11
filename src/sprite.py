@@ -343,9 +343,11 @@ class Hero(BaseSprite):
             for i in range(pygame.K_1, pygame.K_9 + 1):
                 if(keys_pressed_is[i]):
                     number = i - pygame.K_1
+
+                    if number >= len(self.world.dialog.choices['choices']):
+                        break
                     
                     if currentTime - self.lastPressedTime[i] > 100:
-
                         if number >= len(self.world.dialog.choices['choices']):
                             break
 

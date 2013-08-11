@@ -140,8 +140,6 @@ class ScriptInterpreter:
         elif isinstance(s, WithMoney):
             scr = runner.money(s)
             
-            print scr
-            
             self.script = scr + self.script
             
             print self.script
