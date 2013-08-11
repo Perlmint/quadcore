@@ -89,6 +89,9 @@ class Npc(sprite.Npc):
         self.walking_mode = mode
 
     def other_update(self):
+        if self.h.love >= 50:
+            self.walking_mode = 3
+
         if self.walking_mode == 2:
             return
         seed = random.random()
@@ -96,18 +99,62 @@ class Npc(sprite.Npc):
           self.set_walking_mode(1 if self.walking_mode == 0 else 0)
         if self.walking_mode == 0:
           return
-        seed = random.random()
-        direction = self.direction_list.index(self.current_direction)
-        if seed < 0.03:
-            direction = direction - 1
-        elif seed < 0.06:
-            direction = direction + 1
-        if direction < 0:
-            direction = 4 + direction
-        if direction > 3:
-            direction = direction - 4
-        if self.direction_list.index(self.current_direction) != direction:
+
+        if self.walking_mode == 1:
+            seed = random.random()
+            direction = self.direction_list.index(self.current_direction)
+            if seed < 0.03:
+                direction = direction - 1
+            elif seed < 0.06:
+                direction = direction + 1
+            if direction < 0:
+                direction = 4 + direction
+            if direction > 3:
+                direction = direction - 4
+            if self.direction_list.index(self.current_direction) != direction:
+                self.current_direction = self.direction_list[direction]
+        elif self.walking_mode == 3: #Nice boat
+            player = world.World.currentWorld.player
+
+            if player == None:
+                return
+
+            playerRect = player.rect
+
+            xDiff = (playerRect.x - self.rect.x)
+            yDiff = (playerRect.y - self.rect.y)
+
+            if xDiff == 0:
+                xDir = 0
+            else:
+                xDir =  xDiff / abs(xDiff)
+
+            if yDiff == 0:
+                yDir = 0
+            else:
+                yDir = yDiff / abs(yDiff)
+
+            if xDir >= 0:
+                xDirection = 2
+            elif xDir < 0:
+                xDirection = 0
+            
+            if yDir >= 0:
+                yDirection = 3
+            elif yDir < 0:
+                yDirection = 1
+
+            if abs(xDiff) >= abs(yDiff):
+                direction = xDirection
+            else:
+                direction = yDirection
+
+            if xDir == 0 and yDir == 0:
+                pass
+
             self.current_direction = self.direction_list[direction]
+
+
         self.move(self.current_direction)
 
     def direction_handling(self):
