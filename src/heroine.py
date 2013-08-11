@@ -6,6 +6,7 @@ import sekai
 import ahri
 import sion
 import yo
+import phermacy
 
 class Heroine:
     def __init__(self, name, engname, global_scr, local_scr, theme):
@@ -24,7 +25,8 @@ scripts = {
     "sekai" : sekai.script,
     "ahri" : ahri.script,
     'sion' : sion.script,
-    "yo" : yo.script
+    "yo" : yo.script,
+    "phermacy" : phermacy.script
 }
 
 heroineCharacters = {
@@ -35,14 +37,21 @@ heroineCharacters = {
         u"town" : None,
     }, None),
     "yo" : Heroine(u"Yo자아이", "yo", [scripts["yo"]], {
+        u"town" : None,
+    }, None),
+    "phermacy" : Heroine(u"약사", "phermacy", [scripts["phermacy"]], {
+        u"phermacy" : [phermacy.default_phermacy],
     }, None)
 }
 
 sekai.heroine = heroineCharacters["sekai"]
 ahri.heroine = heroineCharacters["ahri"]
 yo.heroine = heroineCharacters["yo"]
+phermacy.heroine = heroineCharacters["phermacy"]
 
 heroines = dict([
     ("sekai", heroineCharacters["sekai"]),
     ("ahri", heroineCharacters["ahri"]),
-    ("yo", heroineCharacters["yo"])])
+    ("yo", heroineCharacters["yo"]),
+    ("phermacy", heroineCharacters["phermacy"])
+    ])

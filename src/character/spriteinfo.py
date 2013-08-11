@@ -14,5 +14,8 @@ heroine = {
 	},
 	'yo':{
 	"sprite" : path.join("..", "graphics", "Characters", "Actor1.png"), "size":(16,22), "startpos":(48,0), "sheetsize":(48,88)	
+	},
+	'phermacy':{
+	"sprite" : path.join("..", "graphics", "Characters", "Actor1.png"), "size":(16,22), "startpos":(48,0), "sheetsize":(48,88)	
 	}
 }

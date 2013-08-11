@@ -12,7 +12,7 @@ nice_boat = [
     Conversation(Self(), u"뭐, 대충 예상은 했지만 말야"),
     u"....",
     Conversation(Self(), u"이런 식으로 한방 먹이다니, 너도 꽤 S에 소질이 있구나?"),
-    u"....."
+    u".....",
     Conversation(Self(), u"가볼게. 약이 필요하면 언제든지 찾아와."),
     u"......",
     Conversation(Self(), u"잘, 지어줄테니까."),
@@ -91,67 +91,80 @@ default_anywhere = [
 
 default_phermacy = [
         Route("normal", lambda *a, **kw: loveRoute([50], *a, **kw),
-              [Conversation(Self(), u"뭐야, 필요한거라도?"),
-                Choice(u"그러니까...", [
-                    Selection(u"아뇨별로", [
-			Conversation(Self(), u"...싱겁기는. 비타민이나 챙겨가."),
+              [[Conversation(Self(), u"뭐야, 필요한거라도?"),
+                Choice(u"그러니까...",
+                [
+                    Selection(u"아뇨별로",
+                    [
+		                Conversation(Self(), u"...싱겁기는. 비타민이나 챙겨가."),
                         u"나는 약사가 내준 비타민을 들고 약국을 나왔다.",
                         Love(10)
-			]
-                    Selection(u"머리가 아파요",[
+        			]),
+                    Selection(u"머리가 아파요",
+                    [
                         Conversation(Self(), u"흠, 대놓고 머리가 아프다면서 오는건 신종 작업수단인가?"),
                         u"...아니, 저.. 진짜 머리가 아픈데..",
                         Conversation(Self(), u"(笑) 나을 수 있는지는 장담 못하지만 약이라도 지어줄게."),
                         u"잠시 후 들고 나온 약을 들고 약국을 나왔다.",
                         Love(10)
-                        ]
-                    Selection(u"내 마음이 아파요.",[
+                    ]),
+                    Selection(u"내 마음이 아파요.",
+                    [
                         Conversation(Self(), u"..."),
                         u"...",
                         Conversation(Self(), u"..."),
                         u" ...가볼게요.",
                         u"나는 약국을 나왔다.",
                         Love(-20)
-                        ]
-                        )
-		] + give_or_take),
+                    ])
+		])] + give_or_take,
 		[Conversation(Self(), u"또 왔네, 필요한거라도?"),
-                     Choice(u"",[
-                         Selection(u"아뇨, 별로.", [
-                             Conversation(Self(), u"그렇게 심심하면 환각제라도 지어줄까? 마침 새로 들어온게..."),
-                             u"약사가 그래도 되는겁니까?!",
-                             Conversation(Self(), u"어머, 치료의 일환으로 환각제를 쓰기도 하는거 몰라? 비밀로 해줄테니까, 이거 받아가."),
-                             u"필요없어요!",
-                             u"나는 재빨리 약국을 나왔다.",
-                             Love(10)
-                             ]
-                        Selection(u"머리가 아파요", [
-                            Conversation(Self(), u"머리가 자주 아픈것같다? 혹시 밤잠을 설치며 생각할 누군가라도 있는거야?"),
-                            Choice(u"", [
-                                Selection(u"무슨소리에요?!", [
-                                    Conversation(Self(), u"(웃음) 후후, 어딘가 찔리나본데"),
-                                    u"나는 약을 들고 재빨리 약국을 나왔다.",
-                                    Love(20)
-                                    ])
-                                Selection(u"무슨소리에요?!", [
-                                    Conversation(Self(), u"(웃음) 후후, 어딘가 찔리나본데"),
-                                    u"나는 약을 들고 재빨리 약국을 나왔다.",
-                                    Love(10)
-                                    ])
-                                ])])
-                        Selection(u"내 마음이 아파요", [
-                            Conversation(Self(), u"..."),
-                            u"...",
-                            Conversation(Self(), u"..."),
-                            u"....가볼게요.",
-                            Conversation(Self(), u"..."),
-                            u"나는 약국을 나왔다.",
-                            Love(10)])
-                                   
-)]) + give_or_take
+        Choice(u"",
+        [
+            Selection(u"아뇨, 별로.",
+            [
+                Conversation(Self(), u"그렇게 심심하면 환각제라도 지어줄까? 마침 새로 들어온게..."),
+                u"약사가 그래도 되는겁니까?!",
+                Conversation(Self(), u"어머, 치료의 일환으로 환각제를 쓰기도 하는거 몰라? 비밀로 해줄테니까, 이거 받아가."),
+                u"필요없어요!",
+                u"나는 재빨리 약국을 나왔다.",
+                Love(10)
+            ]),
+            Selection(u"머리가 아파요",
+            [
+                Conversation(Self(), u"머리가 자주 아픈것같다? 혹시 밤잠을 설치며 생각할 누군가라도 있는거야?"),
+                Choice(u"",
+                [
+                    Selection(u"무슨소리에요?!",
+                    [
+                        Conversation(Self(), u"(웃음) 후후, 어딘가 찔리나본데"),
+                        u"나는 약을 들고 재빨리 약국을 나왔다.",
+                        Love(20)
+                    ]),
+                    Selection(u"무슨소리에요?!",
+                    [
+                        Conversation(Self(), u"(웃음) 후후, 어딘가 찔리나본데"),
+                        u"나는 약을 들고 재빨리 약국을 나왔다.",
+                        Love(10)
+                    ])
+                ])
+            ]),
+            Selection(u"내 마음이 아파요",
+            [
+                Conversation(Self(), u"..."),
+                u"...",
+                Conversation(Self(), u"..."),
+                u"....가볼게요.",
+                Conversation(Self(), u"..."),
+                u"나는 약국을 나왔다.",
+                Love(10)
+            ])
+        ])
+    ] + give_or_take])
+]
 
 default = [
-    Route("Default Conversation", placeRoute, [default_anywhere, default_school])
+    Route("Default Conversation", placeRoute, [default_anywhere, default_phermacy])
 ]
 
 flag_set = [
@@ -167,4 +180,3 @@ gift_give = [
 ]
 
 script = default
-
