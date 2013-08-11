@@ -74,7 +74,8 @@ class GameRunner(Runner):
         self.dialog.visable = False
         self.dialog.resetBox()
         
-        pygame.mixer.music.stop()
+        pygame.mixer.music.load(os.path.join('..', 'bgm', "bgm.ogg"))
+        pygame.mixer.music.play(-1)
 
     def narr(self, s):
         self.dialog.setMessage({"msgList" : [s]})

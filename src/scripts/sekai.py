@@ -110,6 +110,7 @@ default_school = [
 ] + give_or_take
 
 default = [
+    BGM("sekai.ogg"),
     Route("Default Conversation", placeRoute, [default_anywhere, default_school])
 ]
 

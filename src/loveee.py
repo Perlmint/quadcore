@@ -8,6 +8,9 @@ import script
 
 import random
 
+import os
+import pygame
+
 import conch
 
 items = get_items()
@@ -24,6 +27,9 @@ class LoveEE:
         self.player = player
         
         self.jukebox = conch.Jukebox()
+        
+        pygame.mixer.music.load(os.path.join('..', 'bgm', "bgm.ogg"))
+        pygame.mixer.music.play(-1)
 
     def select_place(self, runner):
         ss = list()
