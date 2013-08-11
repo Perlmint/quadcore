@@ -118,7 +118,7 @@ class GameRunner(Runner):
 		self.heroine.love += s.val
 		
 	def route(self, s):
-		i = s.var(self.loveee, self.heroine, self.place)
+		i = s.var(self.loveee, self.heroine, self.place, s)
 		
 		return i
 		
