@@ -68,8 +68,11 @@ class GameRunner(Runner):
         self.dialog.lock = True
         
     def end(self):
+        print "end"
+    
         self.dialog.lock    = False
         self.dialog.visable = False
+        self.dialog.resetBox()
         
         pygame.mixer.music.stop()
 
@@ -77,6 +80,7 @@ class GameRunner(Runner):
         self.dialog.setMessage({"msgList" : [s]})
 
     def conv(self, s):
+        self.dialog.lock = True
         if isinstance(s.name, script.Self):
             name = self.heroine.name
             engname = self.heroine.engname
@@ -87,18 +91,27 @@ class GameRunner(Runner):
         self.dialog.setMessage({"msgList" : [name + u":\t" + s.text], "image" : engname + ".png"})
 
     def choice(self, s):
+        self.dialog.lock = True
+        self.dialog.setMessage({"msgList" : [""]})
         self.dialog.setChoices({
             "question" : u"선택지 : " + s.question,
             "choices" : s.selections
             })
+            
+        print "choice"
 
         return 0
 
+    def hide(self, s):
+        self.dialog.removePersonImage()
+
     def take(self, s):
+        self.dialog.lock = True
         self.loveee.player.items.append(item.get_item(s.name))
         self.dialog.setMessage({"msgList" : [s.name + u"을 받았다!"]})
 
     def give(self, s, scr):
+        self.dialog.lock = True
         if not self.loveee.player.items and not script.Money in s.script:
             return scr
             
@@ -121,9 +134,11 @@ class GameRunner(Runner):
         self.dialog.item_selection = True
 
     def love(self, s):
+        self.dialog.lock = True
         self.heroine.love += s.val
         
     def route(self, s):
+        self.dialog.lock = True
         i = s.var(self.loveee, self.heroine, self.place, s)
         
         return i

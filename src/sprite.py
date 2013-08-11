@@ -346,21 +346,29 @@ class Hero(BaseSprite):
 
                     if number >= len(self.world.dialog.choices['choices']):
                         break
+                    
+                    if currentTime - self.lastPressedTime[i] > 100:
+                        if number >= len(self.world.dialog.choices['choices']):
+                            break
 
-                    if self.world.dialog.item_selection:
-                        sel = self.world.dialog.choices['choices'][number]
-                        scr = sel.script
+                        if self.world.dialog.item_selection:
+                            sel = self.world.dialog.choices['choices'][number]
+                            scr = sel.script
                             
-                        if hasattr(scr, '__call__'):
-                            val = inputBox.ask(self.world.screen, u"얼마를 줄까?")
-                            
-                            self.action = self.action_object.action(scr(int(val)))
-                            
-                        else:
-                            del self.world.loveee.player.items[number]
-                            
-                            if scr != None:
-                                self.action = self.action_object.action(scr)
+                            self.world.dialog.choiceSelected()
+                                
+                            if hasattr(scr, '__call__'):
+                                val = inputBox.ask(self.world.screen, u"얼마를 줄까?")
+                                
+                                self.action = self.action_object.action(scr(int(val)))
+                                
+                            else:
+                                del self.world.loveee.player.items[number]
+                                
+                                if scr != None:
+                                    self.action = self.action_object.action(scr)
+                                
+                            self.world.dialog.item_selection = False
                             
                         self.world.dialog.item_selection = False
                     else:
@@ -368,8 +376,6 @@ class Hero(BaseSprite):
                         if scr != None:
                             self.action = self.action_object.action(scr)
                     
-                        self.world.dialog.choiceSelected()
-
         for i in range(len(keys_pressed_is)):
             if keys_pressed_is[i]:
                 self.lastPressedTime[i] = currentTime

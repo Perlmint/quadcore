@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
+import sys
 import item
 import copy
+import pygame
 
 class Pass:
     pass
@@ -47,8 +49,8 @@ class ShowHeroine:
         self.image = image
 
 class HideHeroine:
-    def __init__(self, image):
-        self.image = image
+    def __init__(self):
+        pass
 
 class Background:
     def __init__(self, image):
@@ -91,6 +93,8 @@ class ScriptInterpreter:
             return False
             
         s = self.script.pop(0)
+        
+        print s
 
         if isinstance(s, (str, unicode)):
             runner.narr(s)    
@@ -120,8 +124,11 @@ class ScriptInterpreter:
         elif isinstance(s, Route):
             res = runner.route(s)
             self.script = s.scripts[res]
+            
+            print self.script
+            
+            return Pass()
 
-            self.run(runner)
         elif isinstance(s, Love):
             runner.love(s)
         elif isinstance(s, BGM):
@@ -133,8 +140,6 @@ class ScriptInterpreter:
         elif isinstance(s, WithMoney):
             scr = runner.money(s)
             
-            print scr
-            
             self.script = scr + self.script
             
             print self.script
@@ -142,3 +147,8 @@ class ScriptInterpreter:
             return Pass()
 
         return True
+
+def GameOver(data):
+    pygame.quit()
+    sys.exit()
+    pass

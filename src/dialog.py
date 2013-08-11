@@ -49,6 +49,7 @@ class DialogBox(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         
         self.lock = False
+        self.surface = None
 
         self.bgk = pygame.image.load(os.path.join("..", "graphics", "System", "dialog.png")).convert_alpha()
         self.resetBox()
@@ -84,7 +85,7 @@ class DialogBox(pygame.sprite.Sprite):
         self.soundStart = False
 
     def draw(self, surface, location = BOTTOM):
-
+        self.surface = surface
         def drawDialog():
             if self.icon != None:
                 rect = self.icon.get_rect()
@@ -163,6 +164,8 @@ class DialogBox(pygame.sprite.Sprite):
     def resetBox(self):
         """reseting the dialog box so it erase all the text rendered on it
         """
+        if self.surface != None:
+            self.surface.fill((0,0,0))
         image = pygame.Surface([640,104], pygame.SRCALPHA, 32)
         self.image = image.convert_alpha()
         self.image.blit(self.bgk, (0,0))
@@ -212,6 +215,10 @@ class DialogBox(pygame.sprite.Sprite):
         self.messages = None
         self.pause = True
 
+    def removePersonImage(self):
+        self.personImage = None
+        self.icon = pygame.Surface((0,0)).convert()
+
     def setMessage(self, content):
         self.messages = content["msgList"]
         self.choices = None
@@ -226,8 +233,7 @@ class DialogBox(pygame.sprite.Sprite):
 
         if "image" in content:
             if content["image"] == None:
-                self.personImage = None
-                self.icon = pygame.Surface((0,0)).convert()
+                removePersonImage()
             else:
                 self.personImage = content["image"]
 
@@ -242,6 +248,10 @@ class DialogBox(pygame.sprite.Sprite):
         self.messages = None
         self.pause = False
         self.visable = True
-        self.currMessage = ""
+        
+        self.page = 0
+        self.pause = False
+        self.soundStart = True
+        self.visable = True
 
         self.resetBox()

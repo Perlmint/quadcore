@@ -96,6 +96,7 @@ class World(object):
         cam = Camera()
         cam.set_follow(player)
         self.setCamera(cam)
+        self.player = player
 
     def addMap(self, map):
         """specify the map

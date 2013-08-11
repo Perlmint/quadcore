@@ -21,31 +21,31 @@ nice_boat = [
 ] + end
 
 def placeRoute(loveee, heroine, place, self):
-	if place.name == "school":
-		return 1
-	return 0
+    if place.name == "school":
+        return 1
+    return 0
 
 def loveRoute(ratioList, loveee, heroine, place, self):
-	ratio = 0
-	index = 0
-	seed = heroine.love
-	for curRatio in ratioList:
-		ratio += curRatio
-		if seed < ratio:
-			return index
-		index += 1
-	return index
+    ratio = 0
+    index = 0
+    seed = heroine.love
+    for curRatio in ratioList:
+        ratio += curRatio
+        if seed < ratio:
+            return index
+        index += 1
+    return index
 
 def randomRoute(ratioList, loveee, heroine, place, self):
-	ratio = 0
-	index = 0
-	seed = random.random()
-	for curRatio in ratioList:
-		ratio += curRatio
-		if seed < ratio:
-			return index
-		index += 1
-	return index
+    ratio = 0
+    index = 0
+    seed = random.random()
+    for curRatio in ratioList:
+        ratio += curRatio
+        if seed < ratio:
+            return index
+        index += 1
+    return index
 
 def giveItem(loveee, heroine, place, self):
 	items = []
@@ -66,47 +66,47 @@ def giveItem(loveee, heroine, place, self):
 gift_list = ["식칼", "여명808", "컨디션", "혓개나무 추출물", "이상한 약"]
 
 give_or_take = [
-	Choice(u"무엇을 할까", [
-		Selection(u"선물을 준다.", [Route("asdf", giveItem, [])] + end),
-		Selection(u"뭔가 나한테 줄 것 있지 않아?", [Route("Take", lambda *a, **kw: loveRoute([100], *a, **kw), 
-			[[Conversation(Self(), u"")] + end,
-			[Conversation(Self(), u"")] + end])]),
-		Selection(u"그냥 헤어진다.", [u"인사를 하고 헤어졌다."] + end),
-		Selection(u"도망간다.", [Route("Escape", lambda *a, **kw: loveRoute([10], *a, **kw),
-			[[Conversation(Self(), u"야! 어디가")] + end,
-			nice_boat])])
-	])
+    Choice(u"무엇을 할까", [
+        Selection(u"선물을 준다.", [Route("asdf", giveItem, [])] + end),
+        Selection(u"뭔가 나한테 줄 것 있지 않아?", [Route("Take", lambda *a, **kw: loveRoute([100], *a, **kw), 
+            [[Conversation(Self(), u"")] + end,
+            [Conversation(Self(), u"")] + end])]),
+        Selection(u"그냥 헤어진다.", [u"인사를 하고 헤어졌다."] + end),
+        Selection(u"도망간다.", [Route("Escape", lambda *a, **kw: loveRoute([10], *a, **kw),
+            [[Conversation(Self(), u"야! 어디가")] + end,
+            nice_boat])])
+    ])
 ] + end
 
 nice_default = [
-	Conversation(Self(), u""),
-	EndScript()
+    Conversation(Self(), u""),
+    EndScript()
 ]
 
 default_anywhere = [
-	Route("WTF", lambda *a, **kw: loveRoute([50], *a, **kw), [[
-		Conversation(Self(), u"좋은아침~!"),
-        	Conversation(Self(), u"어디 가는 거야?")] + give_or_take,
-		nice_default])]
+    Route("WTF", lambda *a, **kw: loveRoute([50], *a, **kw), [[
+        Conversation(Self(), u"좋은아침~!"),
+            Conversation(Self(), u"어디 가는 거야?")] + give_or_take,
+        nice_default])]
 
 default_school = [
-	Conversation(Self(), u"주말인데 학교에는 무슨 일로 온거야?"),
-	Choice(u"", [
-		Selection(u"그러는 너는?", [
-			Route("How About You", lambda *a, **kw: loveRoute([50], *a, **kw), [
-				[Route("rand", lambda *a, **kw: randomRoute([0.5], *a, **kw), [[
-					Conversation(Self(), u"헤헷~ 비밀이지"),
-					Conversation(Self(), u"ㅋㅋㅋㅋ")] + give_or_take, [
-					Conversation(Self(), u"난누구 여긴 어디?")] + give_or_take
-				])] + give_or_take,
-				[Conversation(Self(), u"왠지 학교오면 널 볼 수 있을 것 같아서 히히"),
-				Conversation(Self(), u"봐봐 이렇게 만났잖아")]
-			])
-		] + give_or_take),
-		Selection(u"그러게...", [
-			Conversation(Self(), u"에이 그게 뭐야"),
-		] + give_or_take),
-	]),
+    Conversation(Self(), u"주말인데 학교에는 무슨 일로 온거야?"),
+    Choice(u"", [
+        Selection(u"그러는 너는?", [
+            Route("How About You", lambda *a, **kw: loveRoute([50], *a, **kw), [
+                [Route("rand", lambda *a, **kw: randomRoute([0.5], *a, **kw), [[
+                    Conversation(Self(), u"헤헷~ 비밀이지"),
+                    Conversation(Self(), u"ㅋㅋㅋㅋ")] + give_or_take, [
+                    Conversation(Self(), u"난누구 여긴 어디?")] + give_or_take
+                ])] + give_or_take,
+                [Conversation(Self(), u"왠지 학교오면 널 볼 수 있을 것 같아서 히히"),
+                Conversation(Self(), u"봐봐 이렇게 만났잖아")]
+            ])
+        ] + give_or_take),
+        Selection(u"그러게...", [
+            Conversation(Self(), u"에이 그게 뭐야"),
+        ] + give_or_take),
+    ]),
 ] + give_or_take
 
 default = [
