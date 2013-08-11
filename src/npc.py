@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 #-------------------------------------------------------------------------------
 #   This file is part of University of Python
 #   Foobar is free software: you can redistribute it and/or modify
@@ -28,9 +30,10 @@
 import sprite
 import os
 import sys
-import script
+from script import *
 import runner
 import heroine, random, place, world
+import pygame
 
 class Event(sprite.Npc):
     def __init__(self, target):
@@ -52,6 +55,10 @@ class Npc(sprite.Npc):
         self.current_frequency = 60
         self.movement_x = self.movement_y = self.speed = 2
         self.h = heroine.heroineCharacters[self.name]
+        self.boat_success = False
+        self.boat_cooltime = 3000
+        self.boat_chase_time = 0
+        self.boat_last_time = 0
 
     def action(self, scr = None):
         p = place.places[self.world.map.name]
@@ -59,13 +66,13 @@ class Npc(sprite.Npc):
         if scr == None:
             scr = self.h.global_scr[0]
         
-        i = script.ScriptInterpreter(scr)
+        i = ScriptInterpreter(scr)
         r = runner.GameRunner(self.world.loveee, self.h, p, self.world.dialog, self.world)
         
         def doit():
             ret = i.run(r)
             
-            if isinstance(ret, script.Pass):
+            if isinstance(ret, Pass):
                 return doit()
             
             if ret == False:
@@ -156,6 +163,37 @@ class Npc(sprite.Npc):
 
 
         self.move(self.current_direction)
+
+    def move(self, direction):
+        super(Npc, self).move(direction)
+
+        if self.walking_mode == 3 and self.boat_success == False:
+            collideRect = (20,20)
+            player = world.World.currentWorld.player
+
+            if player == None:
+                    return
+
+            playerRect = player.rect
+
+            xDiff = (playerRect.x - self.rect.x)
+            yDiff = (playerRect.y - self.rect.y)
+
+            if abs(xDiff) <= collideRect[0] and abs(yDiff) <= collideRect[1]:
+                if self.boat_last_time == 0:
+                    self.boat_last_time = pygame.time.get_ticks()
+                    self.boat_chase_time = 0
+                else:
+                    currentTime = pygame.time.get_ticks()
+                    self.boat_chase_time = self.boat_chase_time + currentTime - self.boat_last_time
+                    self.boat_last_time = currentTime
+
+                if self.boat_chase_time >= self.boat_cooltime:
+                    player.action = self.action([Conversation(Self(), u"죽어!!!"), u"Game Over", CallbackScript(GameOver, None)])
+                    self.boat_success = True
+            else:
+                self.boat_last_time = 0
+                self.boat_chase_time = 0
 
     def direction_handling(self):
         pass
