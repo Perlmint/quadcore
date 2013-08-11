@@ -72,6 +72,7 @@ class GameRunner(Runner):
     
         self.dialog.lock    = False
         self.dialog.visable = False
+        self.dialog.resetBox()
         
         pygame.mixer.music.stop()
 

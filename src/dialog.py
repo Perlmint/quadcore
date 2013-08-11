@@ -49,6 +49,7 @@ class DialogBox(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         
         self.lock = False
+        self.surface = None
 
         self.bgk = pygame.image.load(os.path.join("..", "graphics", "System", "dialog.png")).convert_alpha()
         self.resetBox()
@@ -84,7 +85,7 @@ class DialogBox(pygame.sprite.Sprite):
         self.soundStart = False
 
     def draw(self, surface, location = BOTTOM):
-
+        self.surface = surface
         def drawDialog():
             if self.icon != None:
                 rect = self.icon.get_rect()
@@ -163,6 +164,8 @@ class DialogBox(pygame.sprite.Sprite):
     def resetBox(self):
         """reseting the dialog box so it erase all the text rendered on it
         """
+        if self.surface != None:
+            self.surface.fill((0,0,0))
         image = pygame.Surface([640,104], pygame.SRCALPHA, 32)
         self.image = image.convert_alpha()
         self.image.blit(self.bgk, (0,0))
@@ -252,5 +255,3 @@ class DialogBox(pygame.sprite.Sprite):
         self.visable = True
 
         self.resetBox()
-        
-        print "setChoice"
