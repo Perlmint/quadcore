@@ -352,15 +352,15 @@ class Hero(BaseSprite):
                         scr = sel.script
                             
                         if hasattr(scr, '__call__'):
-							val = inputBox.ask(self.world.screen, u"얼마를 줄까?")
-							
-							self.action = self.action_object.action(scr(int(val)))
-							
+                            val = inputBox.ask(self.world.screen, u"얼마를 줄까?")
+                            
+                            self.action = self.action_object.action(scr(int(val)))
+                            
                         else:
-							del self.world.loveee.player.items[number]
-							
-							if scr != None:
-								self.action = self.action_object.action(scr)
+                            del self.world.loveee.player.items[number]
+                            
+                            if scr != None:
+                                self.action = self.action_object.action(scr)
                             
                         self.world.dialog.item_selection = False
                     else:

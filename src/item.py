@@ -1,25 +1,25 @@
 # -*- coding: utf-8 -*-
 
 class Item:
-	def __init__(self, name, price):
-		self.name  = name
-		self.price = price
+    def __init__(self, name, price):
+        self.name  = name
+        self.price = price
 
 items = [
-	Item(u"아이템",	1000),
-	Item(u"뷁",	2000),
+    Item(u"아이템",    1000),
+    Item(u"뷁",    2000),
 ]
 
 def get_items():
-	ret = dict()
+    ret = dict()
 
-	for i in items:
-		ret[i.name] = i
+    for i in items:
+        ret[i.name] = i
 
-	return ret
-	
+    return ret
+    
 def get_item(name):
-	d = get_items()
-	
-	return d[name]
+    d = get_items()
+    
+    return d[name]
 

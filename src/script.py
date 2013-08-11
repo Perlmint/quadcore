@@ -4,7 +4,7 @@ import item
 import copy
 
 class Pass:
-	pass
+    pass
 
 class Self:
     pass
@@ -75,6 +75,11 @@ class SE:
     def __init__(self, name):
         self.name = name
 
+class WithMoney:
+    def __init__(self, callback, query = u"얼마?"):
+        self.callback = callback
+        self.query = query
+
 
 class ScriptInterpreter:
     def __init__(self, script):
@@ -124,6 +129,16 @@ class ScriptInterpreter:
             return Pass()
         elif isinstance(s, SE):
             runner.se(s)
+            return Pass()
+        elif isinstance(s, WithMoney):
+            scr = runner.money(s)
+            
+            print scr
+            
+            self.script = scr + self.script
+            
+            print self.script
+            
             return Pass()
 
         return True

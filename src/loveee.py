@@ -13,45 +13,45 @@ import conch
 items = get_items()
 
 class Player:
-	def __init__(self, name):
-		self.name = name
+    def __init__(self, name):
+        self.name = name
 
-		self.balance = 100000
-		self.items   = list()
+        self.balance = 100000
+        self.items   = list()
 
 class LoveEE:
-	def __init__(self, player):
-		self.player = player
-		
-		self.jukebox = conch.Jukebox()
+    def __init__(self, player):
+        self.player = player
+        
+        self.jukebox = conch.Jukebox()
 
-	def select_place(self, runner):
-		ss = list()
+    def select_place(self, runner):
+        ss = list()
 
-		for i in place.places:
-			ss.append(script.Selection(i.name, None))
+        for i in place.places:
+            ss.append(script.Selection(i.name, None))
 
-		c = script.Choice("어디로 갈까?", ss)
+        c = script.Choice("어디로 갈까?", ss)
 
-		r = runner(self, heroine.Heroine("장소 선택", None, None, None), None)
+        r = runner(self, heroine.Heroine("장소 선택", None, None, None), None)
 
-		return r.choice(c)
+        return r.choice(c)
 
 
-	def run(self, runner, scr):
-		res = self.select_place(runner)
+    def run(self, runner, scr):
+        res = self.select_place(runner)
 
-		p = place.places[res]
+        p = place.places[res]
 
-		r = random.randrange(len(heroine.heroines))
+        r = random.randrange(len(heroine.heroines))
 
-		h = heroine.heroines[r]
+        h = heroine.heroines[r]
 
-		s = scr
+        s = scr
 
-		i = script.ScriptInterpreter(s)
+        i = script.ScriptInterpreter(s)
 
-		while i.run(runner(self, h, p)):
-			pass
+        while i.run(runner(self, h, p)):
+            pass
 
-		
+        
