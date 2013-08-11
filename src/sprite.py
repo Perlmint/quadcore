@@ -321,7 +321,7 @@ class Hero(BaseSprite):
                 self.move("down")
         
         if keys_pressed_is[pygame.K_SPACE]:
-            if currentTime - self.lastPressedTime[pygame.K_SPACE] > 100:
+            if currentTime - self.lastPressedTime[pygame.K_SPACE] > 200:
 
                 if self.action == None:
                     if self.world.dialog.pause == True:
@@ -344,7 +344,7 @@ class Hero(BaseSprite):
                 if(keys_pressed_is[i]):
                     number = i - pygame.K_1
                     
-                    if currentTime - self.lastPressedTime[i] > 100:
+                    if currentTime - self.lastPressedTime[i] > 200:
 
                         if number >= len(self.world.dialog.choices['choices']):
                             break

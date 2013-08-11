@@ -114,6 +114,8 @@ class GameRunner(Runner):
         if not self.loveee.player.items and not script.Money in s.script:
             return scr
             
+        print "ttt"
+            
         inventory = list()
         
         if script.Money in s.script:

@@ -5,6 +5,7 @@ sys.path.append("scripts")
 import sekai
 import ahri
 import sion
+import yo
 
 class Heroine:
     def __init__(self, name, engname, global_scr, local_scr, theme):
@@ -22,7 +23,8 @@ class Heroine:
 scripts = {
     "sekai" : sekai.script,
     "ahri" : ahri.script,
-    'sion' : sion.script
+    'sion' : sion.script,
+    "yo" : yo.script
 }
 
 heroineCharacters = {

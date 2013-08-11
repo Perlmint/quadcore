@@ -12,5 +12,6 @@ event = [
 ]
 heroine = [
 {'name':"sekai", 'probability':0.5},
-{'name':"ahri", 'probability':0.5}
+{'name':"ahri", 'probability':0.5},
+{'name':'yo', 'probability':1}
 ]
