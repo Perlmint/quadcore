@@ -49,7 +49,7 @@ live_script = [
 script = [
     HideHeroine(),
     u"아리를 만났다",
-    #BGM("02.ogg"),
+    BGM("ahri.wav"),
     WithMoney(with_test),
     #SE("scream_echo.ogg"),
     Route("Dead End", DieRightAway,
