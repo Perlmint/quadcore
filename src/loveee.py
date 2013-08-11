@@ -8,6 +8,8 @@ import script
 
 import random
 
+import conch
+
 items = get_items()
 
 class Player:
@@ -20,6 +22,8 @@ class Player:
 class LoveEE:
 	def __init__(self, player):
 		self.player = player
+		
+		self.jukebox = conch.Jukebox()
 
 	def select_place(self, runner):
 		ss = list()

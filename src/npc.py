@@ -64,7 +64,11 @@ class Npc(sprite.Npc):
         
         def doit():
             ret = i.run(r)
-            if not ret:
+            
+            if isinstance(ret, script.Pass):
+                return doit()
+            
+            if ret == False:
                 self.set_walking_mode(0)
             
             return ret

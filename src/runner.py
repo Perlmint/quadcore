@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 
+import os
+
 import item
 import script
 import dialog
+
+import pygame
 
 class Runner:
 	def narr(self, s):
@@ -60,6 +64,8 @@ class GameRunner(Runner):
 	def end(self):
 		self.dialog.lock    = False
 		self.dialog.visable = False
+		
+		pygame.mixer.music.stop()
 
 	def narr(self, s):
 		self.dialog.setMessage({"msgList" : [s]})
@@ -115,3 +121,15 @@ class GameRunner(Runner):
 		i = s.var(self.loveee, self.heroine, self.place)
 		
 		return i
+		
+	def bgm(self, s):
+		pygame.mixer.music.load(os.path.join('..', 'bgm', s.name))
+		pygame.mixer.music.play(-1)
+		
+	def se(self, s):
+		if not pygame.mixer.get_init():
+			pygame.mixer.init()
+			
+		file = os.path.join('..', 'se', s.name)
+		print file
+		pygame.mixer.Sound(file).play()

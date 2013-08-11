@@ -3,6 +3,9 @@
 import item
 import copy
 
+class Pass:
+	pass
+
 class Self:
     pass
 
@@ -118,7 +121,9 @@ class ScriptInterpreter:
             runner.love(s)
         elif isinstance(s, BGM):
             runner.bgm(s)
+            return Pass()
         elif isinstance(s, SE):
             runner.se(s)
+            return Pass()
 
         return True

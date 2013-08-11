@@ -43,6 +43,8 @@ live_script = [
 ]
 
 script = [
+	#BGM("02.ogg"),
+	SE("scream_echo.ogg"),
 	Route("Dead End", DieRightAway,
 	[
 		[Conversation(Self(), u"너는 죽었어♥"),
