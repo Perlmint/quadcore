@@ -39,19 +39,25 @@
  <tileset firstgid="4854" name="zoo" tilewidth="32" tileheight="32">
   <image source="../graphics/System/zoo.png" width="128" height="96"/>
  </tileset>
+ <tileset firstgid="4866" name="niceboat" tilewidth="32" tileheight="32">
+  <image source="../graphics/System/niceboat.png" width="128" height="64"/>
+ </tileset>
+ <tileset firstgid="4874" name="buildings" tilewidth="32" tileheight="32">
+  <image source="../graphics/System/buildings.png" width="439" height="250"/>
+ </tileset>
  <layer name="ground" width="20" height="20">
   <data encoding="base64" compression="zlib">
-   eJw7wM/AcAAHLmGEYHEOBBsZe2HBuMwaCubBMLp52Mwh1TxserGZT4778Pkbm/75LBBMKPywmQdSS01MrH+JUUcspoV5r9mJwwPlPlico8c9Oh7s5lE7/d0A2n+TAF7DQlgNCF8F4g9AHCWAH4PMI6QGhN8SME+Gi4FBFojlgFiei3LznIFmuACxKxC7EWkeAMBE4e0=
+   eJw7wM/AcAAHLmGEYHEOBBsZe2HBuMwaCubBMLp52Mwh1TxserGZT4778Pkbm/75LBBMKPywmQdSS01MrH+/MqJiYvTR07zX7MRhYs2jxD3YzIPFOXrco+PBbh61098NoP03CeA1LITVgPBVIP4AxFEC+DHIPEJqQPgtAfOYhBkYmIGYBYhZhSk3jw1oBjsQcwAxJ5HmAQCjAOIR
   </data>
  </layer>
  <layer name="over" width="20" height="20">
   <data encoding="base64" compression="zlib">
-   eJztz1kOwVAUxvHTBaBaWzB7swC2QsICLIZ45JElsAWsoOZxAaYa/+J606RFIhIn+eU0N/f7cmuJiOVgjQ222GEPGwcc5fk4dd34NBE/AtARhAETIc17X5hMBFHEEEcCSaRe6HvIkM065F/psxyy1Tf6Wmgjh7zK1lB30VdAEWVU1FkXPaRRUtkGmh/832fjtq+j80b9c30zuuYu+n5x+obIAEOMjPvZhr3FDnvDW9+Y+xNMMVNZm33AESePfXPuL7DESmXP7Mvt2xTRTG99//neXAFBuHfN
+   eJzt0EtyAVEUxvHTCyDRbQuJV2ZGGMhIzLEAqlhAFiNlyJAlsAZW0MQrWIBXI8lf5WamSzc9MHCqfnW6bt3vq+priohpY4kV1thgCws77OX02HUd+TQRPx7wiAB0GAhq7vueyDwjhDAiiCKGlwv6/qXJvtrkL+kzbbK1K/ra6KCIksrW0XDQV0YFVXyosy56iONdZZtoefi/p8ZpX8IQSSJleNOXoecN2TN9TidHTx4Fj/qumb4uMsAnhvrf2Yq9xgZb3V3fiPtjTDBVWYu9wx4Hl31f3J9hjoXKfrN/jt+8n3YDb3gfZ/MLAg93UQ==
   </data>
  </layer>
  <layer name="collision" width="20" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYMAN7hHApAJ6mPcKiB9DMbngGZnuIRVQYge2sCM2HF8xIMLqHh4xeoUDMYDcNEIv8wYTwJc2yPE3tc17jIaRzXtMhnmUgEdA/IQAZiBCDQw/ZSCunCOkBobxmYdc1r2kgnkP0cKFGPMA/QmAlw==
+   eJzNlNEKgCAMRff//5hgKyG/oj00CsltThEvnBeRo15UgHqCQmtm+DKBD94k535a07PGX3fWHjO8XQVhbFYPlvDZ0qK+lSLdDc9bG+3Dgq8PHb6e7MShAIY5zAm2f06bw0g+/us24hrgi0UvFt8NGWqCXQ==
   </data>
  </layer>
 </map>
