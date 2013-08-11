@@ -92,6 +92,7 @@ class GameRunner(Runner):
 
     def choice(self, s):
         self.dialog.lock = True
+        self.dialog.setMessage({"msgList" : [""]})
         self.dialog.setChoices({
             "question" : u"선택지 : " + s.question,
             "choices" : s.selections
