@@ -22,7 +22,7 @@ def GameOver(data):
 	pass
 	
 def give_money(ammount):
-	return [u"돈을 주었다"]
+	return [u"%d원을 주었다" % ammount]
 
 die_script = [
 	Take(u"아이템"),
